@@ -1,10 +1,10 @@
 package com.example.vabatahtlikud.login;
 
+import com.example.vabatahtlikud.domain.user.contact.Contact;
 import com.example.vabatahtlikud.domain.user.user.User;
-import com.example.vabatahtlikud.user.UserInfo;
-import com.example.vabatahtlikud.user.UserMapper;
-import com.example.vabatahtlikud.user.UserService;
+import com.example.vabatahtlikud.user.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,4 +23,9 @@ public class LoginService {
         return userMapper.userToUserInfo(user);
     }
 
+    @Transactional
+    public UserResponse registerNewUser(UserRequest request) {
+        Contact contact = userService.addContact(request);
+        return userService.mapRequestAndAddUser(request, contact);
+    }
 }

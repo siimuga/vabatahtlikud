@@ -10,7 +10,5 @@ public class UserInfo implements Serializable {
     private Integer userId;
     private String role;
     private Integer contactId;
-    private String username;
-    private String password;
     private Boolean status;
 }

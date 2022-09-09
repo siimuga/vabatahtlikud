@@ -2,12 +2,7 @@ package com.example.vabatahtlikud.validation;
 
 
 
-import com.example.vabatahtlikud.domain.user.user.User;
-import com.example.vabatahtlikud.infrastructure.exception.BusinessException;
 import com.example.vabatahtlikud.infrastructure.exception.DataNotFoundException;
-
-import java.util.List;
-import java.util.Optional;
 
 public class ValidationService {
 
@@ -18,8 +13,8 @@ public class ValidationService {
     public static final Integer MINIMUM_DEPOSIT_AMOUNT = 5;
     public static final String INVALID_LOGIN_CREDENTIALS = "Vale kasutajanimi või parool";
 
-    public static void validatePasswordUserExists(Boolean userExists) {
-        if (!userExists) {
+    public static void validatePasswordUserExists(Boolean userExists, Boolean status) {
+        if (!userExists || !status) {
             throw new DataNotFoundException(INVALID_LOGIN_CREDENTIALS, "Vale kasutajanimi või parool. Proovi uuesti :)");
         }
     }

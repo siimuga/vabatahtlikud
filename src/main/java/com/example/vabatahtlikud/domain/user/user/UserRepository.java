@@ -1,4 +1,4 @@
-package com.example.vabatahtlikud.user;
+package com.example.vabatahtlikud.domain.user.user;
 
 import com.example.vabatahtlikud.domain.user.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +10,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select (count(u) > 0) from User u where u.username = ?1 and u.password = ?2")
     boolean existsBy(String username, String password);
-
 
 }

@@ -29,5 +29,6 @@ INSERT INTO public.role (id, name) VALUES (DEFAULT, 'kasutaja');
 
 INSERT INTO public.contact (id, first_name, last_name, sex, email) VALUES (DEFAULT, 'Siim', 'Türk', 'M', 'asdas@gmail.com');
 
-INSERT INTO public."user" (id, role_id, contact_id, username, password, status) VALUES (DEFAULT, 1, null, 'admin', 'admin', true);
-INSERT INTO public."user" (id, role_id, contact_id, username, password, status) VALUES (DEFAULT, 2, 1, 'siim', 'piim', true)
+INSERT INTO public."user" (id, role_id, contact_id, username, password, status) VALUES (DEFAULT, 1, null, 'admin', '123', true);
+INSERT INTO public."user" (id, role_id, contact_id, username, password, status) VALUES (DEFAULT, 2, 1, 'siim', 'piim', true);
+INSERT INTO public."user" (id, role_id, contact_id, username, password, status) VALUES (DEFAULT, 2, 1, 'qwe', 'asd', false)
