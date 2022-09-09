@@ -43,16 +43,34 @@ public class UserService {
     }
 
     public Contact getValidContact(UserRequest request) {
-        boolean existsByEmail = contactRepository.existsByEmail(request.getEmail());
-        boolean existsByUsername = userRepository.existsByUsername(request.getUsername());
-        ValidationService.validateUsernameExists(existsByUsername);
-        ValidationService.validateEmailExists(existsByEmail);
-        return addContact(request);
-    }
-
-    public Contact addContact(UserRequest request) {
+        validateRequest(request.getEmail(), request.getUsername());
         Contact contact = userMapper.userRequestToContact(request);
         contactRepository.save(contact);
         return contact;
     }
+
+    public void updateUserData(UserRequest request, Integer userId) {
+        User user = userRepository.getReferenceById(userId);
+        Contact contact = contactRepository.getReferenceById(user.getContact().getId());
+
+        user.setUsername(request.getUsername());
+        contact.setFirstName(request.getFirstName());
+        contact.setLastName(request.getLastName());
+        contact.setSex(request.getSex());
+        contact.setEmail(request.getEmail());
+
+       // validateRequest(request.getEmail(), request.getUsername());
+
+        contactRepository.save(contact);
+        userRepository.save(user);
+    }
+
+    private void validateRequest(String email, String username) {
+        boolean existsByEmail = contactRepository.existsByEmail(email);
+        boolean existsByUsername = userRepository.existsByUsername(username);
+        ValidationService.validateUsernameExists(existsByUsername);
+        ValidationService.validateEmailExists(existsByEmail);
+    }
+
+
 }

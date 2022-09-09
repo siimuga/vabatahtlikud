@@ -8,6 +8,4 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
     boolean existsByEmail(String email);
 
 
-
-
 }

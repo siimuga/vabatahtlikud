@@ -1,0 +1,22 @@
+package com.example.vabatahtlikud.user;
+
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
+@RestController
+public class UserController {
+
+    @Resource
+    private UserService userService;
+
+    @PatchMapping("/user/update")
+    @Operation(summary = "Kliendi andmete muutmine")
+    public void updateUserData(@RequestBody UserRequest request, @RequestParam Integer userId) {
+        userService.updateUserData(request, userId);
+    }
+}
