@@ -2,6 +2,7 @@ package com.example.vabatahtlikud.validation;
 
 
 
+import com.example.vabatahtlikud.domain.user.user.User;
 import com.example.vabatahtlikud.infrastructure.exception.BusinessException;
 import com.example.vabatahtlikud.infrastructure.exception.DataNotFoundException;
 
@@ -17,16 +18,18 @@ public class ValidationService {
     public static final Integer MINIMUM_DEPOSIT_AMOUNT = 5;
     public static final String INVALID_LOGIN_CREDENTIALS = "Vale kasutajanimi või parool";
 
+    public static void validatePasswordUserExists(Boolean userExists) {
+        if (!userExists) {
+            throw new DataNotFoundException(INVALID_LOGIN_CREDENTIALS, "Vale kasutajanimi või parool. Proovi uuesti :)");
+        }
+    }
+
 /*    public static void validateUserExists(Optional<User> user, Integer userId) {
         if (user.isEmpty()) {
             throw new DataNotFoundException(USER_NOT_EXISTS, "Sellist kasutajat ID'ga " + userId + " ei leitud");
         }
     }
-    public static void validatePasswordUserExists(List<UserRole> userRoles) {
-        if (userRoles.isEmpty()) {
-            throw new DataNotFoundException(INVALID_LOGIN_CREDENTIALS, "Vale kasutajanimi või parool. Proovi uuesti :)");
-        }
-    }
+
 
     public static void validateAccountExists(Optional<Account> account, Integer accountId) {
         if (account.isEmpty()) {
