@@ -21,12 +21,4 @@ public interface UserMapper {
     @Mapping(target = "userId", source = "id")
     UserResponse userToUserResponse(User user);
 
-
-   /* @Mapping(target = "contact.firstName", source = "firstName")
-    @Mapping(target = "contact.lastName", source = "lastName")
-    @Mapping(target = "contact.sex", source = "sex")
-    @Mapping(target = "contact.email", source = "email")
-    @Mapping(constant = "2", target = "role.id")
-    @Mapping(constant = "true", target = "status")
-    User userRequestToUser(UserRequest request);*/
 }

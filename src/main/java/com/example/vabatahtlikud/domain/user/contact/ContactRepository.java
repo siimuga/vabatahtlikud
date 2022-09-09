@@ -7,5 +7,10 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
     @Query("select (count(c) > 0) from Contact c where c.email = ?1")
     boolean existsByEmail(String email);
 
+    @Query("select count(c) from Contact c where c.email = ?1")
+    long countByEmail(String email);
+
+
+
 
 }

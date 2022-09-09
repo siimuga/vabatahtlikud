@@ -7,6 +7,7 @@ import com.example.vabatahtlikud.domain.user.user.UserRepository;
 import com.example.vabatahtlikud.login.LoginRequest;
 import com.example.vabatahtlikud.validation.ValidationService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -49,20 +50,26 @@ public class UserService {
         return contact;
     }
 
+    @Transactional
     public void updateUserData(UserRequest request, Integer userId) {
         User user = userRepository.getReferenceById(userId);
+        User userTemp = userRepository.getReferenceById(userId);
         Contact contact = contactRepository.getReferenceById(user.getContact().getId());
+        Contact contactTemp = contactRepository.getReferenceById(user.getContact().getId());
 
         user.setUsername(request.getUsername());
         contact.setFirstName(request.getFirstName());
         contact.setLastName(request.getLastName());
         contact.setSex(request.getSex());
         contact.setEmail(request.getEmail());
-
-       // validateRequest(request.getEmail(), request.getUsername());
-
         contactRepository.save(contact);
         userRepository.save(user);
+        if (contactRepository.countByEmail(request.getEmail()) > 1 || userRepository.countByUsername(request.getUsername()) > 1) {
+            contactRepository.save(contactTemp);
+            userRepository.save(userTemp);
+            validateRequest(request.getEmail(), request.getUsername());
+        }
+
     }
 
     private void validateRequest(String email, String username) {
