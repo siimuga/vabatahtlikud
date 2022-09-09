@@ -25,6 +25,7 @@ CREATE TABLE contact (
     last_name varchar(255)  NULL,
     sex varchar(1)  NULL,
     email varchar(255)  NULL,
+    CONSTRAINT contact_ak_1 UNIQUE (email) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT contact_pk PRIMARY KEY (id)
 );
 
@@ -103,7 +104,7 @@ CREATE TABLE "user" (
     username varchar(255)  NOT NULL,
     password varchar(255)  NOT NULL,
     status boolean  NOT NULL DEFAULT TRUE,
-    CONSTRAINT user_ak_1 UNIQUE (username, password) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT user_ak_1 UNIQUE (username) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
 

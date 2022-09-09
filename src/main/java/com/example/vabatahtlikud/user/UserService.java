@@ -35,17 +35,24 @@ public class UserService {
         return user;
     }
 
-
-    public Contact addContact(UserRequest request) {
-        Contact contact = userMapper.userRequestToContact(request);
-        contactRepository.save(contact);
-        return null;
-    }
-
     public UserResponse mapRequestAndAddUser(UserRequest request, Contact contact) {
         User user = userMapper.userRequestToUser(request);
         user.setContact(contact);
         userRepository.save(user);
         return userMapper.userToUserResponse(user);
+    }
+
+    public Contact getValidContact(UserRequest request) {
+        boolean existsByEmail = contactRepository.existsByEmail(request.getEmail());
+        boolean existsByUsername = userRepository.existsByUsername(request.getUsername());
+        ValidationService.validateUsernameExists(existsByUsername);
+        ValidationService.validateEmailExists(existsByEmail);
+        return addContact(request);
+    }
+
+    public Contact addContact(UserRequest request) {
+        Contact contact = userMapper.userRequestToContact(request);
+        contactRepository.save(contact);
+        return contact;
     }
 }

@@ -25,7 +25,7 @@ public class LoginService {
 
     @Transactional
     public UserResponse registerNewUser(UserRequest request) {
-        Contact contact = userService.addContact(request);
+        Contact contact = userService.getValidContact(request);
         return userService.mapRequestAndAddUser(request, contact);
     }
 }

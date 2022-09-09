@@ -16,19 +16,17 @@ public class LoginController {
     @Resource
     private LoginService loginService;
 
-@PostMapping("/log-in")
-@Operation(summary = "Sisse logimine")
+    @PostMapping("/log-in")
+    @Operation(summary = "Sisse logimine")
     public UserInfo logIn(@RequestBody LoginRequest request) {
-    return loginService.logIn(request);
-}
+        return loginService.logIn(request);
+    }
 
     @PostMapping("/register/user")
     @Operation(summary = "Uue kasutaja lisamine")
     public UserResponse registerNewUser(@RequestBody UserRequest request) {
         return loginService.registerNewUser(request);
     }
-
-
 
 
 }

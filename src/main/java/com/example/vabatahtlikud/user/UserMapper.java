@@ -14,6 +14,8 @@ public interface UserMapper {
 
     Contact userRequestToContact(UserRequest request);
 
+    @Mapping(constant = "2", target = "role.id")
+    @Mapping(constant = "true", target = "status")
     User userRequestToUser(UserRequest request);
 
     @Mapping(target = "userId", source = "id")
