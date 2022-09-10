@@ -92,4 +92,10 @@ public class UserService {
     }
 
 
+    public void deleteUser(Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
+        Boolean status = user.get().getStatus();
+        user.get().setStatus(!status);
+        userRepository.save(user.get());
+    }
 }
