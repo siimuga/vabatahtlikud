@@ -6,7 +6,6 @@ public class ValidationService {
 
     public static final String ACCOUNT_NOT_EXISTS = "Sellist kontot ei eksisteeri";
     public static final String USER_NOT_EXISTS = "Sellist kasutajat ei eksisteeri";
-    public static final String INSUFFICIENT_FUNDS = "Kontol pole piisavalt vahendeid tehingu sooritamiseks";
     public static final String MINIMUM_DEPOSIT_REQUIREMENT = "Miinumum deposiidi nõue";
     public static final String INVALID_LOGIN_CREDENTIALS = "Vale kasutajanimi või parool";
     public static final String INVALID_NEW_USER_CREDENTIALS = "Vale sisend";
@@ -26,6 +25,12 @@ public class ValidationService {
     public static void validateUsernameExists(boolean existsByUsername) {
         if (existsByUsername) {
             throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Selline kasutajanimi on juba loodud");
+        }
+    }
+
+    public static void validateEmailAndUsernameExists(boolean existsByEmail, boolean existsByUsername) {
+        if (existsByEmail && existsByUsername) {
+            throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Sellise kasutajanimega ja e-mailiga kasutaja on juba loodud");
         }
     }
 }

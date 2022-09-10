@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -50,26 +51,37 @@ public class UserService {
         return contact;
     }
 
-    @Transactional
     public void updateUserData(UserRequest request, Integer userId) {
-        User user = userRepository.getReferenceById(userId);
-        User userTemp = userRepository.getReferenceById(userId);
-        Contact contact = contactRepository.getReferenceById(user.getContact().getId());
-        Contact contactTemp = contactRepository.getReferenceById(user.getContact().getId());
+        Optional<User> user = userRepository.findById(userId);
+        String oldUsername = user.get().getUsername();
+        Optional<Contact> contact = contactRepository.findById(user.get().getContact().getId());
+        String oldEmail = contact.get().getEmail();
 
-        user.setUsername(request.getUsername());
-        contact.setFirstName(request.getFirstName());
-        contact.setLastName(request.getLastName());
-        contact.setSex(request.getSex());
-        contact.setEmail(request.getEmail());
-        contactRepository.save(contact);
-        userRepository.save(user);
-        if (contactRepository.countByEmail(request.getEmail()) > 1 || userRepository.countByUsername(request.getUsername()) > 1) {
-            contactRepository.save(contactTemp);
-            userRepository.save(userTemp);
-            validateRequest(request.getEmail(), request.getUsername());
+        user.get().setUsername(request.getUsername());
+        contact.get().setFirstName(request.getFirstName());
+        contact.get().setLastName(request.getLastName());
+        contact.get().setSex(request.getSex());
+        contact.get().setEmail(request.getEmail());
+        contactRepository.save(contact.get());
+        userRepository.save(user.get());
+
+        if (contactRepository.countByEmail(request.getEmail()) > 1 && userRepository.countByUsername(request.getUsername()) > 1) {
+            revertUserData(user, oldUsername, contact, oldEmail);
+            ValidationService.validateEmailAndUsernameExists(contactRepository.existsByEmail(oldEmail), userRepository.existsByUsername(oldUsername));
+        } else if (contactRepository.countByEmail(request.getEmail()) > 1) {
+            revertUserData(user, oldUsername, contact, oldEmail);
+            ValidationService.validateEmailExists(contactRepository.existsByEmail(oldEmail));
+        } else if (userRepository.countByUsername(request.getUsername()) > 1) {
+            revertUserData(user, oldUsername, contact, oldEmail);
+            ValidationService.validateUsernameExists(userRepository.existsByUsername(oldUsername));
         }
+    }
 
+    private void revertUserData(Optional<User> user, String oldUsername, Optional<Contact> contact, String oldEmail) {
+        contact.get().setEmail(oldEmail);
+        user.get().setUsername(oldUsername);
+        contactRepository.save(contact.get());
+        userRepository.save(user.get());
     }
 
     private void validateRequest(String email, String username) {
