@@ -17,8 +17,10 @@ CREATE TABLE additional_info
     id                serial       NOT NULL,
     name              varchar(255) NULL,
     event_register_id int          NOT NULL,
+    status            boolean      NOT NULL DEFAULT TRUE,
     CONSTRAINT additional_info_pk PRIMARY KEY (id)
 );
+
 
 -- Table: category
 CREATE TABLE category
@@ -36,7 +38,7 @@ CREATE TABLE contact
     last_name  varchar(255) NULL,
     sex        varchar(1)   NULL,
     email      varchar(255) NULL,
-    CONSTRAINT contact_ak_1 UNIQUE (email) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT contact_ak_1 UNIQUE (email) NOT DEFERRABLE INITIALLY IMMEDIATE,
     CONSTRAINT contact_pk PRIMARY KEY (id)
 );
 
@@ -116,6 +118,7 @@ CREATE TABLE task
     id                serial       NOT NULL,
     name              varchar(255) NOT NULL,
     event_register_id int          NOT NULL,
+    status            boolean      NOT NULL DEFAULT TRUE,
     CONSTRAINT task_pk PRIMARY KEY (id)
 );
 
@@ -125,9 +128,9 @@ CREATE TABLE "user"
     id         serial       NOT NULL,
     username   varchar(255) NOT NULL,
     password   varchar(255) NOT NULL,
-    status     boolean      NOT NULL,
+    status     boolean      NOT NULL DEFAULT TRUE,
     contact_id int          NULL,
-    role_id    int          NOT NULL,
+    role_id    int          NOT NULL DEFAULT 2,
     CONSTRAINT user_ak_1 UNIQUE (username) NOT DEFERRABLE INITIALLY IMMEDIATE,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );

@@ -1,15 +1,13 @@
-package com.example.vabatahtlikud.domain.event.task;
+package com.example.vabatahtlikud.domain.event.event;
 
-import com.example.vabatahtlikud.domain.event.event.EventRegister;
-import com.example.vabatahtlikud.domain.event.event.Event;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "task")
-public class Task {
+@Table(name = "additional_info")
+public class AdditionalInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,4 +22,5 @@ public class Task {
 
     @Column(name = "status", nullable = false)
     private Boolean status = true;
+
 }

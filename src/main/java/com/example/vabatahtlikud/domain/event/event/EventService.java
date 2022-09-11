@@ -9,21 +9,13 @@ import java.util.List;
 @Service
 public class EventService {
 
-    @Resource
-    private TaskMapper taskMapper;
 
     @Resource
-    private TaskRepository taskRepository;
+    private TaskService taskService;
 
 
     public List<TaskInfo> addTask(TaskRequest request) {
-        Task task = taskMapper.taskRequestToTask(request);
-        taskRepository.save(task);
-        List<Task> tasks = getAllTasks();
-        return taskMapper.tasksToTaskInfos(tasks);
+        return taskService.addTask(request);
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
-    }
 }

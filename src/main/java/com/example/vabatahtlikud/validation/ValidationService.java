@@ -33,6 +33,12 @@ public class ValidationService {
             throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Sellise kasutajanimega ja e-mailiga kasutaja on juba loodud");
         }
     }
+
+    public static void validateTaskExists(boolean taskExists) {
+        if (taskExists) {
+            throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Selline ülesanne on juba loodud");
+        }
+    }
 }
 
 /*   public static void validateUserExists(Optional<User> user, Integer userId) {
