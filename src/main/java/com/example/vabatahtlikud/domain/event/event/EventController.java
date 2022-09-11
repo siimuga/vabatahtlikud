@@ -1,5 +1,7 @@
 package com.example.vabatahtlikud.domain.event.event;
 
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
 import com.example.vabatahtlikud.domain.event.task.TaskInfo;
 import com.example.vabatahtlikud.domain.event.task.TaskRequest;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +21,12 @@ public class EventController {
     @Operation(summary = "Lisab uue tööülesande")
     public List<TaskInfo> addTask (@RequestBody TaskRequest request) {
         return eventService.addTask(request);
+    }
+
+    @PostMapping("/additional/info")
+    @Operation(summary = "Lisab uue lisainfo")
+    public List<AdditionalInfoResponse> addInfo (@RequestBody AdditionalInfoRequest request) {
+        return eventService.addInfo(request);
     }
 
 }

@@ -16,19 +16,20 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public void getValidTask(TaskRequest request) {
-        boolean taskExists = taskRepository.existsByNameAndStatusTrue(request.getName());
-        ValidationService.validateTaskExists(taskExists);
+        boolean existsByName = taskRepository.existsByName(request.getName());
+        boolean existsByEventRegisterIdAndStatusTrue = taskRepository.existsByEventRegisterIdAndStatusTrue(request.getEventRegisterId());
+        ValidationService.validateTaskExists(existsByName, existsByEventRegisterIdAndStatusTrue);
     }
 
-    public List<Task> findAllByStatusTrue() {
-        return taskRepository.findAllByStatusTrue();
+    public List<Task> findByStatusTrueAndEventRegisterId(TaskRequest request) {
+        return taskRepository.findByStatusTrueAndEventRegisterId(request.getEventRegisterId());
     }
 
     public List<TaskInfo> addTask(TaskRequest request) {
         getValidTask(request);
         Task task = taskMapper.taskRequestToTask(request);
         taskRepository.save(task);
-        List<Task> tasks = findAllByStatusTrue();
+        List<Task> tasks = findByStatusTrueAndEventRegisterId(request);
         return taskMapper.tasksToTaskInfos(tasks);
     }
 }
