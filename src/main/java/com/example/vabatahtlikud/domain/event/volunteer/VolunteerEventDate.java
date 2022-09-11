@@ -1,4 +1,4 @@
-package com.example.vabatahtlikud.domain.event.voulenteer;
+package com.example.vabatahtlikud.domain.event.volunteer;
 
 import com.example.vabatahtlikud.domain.event.date.EventDate;
 import lombok.Data;
