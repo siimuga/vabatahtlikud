@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -30,5 +31,12 @@ public class TaskService {
         taskRepository.save(task);
         List<Task> tasks = findByStatusTrueAndEventRegisterId(request);
         return taskMapper.tasksToTaskInfos(tasks);
+    }
+
+    public void deleteTask(Integer taskId) {
+        Optional<Task> task = taskRepository.findById(taskId);
+        Boolean status = task.get().getStatus();
+        task.get().setStatus(!status);
+        taskRepository.save(task.get());
     }
 }

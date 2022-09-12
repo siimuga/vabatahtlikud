@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

@@ -12,10 +12,7 @@ public interface AdditionalInfoMapper {
     @Mapping(source = "eventRegister.id", target = "eventRegisterId")
     AdditionalInfoRequest additionalInfoToAdditionalInfoRequest(AdditionalInfo additionalInfo);
 
-
-
     AdditionalInfoResponse additionalInfoToAdditionalInfoResponse(AdditionalInfo additionalInfo);
-
 
     List<AdditionalInfoResponse> additionalInfosToAdditionalInfoResponses(List<AdditionalInfo> additionalInfos);
 

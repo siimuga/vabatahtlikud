@@ -62,6 +62,7 @@ CREATE TABLE event
     event_register_id   int          NOT NULL,
     language_id         int          NOT NULL,
     location_id         int          NOT NULL,
+    status              varchar(1)   NOT NULL DEFAULT 'c',
     user_id             int          NOT NULL,
     CONSTRAINT event_pk PRIMARY KEY (id)
 );

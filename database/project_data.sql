@@ -45,7 +45,6 @@ INSERT INTO public.additional_info (id, name, event_register_id, status) VALUES 
 
 INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUES (DEFAULT, 'Pöösas 4-6-8', null, null, 1);
 
-INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, event_register_id, language_id, location_id, user_id) VALUES (DEFAULT, 'Maha põletamine', '2022-09-15', '2022-09-17', 4, 2, 1, 1, 1, 2)
-
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, event_register_id, language_id, location_id, status, user_id) VALUES (DEFAULT, 'Karu nülgimine', '2022-09-14', '2022-09-17', 5, 2, 1, 1, 1, DEFAULT, 2)
 
 

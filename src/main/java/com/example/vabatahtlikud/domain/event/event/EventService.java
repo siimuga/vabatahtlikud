@@ -14,6 +14,7 @@ import com.example.vabatahtlikud.domain.event.picture.PictureService;
 import com.example.vabatahtlikud.domain.event.task.*;
 import com.example.vabatahtlikud.domain.user.user.User;
 import com.example.vabatahtlikud.domain.user.user.UserRepository;
+import com.example.vabatahtlikud.validation.ValidationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,7 +23,6 @@ import java.util.Optional;
 
 @Service
 public class EventService {
-
 
     @Resource
     private TaskService taskService;
@@ -69,17 +69,11 @@ public class EventService {
     }
 
     public void deleteTask(Integer taskId) {
-        Optional<Task> task = taskRepository.findById(taskId);
-        Boolean status = task.get().getStatus();
-        task.get().setStatus(!status);
-        taskRepository.save(task.get());
+        taskService.deleteTask(taskId);
     }
 
     public void deleteAdditionalInfo(Integer additionalInfoId) {
-        Optional<AdditionalInfo> additionalInfo = additionalInfoRepository.findById(additionalInfoId);
-        Boolean status = additionalInfo.get().getStatus();
-        additionalInfo.get().setStatus(!status);
-        additionalInfoRepository.save(additionalInfo.get());
+        additionalInfoService.deleteAdditionalInfo(additionalInfoId);
     }
 
     public void addPicture(PictureDto pictureAsBase64) {
@@ -87,7 +81,9 @@ public class EventService {
     }
 
     public void addEvent(EventRequest request) {
-        Event event  = eventMapper.eventRequestToEvent(request);
+        ValidationService.validateDates(request.getStartDate(), request.getEndDate());
+        ValidationService.validateVolunteersRequired(request.getVolunteersRequired());
+        Event event = eventMapper.eventRequestToEvent(request);
         Optional<User> user = userRepository.findById(request.getUserId());
         Optional<Category> category = categoryRepository.findById(request.getCategoryId());
         Optional<Language> language = languageRepository.findById(request.getLanguageId());

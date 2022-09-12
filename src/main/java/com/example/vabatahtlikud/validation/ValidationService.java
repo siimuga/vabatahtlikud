@@ -2,13 +2,15 @@ package com.example.vabatahtlikud.validation;
 
 import com.example.vabatahtlikud.infrastructure.exception.DataNotFoundException;
 
+import java.time.LocalDate;
+
 public class ValidationService {
 
     public static final String ACCOUNT_NOT_EXISTS = "Sellist kontot ei eksisteeri";
     public static final String USER_NOT_EXISTS = "Sellist kasutajat ei eksisteeri";
     public static final String MINIMUM_DEPOSIT_REQUIREMENT = "Miinumum deposiidi nõue";
     public static final String INVALID_LOGIN_CREDENTIALS = "Vale kasutajanimi või parool";
-    public static final String INVALID_NEW_USER_CREDENTIALS = "Vale sisend";
+    public static final String INVALID_INPUT = "Vale sisend";
 
     public static void validatePasswordUserExists(Boolean userExists, Boolean status) {
         if (!userExists || !status) {
@@ -18,31 +20,46 @@ public class ValidationService {
 
     public static void validateEmailExists(boolean existsByEmail) {
         if (existsByEmail) {
-            throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Sellise e-mailiga kasutaja on juba loodud");
+            throw new DataNotFoundException(INVALID_INPUT, "Sellise e-mailiga kasutaja on juba loodud");
         }
     }
 
     public static void validateUsernameExists(boolean existsByUsername) {
         if (existsByUsername) {
-            throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Selline kasutajanimi on juba loodud");
+            throw new DataNotFoundException(INVALID_INPUT, "Selline kasutajanimi on juba loodud");
         }
     }
 
     public static void validateEmailAndUsernameExists(boolean existsByEmail, boolean existsByUsername) {
         if (existsByEmail && existsByUsername) {
-            throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Sellise kasutajanimega ja e-mailiga kasutaja on juba loodud");
+            throw new DataNotFoundException(INVALID_INPUT, "Sellise kasutajanimega ja e-mailiga kasutaja on juba loodud");
         }
     }
 
     public static void validateTaskExists(boolean existsByNameAndEventRegisterIdAndStatus) {
         if (existsByNameAndEventRegisterIdAndStatus) {
-            throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Selline ülesanne on juba loodud");
+            throw new DataNotFoundException(INVALID_INPUT, "Selline ülesanne on juba loodud");
         }
     }
 
     public static void validateAdditionalInfoExists(boolean existsByNameAndEventRegisterIdAndStatus) {
         if (existsByNameAndEventRegisterIdAndStatus) {
-            throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Selline lisainfo on juba olemas");
+            throw new DataNotFoundException(INVALID_INPUT, "Selline lisainfo on juba olemas");
+        }
+    }
+
+    public static void validateDates(LocalDate startDate, LocalDate endDate) {
+        if (startDate.isAfter(endDate)) {
+            throw new DataNotFoundException(INVALID_INPUT, "Lõpu kuupäev ei saa olla enne alguskuupäeva");
+        } else
+        if (startDate.isBefore(LocalDate.now()) || endDate.isBefore(LocalDate.now())) {
+            throw new DataNotFoundException(INVALID_INPUT, "Sisestatud kuupäev ei saa olla enne tänast kuupäeva");
+        }
+    }
+
+    public static void validateVolunteersRequired(Integer volunteersRequired) {
+        if (volunteersRequired < 1) {
+            throw new DataNotFoundException(INVALID_INPUT, "Vabatahtlike arv peab olema vähemalt 1");
         }
     }
 }

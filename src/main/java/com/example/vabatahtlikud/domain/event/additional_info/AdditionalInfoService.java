@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdditionalInfoService {
@@ -17,8 +18,6 @@ public class AdditionalInfoService {
 
     public void getValidAdditionalInfo(AdditionalInfoRequest request) {
         boolean existsByNameAndEventRegisterIdAndStatus = additionalInfoRepository.existsByNameAndEventRegisterIdAndStatus(request.getName(), request.getEventRegisterId());
-//        boolean existsByName = additionalInfoRepository.existsByName(request.getName());
-//        boolean existsByEventRegisterIdAndStatusTrue = additionalInfoRepository.existsByEventRegisterIdAndStatusTrue(request.getEventRegisterId());
         ValidationService.validateAdditionalInfoExists(existsByNameAndEventRegisterIdAndStatus);
     }
 
@@ -32,5 +31,12 @@ public class AdditionalInfoService {
         additionalInfoRepository.save(additionalInfo);
         List<AdditionalInfo> additionalInfos = findByStatusTrueAndEventRegisterId(request);
         return additionalInfoMapper.additionalInfosToAdditionalInfoResponses(additionalInfos);
+    }
+
+    public void deleteAdditionalInfo(Integer additionalInfoId) {
+        Optional<AdditionalInfo> additionalInfo = additionalInfoRepository.findById(additionalInfoId);
+        Boolean status = additionalInfo.get().getStatus();
+        additionalInfo.get().setStatus(!status);
+        additionalInfoRepository.save(additionalInfo.get());
     }
 }
