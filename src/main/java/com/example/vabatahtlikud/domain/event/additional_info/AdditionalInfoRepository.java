@@ -18,6 +18,11 @@ public interface AdditionalInfoRepository extends JpaRepository<AdditionalInfo, 
     @Query("select (count(a) > 0) from AdditionalInfo a where a.eventRegister.id = ?1 and a.status = true")
     boolean existsByEventRegisterIdAndStatusTrue(Integer id);
 
+    @Query("""
+            select (count(a) > 0) from AdditionalInfo a
+            where upper(a.name) = upper(?1) and a.eventRegister.id = ?2 and a.status = true""")
+    boolean existsByNameAndEventRegisterIdAndStatus(String name, Integer id);
+
 
 
 

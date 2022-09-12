@@ -16,13 +16,16 @@ public class AdditionalInfoService {
     private AdditionalInfoMapper additionalInfoMapper;
 
     public void getValidAdditionalInfo(AdditionalInfoRequest request) {
-        boolean existsByName = additionalInfoRepository.existsByName(request.getName());
-        boolean existsByEventRegisterIdAndStatusTrue = additionalInfoRepository.existsByEventRegisterIdAndStatusTrue(request.getEventRegisterId());
-        ValidationService.validateAdditionalInfoExists(existsByName, existsByEventRegisterIdAndStatusTrue);
+        boolean existsByNameAndEventRegisterIdAndStatus = additionalInfoRepository.existsByNameAndEventRegisterIdAndStatus(request.getName(), request.getEventRegisterId());
+//        boolean existsByName = additionalInfoRepository.existsByName(request.getName());
+//        boolean existsByEventRegisterIdAndStatusTrue = additionalInfoRepository.existsByEventRegisterIdAndStatusTrue(request.getEventRegisterId());
+        ValidationService.validateAdditionalInfoExists(existsByNameAndEventRegisterIdAndStatus);
     }
+
     public List<AdditionalInfo> findByStatusTrueAndEventRegisterId(AdditionalInfoRequest request) {
         return additionalInfoRepository.findByStatusTrueAndEventRegisterId(request.getEventRegisterId());
     }
+
     public List<AdditionalInfoResponse> addInfo(AdditionalInfoRequest request) {
         getValidAdditionalInfo(request);
         AdditionalInfo additionalInfo = additionalInfoMapper.additionalInfoRequestToAdditionalInfo(request);

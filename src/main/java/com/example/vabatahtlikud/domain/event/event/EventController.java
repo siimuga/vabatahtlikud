@@ -29,4 +29,18 @@ public class EventController {
         return eventService.addInfo(request);
     }
 
+    @DeleteMapping("/delete/task")
+    @Operation(summary = "Ürituse tööülesande kustutamine ehk staatuse muutmine")
+    public void deleteTask(@RequestParam Integer taskId) {
+        eventService.deleteTask(taskId);
+    }
+
+    @DeleteMapping("/delete/additional/info")
+    @Operation(summary = "Ürituse lisainfo kustutamine ehk staatuse muutmine")
+    public void deleteAdditionalInfo(@RequestParam Integer additionalInfoId) {
+        eventService.deleteAdditionalInfo(additionalInfoId);
+    }
+
+
+
 }

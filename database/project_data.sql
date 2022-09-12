@@ -34,4 +34,14 @@ INSERT INTO public."user" (id, username, password, status, contact_id, role_id) 
 INSERT INTO public."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'siim', 'piim', DEFAULT, 1, 2);
 INSERT INTO public."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'qwe', 'asd', false, 1, 2);
 
-INSERT INTO public.event_register (id) VALUES (DEFAULT)
+INSERT INTO public.event_register (id) VALUES (DEFAULT);
+INSERT INTO public.event_register (id) VALUES (DEFAULT);
+
+INSERT INTO public.task (id, name, event_register_id, status) VALUES (DEFAULT, 'Silka', 1, DEFAULT);
+INSERT INTO public.task (id, name, event_register_id, status) VALUES (DEFAULT, 'Poolita', 2, DEFAULT);
+
+INSERT INTO public.additional_info (id, name, event_register_id, status) VALUES (DEFAULT, 'Füüsiline töö', 1, DEFAULT);
+INSERT INTO public.additional_info (id, name, event_register_id, status) VALUES (DEFAULT, 'Joomine', 1, DEFAULT)
+
+
+

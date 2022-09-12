@@ -16,9 +16,8 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public void getValidTask(TaskRequest request) {
-        boolean existsByName = taskRepository.existsByName(request.getName());
-        boolean existsByEventRegisterIdAndStatusTrue = taskRepository.existsByEventRegisterIdAndStatusTrue(request.getEventRegisterId());
-        ValidationService.validateTaskExists(existsByName, existsByEventRegisterIdAndStatusTrue);
+        boolean existsByNameAndEventRegisterIdAndStatus = taskRepository.existsByNameAndEventRegisterIdAndStatus(request.getName(), request.getEventRegisterId());
+        ValidationService.validateTaskExists(existsByNameAndEventRegisterIdAndStatus);
     }
 
     public List<Task> findByStatusTrueAndEventRegisterId(TaskRequest request) {

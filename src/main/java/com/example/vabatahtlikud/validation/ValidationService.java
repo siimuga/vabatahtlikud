@@ -34,14 +34,14 @@ public class ValidationService {
         }
     }
 
-    public static void validateTaskExists(boolean existsByName, boolean existsByEventRegisterIdAndStatusTrue) {
-        if (existsByName && existsByEventRegisterIdAndStatusTrue) {
+    public static void validateTaskExists(boolean existsByNameAndEventRegisterIdAndStatus) {
+        if (existsByNameAndEventRegisterIdAndStatus) {
             throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Selline ülesanne on juba loodud");
         }
     }
 
-    public static void validateAdditionalInfoExists(boolean existsByName, boolean existsByEventRegisterIdAndStatusTrue) {
-        if (existsByName && existsByEventRegisterIdAndStatusTrue) {
+    public static void validateAdditionalInfoExists(boolean existsByNameAndEventRegisterIdAndStatus) {
+        if (existsByNameAndEventRegisterIdAndStatus) {
             throw new DataNotFoundException(INVALID_NEW_USER_CREDENTIALS, "Selline lisainfo on juba olemas");
         }
     }
