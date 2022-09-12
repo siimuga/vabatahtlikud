@@ -46,13 +46,10 @@ public class Event {
     @JoinColumn(name = "language_id", nullable = false)
     private Language language;
 
-    @Column(name = "additional_info", nullable = false, length = 1000)
-    private String additionalInfo;
-
-    @Column(name = "picture")
-    private byte[] picture;
-
     @Column(name = "status", nullable = false, length = 1)
     private String status;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "event_register_id", nullable = false)
+    private EventRegister eventRegister;
 }

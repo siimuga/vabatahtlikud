@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -48,6 +49,11 @@ public class EventController {
         eventService.addPicture(picture);
     }
 
+    @PostMapping("event")
+    @Operation(summary = "Ürituse lisamine")
+    public void addEvent(@RequestBody EventRequest request) {
+        eventService.addEvent(request);
+    }
 
 
 }

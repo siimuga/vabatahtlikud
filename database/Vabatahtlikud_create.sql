@@ -57,7 +57,7 @@ CREATE TABLE event
     event_name          varchar(255) NOT NULL,
     start_date          date         NOT NULL,
     end_date            date         NOT NULL,
-    volunteers_required int          NOT NULL,
+    volunteers_required int          NOT NULL DEFAULT 1,
     category_id         int          NOT NULL,
     event_register_id   int          NOT NULL,
     language_id         int          NOT NULL,
