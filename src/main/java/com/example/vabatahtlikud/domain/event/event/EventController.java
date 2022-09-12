@@ -2,6 +2,7 @@ package com.example.vabatahtlikud.domain.event.event;
 
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
+import com.example.vabatahtlikud.domain.event.picture.PictureDto;
 import com.example.vabatahtlikud.domain.event.task.TaskInfo;
 import com.example.vabatahtlikud.domain.event.task.TaskRequest;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +40,12 @@ public class EventController {
     @Operation(summary = "Ürituse lisainfo kustutamine ehk staatuse muutmine")
     public void deleteAdditionalInfo(@RequestParam Integer additionalInfoId) {
         eventService.deleteAdditionalInfo(additionalInfoId);
+    }
+
+    @PostMapping("/picture")
+    @Operation(summary = "Pildi lisamine")
+    public void addPicture(@RequestBody PictureDto picture) {
+        eventService.addPicture(picture);
     }
 
 

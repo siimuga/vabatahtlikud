@@ -104,6 +104,14 @@ CREATE TABLE location
     CONSTRAINT location_pk PRIMARY KEY (id)
 );
 
+CREATE TABLE picture_data
+(
+    id                serial NOT NULL,
+    data              bytea  NULL,
+    event_register_id int    NOT NULL,
+    CONSTRAINT picture_data_pk PRIMARY KEY (id)
+);
+
 -- Table: role
 CREATE TABLE role
 (
@@ -236,6 +244,13 @@ ALTER TABLE location
             NOT DEFERRABLE
                 INITIALLY IMMEDIATE
 ;
+
+ALTER TABLE picture_data
+    ADD CONSTRAINT picture_data_event_register
+        FOREIGN KEY (event_register_id)
+            REFERENCES event_register (id)
+            NOT DEFERRABLE
+                INITIALLY IMMEDIATE;
 
 
 ALTER TABLE task
