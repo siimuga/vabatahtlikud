@@ -34,6 +34,7 @@ public class EventRegisterService {
         List<AdditionalInfo> additionalInfos = findAdditionalInfosById(eventRegister.get().getId());
         addEventResponses.setTasks(tasks);
         addEventResponses.setAdditionalInfos(additionalInfos);
+        addEventResponses.setEventId(eventId);
         return addEventResponses;
     }
 

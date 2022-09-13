@@ -1,14 +1,16 @@
 package com.example.vabatahtlikud.domain.event.additional_info;
 
 import com.example.vabatahtlikud.domain.event.event.EventRegister;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
 
+
 @Data
 @Entity
 @Table(name = "additional_info")
-public class AdditionalInfo {
+public class AdditionalInfo{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

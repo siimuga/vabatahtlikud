@@ -1,15 +1,16 @@
 package com.example.vabatahtlikud.domain.event.task;
 
 import com.example.vabatahtlikud.domain.event.event.EventRegister;
-import com.example.vabatahtlikud.domain.event.event.Event;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
 
+
 @Data
 @Entity
 @Table(name = "task")
-public class Task {
+public class Task{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

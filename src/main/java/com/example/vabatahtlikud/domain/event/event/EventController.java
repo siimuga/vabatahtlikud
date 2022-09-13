@@ -61,11 +61,10 @@ public class EventController {
     }
 
     @GetMapping("/task/addinfo")
-    @Operation(summary = "Saad ülesanded ja lisainfo, et kuvada seda muuda ürituse lehel. Siit läheb muuda ürituse lehele")
+    @Operation(summary = "Saad ülesanded ja lisainfo, et kuvada seda muuda ürituse lehel. Siit läheb muuda ürituse muutmise lehele")
     public AddEventResponse findTasksandAddInfos(@RequestParam Integer eventId) {
         AddEventResponse tasksAndAddInfos = eventService.findTasksAndAddInfos(eventId);
         System.out.println();
         return tasksAndAddInfos;
-
     }
 }
