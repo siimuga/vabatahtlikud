@@ -141,4 +141,8 @@ public class EventService {
     }
 
 
+    public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
+        List<Event> events = eventRepository.findByCategoryIdAndCountyId(request.getCategoryId(), request.getCountyId());
+        return eventMapper.eventsToEventSearchResponses(events);
+    }
 }

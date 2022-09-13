@@ -2,6 +2,7 @@ INSERT INTO public.category (id, name) VALUES (DEFAULT, 'sport');
 INSERT INTO public.category (id, name) VALUES (DEFAULT, 'muusika');
 INSERT INTO public.category (id, name) VALUES (DEFAULT, 'loodus');
 INSERT INTO public.category (id, name) VALUES (DEFAULT, 'muu');
+INSERT INTO public.category (id, name) VALUES (DEFAULT, 'kõik');
 
 INSERT INTO public.language (id, name) VALUES (DEFAULT, 'eesti');
 INSERT INTO public.language (id, name) VALUES (DEFAULT, 'vene');
@@ -22,6 +23,7 @@ INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Jõgevamaa');
 INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Raplamaa');
 INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Järvamaa');
 INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Viljandimaa');
+INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Kõik');
 
 INSERT INTO public.role (id, name) VALUES (DEFAULT, 'admin');
 INSERT INTO public.role (id, name) VALUES (DEFAULT, 'kasutaja');

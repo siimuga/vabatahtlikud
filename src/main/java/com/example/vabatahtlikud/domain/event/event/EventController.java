@@ -74,7 +74,12 @@ public class EventController {
         eventService.deleteEvent(eventId);
     }
 
+    @GetMapping("/event")
+    @Operation(summary = "Ürituse otsimine valdkonna järgi")
+    public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
+       return eventService.findEventsByCategoryAndCounty(request);
 
+    }
 
 
 }
