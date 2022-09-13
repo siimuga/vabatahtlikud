@@ -17,5 +17,5 @@ public class EventRequest implements Serializable {
     private String locationAddress;
     private Integer volunteersRequired;
     private Integer languageId;
-    private byte[] pictureData;
+    private String pictureData;
 }

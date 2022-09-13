@@ -96,16 +96,15 @@ public class EventService {
         Optional<Category> category = categoryRepository.findById(request.getCategoryId());
         Optional<Language> language = languageRepository.findById(request.getLanguageId());
         Optional<County> county = countyRepository.findById(request.getLocationCountyId());
-
-//        Optional<PictureData> defaultPicture = pictureDataRepository.findById(1);
-//         if (request.getPictureData().equals("")) {
-//             event.setPictureData(defaultPicture.get());
-//         } else {
-//             PictureData picture = new PictureData();
-//             byte[] byteData = request.getPictureData().getBytes(StandardCharsets.UTF_8);
-//             picture.setData(byteData);
-//             event.setPictureData(picture);
-//         }
+        PictureData picture = new PictureData();
+         if (request.getPictureData().equals("")) {
+             event.setPictureData(pictureDataRepository.findById(1).get());
+         } else {
+             byte[] byteData = request.getPictureData().getBytes(StandardCharsets.UTF_8);
+             picture.setData(byteData);
+             pictureDataRepository.save(picture);
+             event.setPictureData(picture);
+         }
 
         Location location = new Location();
         location.setAddress(request.getLocationAddress());
@@ -171,19 +170,8 @@ public class EventService {
     }
 
     public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
-        EventSearchResponse eventSearchResponse = new EventSearchResponse();
-        Optional<PictureData> defaultPicture = pictureDataRepository.findById(1);
         if (request.getCategoryId() == 5 && request.getCountyId() == 16) {
             List<Event> events = eventRepository.findAll();
-//            for (Event event : events) {
-//                if (event.getPictureData().getId() == 1) {
-//                    eventSearchResponse.setHasPicture(false);
-//                }
-//                if (!event.getPictureData().equals(null)) {
-//                    event.setPictureData(defaultPicture.get());
-//                    eventSearchResponse.setHasPicture(false);
-//                }
-//            }
             return eventMapper.eventsToEventSearchResponses(events);
         }
         if (request.getCategoryId() == 5) {
