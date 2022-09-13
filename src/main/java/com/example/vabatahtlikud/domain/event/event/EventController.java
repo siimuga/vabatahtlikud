@@ -20,13 +20,13 @@ public class EventController {
 
     @PostMapping("/task")
     @Operation(summary = "Lisab uue tööülesande")
-    public List<TaskInfo> addTask (@RequestBody TaskRequest request) {
+    public List<TaskInfo> addTask(@RequestBody TaskRequest request) {
         return eventService.addTask(request);
     }
 
     @PostMapping("/additional/info")
     @Operation(summary = "Lisab uue lisainfo")
-    public List<AdditionalInfoResponse> addInfo (@RequestBody AdditionalInfoRequest request) {
+    public List<AdditionalInfoResponse> addInfo(@RequestBody AdditionalInfoRequest request) {
         return eventService.addInfo(request);
     }
 
@@ -54,5 +54,18 @@ public class EventController {
         eventService.addEvent(request);
     }
 
+    @PatchMapping("/event")
+    @Operation(summary = "Muuda ürituse andmeid")
+    public void updateEvent(@RequestBody EventUpdateRequest request) {
+        eventService.updateEvent(request);
+    }
 
+    @GetMapping("/task/addinfo")
+    @Operation(summary = "Saad ülesanded ja lisainfo, et kuvada seda muuda ürituse lehel. Siit läheb muuda ürituse lehele")
+    public AddEventResponse findTasksandAddInfos(@RequestParam Integer eventId) {
+        AddEventResponse tasksAndAddInfos = eventService.findTasksAndAddInfos(eventId);
+        System.out.println();
+        return tasksAndAddInfos;
+
+    }
 }

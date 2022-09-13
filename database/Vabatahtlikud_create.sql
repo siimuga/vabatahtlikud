@@ -61,6 +61,7 @@ CREATE TABLE event
     category_id         int          NOT NULL,
     event_register_id   int          NOT NULL,
     language_id         int          NOT NULL,
+    link                varchar(255) NULL,
     location_id         int          NOT NULL,
     status              varchar(1)   NOT NULL DEFAULT 'c',
     user_id             int          NOT NULL,

@@ -52,4 +52,8 @@ public class Event {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "event_register_id", nullable = false)
     private EventRegister eventRegister;
+
+    @Column(name = "link")
+    private String link;
+
 }

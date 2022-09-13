@@ -24,11 +24,13 @@ public interface AdditionalInfoRepository extends JpaRepository<AdditionalInfo, 
     boolean existsByNameAndEventRegisterIdAndStatus(String name, Integer id);
 
 
-
-
-
-    @Query("select a from AdditionalInfo a where a.status = true and a.eventRegister.id = ?1")
+    @Query("select a from AdditionalInfo a where a.eventRegister.id = ?1 and a.status = true")
     List<AdditionalInfo> findByStatusTrueAndEventRegisterId(Integer id);
+
+
+
+
+
 
 
 }

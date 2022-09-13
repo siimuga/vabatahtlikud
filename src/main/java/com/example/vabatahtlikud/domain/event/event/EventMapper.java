@@ -9,6 +9,13 @@ public interface EventMapper {
     @Mapping(constant = "c", target = "status")
     Event eventRequestToEvent(EventRequest eventRequest);
 
+
+
+    @Mapping(source = "eventRegisterId", target = "eventRegister.id")
+    Event eventUpdateRequestToEvent(EventUpdateRequest request);
+
+
+
     @InheritInverseConfiguration(name = "eventRequestToEvent")
     EventRequest eventToEventRequest(Event event);
 

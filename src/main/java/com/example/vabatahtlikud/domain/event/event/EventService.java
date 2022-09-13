@@ -60,6 +60,12 @@ public class EventService {
     @Resource
     private CountyRepository countyRepository;
 
+    @Resource
+    private EventRegisterRepository eventRegisterRepository;
+
+    @Resource
+    private EventRegisterService eventRegisterService;
+
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
     }
@@ -97,5 +103,34 @@ public class EventService {
         event.setLanguage(language.get());
         event.setLocation(location);
         eventRepository.save(event);
+    }
+
+    public void updateEvent(EventUpdateRequest request) {
+        ValidationService.validateDates(request.getStartDate(), request.getEndDate());
+        ValidationService.validateVolunteersRequired(request.getVolunteersRequired());
+        Optional<Event> event = eventRepository.findById(request.getEventId());
+
+        Location location = event.get().getLocation();
+        location.setAddress(request.getLocationAddress());
+        Optional<County> county = countyRepository.findById(request.getLocationCountyId());
+        location.setCounty(county.get());
+        locationRepository.save(location);
+        Optional<Language> language = languageRepository.findById(request.getLanguageId());
+        Optional<Category> category = categoryRepository.findById(request.getCategoryId());
+        language.get().setId(request.getLanguageId());
+        category.get().setId(request.getCategoryId());
+        event.get().setVolunteersRequired(request.getVolunteersRequired());
+        event.get().setEventName(request.getEventName());
+        event.get().setLanguage(language.get());
+        event.get().setLink(request.getLink());
+        event.get().setCategory(category.get());
+        event.get().setStartDate(request.getStartDate());
+        event.get().setEndDate(request.getEndDate());
+        event.get().setLocation(location);
+        eventRepository.save(event.get());
+    }
+
+    public AddEventResponse findTasksAndAddInfos(Integer eventId) {
+       return eventRegisterService.findTasksAndAddInfos(eventId);
     }
 }
