@@ -7,5 +7,5 @@ import java.io.Serializable;
 @Data
 public class TaskRequest implements Serializable {
     private String name;
-    private Integer eventRegisterId;
+    private Integer eventId;
 }

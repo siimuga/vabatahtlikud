@@ -7,7 +7,7 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface TaskMapper {
 
-    @Mapping(source = "eventRegisterId", target = "eventRegister.id")
+    @Mapping(constant = "true", target = "status")
     Task taskRequestToTask(TaskRequest taskRequest);
 
     TaskRequest taskToTaskRequest(Task task);

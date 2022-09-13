@@ -16,5 +16,4 @@ public class EventUpdateRequest {
     private String locationAddress;
     private Integer volunteersRequired;
     private Integer languageId;
-    private Integer eventRegisterId;
 }

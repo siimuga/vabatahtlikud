@@ -17,12 +17,12 @@ public class AdditionalInfoService {
     private AdditionalInfoMapper additionalInfoMapper;
 
     public void getValidAdditionalInfo(AdditionalInfoRequest request) {
-        boolean existsByNameAndEventRegisterIdAndStatus = additionalInfoRepository.existsByNameAndEventRegisterIdAndStatus(request.getName(), request.getEventRegisterId());
-        ValidationService.validateAdditionalInfoExists(existsByNameAndEventRegisterIdAndStatus);
+        boolean existsByNameAndEventIdAndStatus = additionalInfoRepository.existsByNameAndEventIdAndStatus(request.getName(), request.getEventId());
+        ValidationService.validateAdditionalInfoExists(existsByNameAndEventIdAndStatus);
     }
 
     public List<AdditionalInfo> findByStatusTrueAndEventRegisterId(AdditionalInfoRequest request) {
-        return additionalInfoRepository.findByStatusTrueAndEventRegisterId(request.getEventRegisterId());
+        return additionalInfoRepository.findByStatusTrueAndEventId(request.getEventId());
     }
 
     public List<AdditionalInfoResponse> addInfo(AdditionalInfoRequest request) {

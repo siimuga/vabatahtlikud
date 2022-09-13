@@ -17,10 +17,4 @@ public class PictureData {
     @Column(name = "data")
     private byte[] data;
 
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_register_id", nullable = false)
-    private EventRegister eventRegister;
-
-
 }

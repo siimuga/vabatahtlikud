@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PictureDto {
     private String data;
-    private Integer eventRegisterId;
+    private Integer eventId;
 }

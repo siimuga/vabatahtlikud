@@ -1,9 +1,6 @@
 package com.example.vabatahtlikud.domain.event.event;
 
-import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRepository;
-import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
-import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
-import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoService;
+import com.example.vabatahtlikud.domain.event.additional_info.*;
 import com.example.vabatahtlikud.domain.event.category.Category;
 import com.example.vabatahtlikud.domain.event.category.CategoryRepository;
 import com.example.vabatahtlikud.domain.event.language.Language;
@@ -12,19 +9,18 @@ import com.example.vabatahtlikud.domain.event.location.Location;
 import com.example.vabatahtlikud.domain.event.location.LocationRepository;
 import com.example.vabatahtlikud.domain.event.location.country.County;
 import com.example.vabatahtlikud.domain.event.location.country.CountyRepository;
+import com.example.vabatahtlikud.domain.event.picture.PictureData;
 import com.example.vabatahtlikud.domain.event.picture.PictureDataRepository;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
 import com.example.vabatahtlikud.domain.event.picture.PictureService;
-import com.example.vabatahtlikud.domain.event.task.TaskInfo;
-import com.example.vabatahtlikud.domain.event.task.TaskRepository;
-import com.example.vabatahtlikud.domain.event.task.TaskRequest;
-import com.example.vabatahtlikud.domain.event.task.TaskService;
+import com.example.vabatahtlikud.domain.event.task.*;
 import com.example.vabatahtlikud.domain.user.user.User;
 import com.example.vabatahtlikud.domain.user.user.UserRepository;
 import com.example.vabatahtlikud.validation.ValidationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +32,12 @@ public class EventService {
 
     @Resource
     private AdditionalInfoService additionalInfoService;
+
+    @Resource
+    private TaskRepository taskRepository;
+
+    @Resource
+    private AdditionalInfoRepository additionalInfoRepository;
 
     @Resource
     private PictureService pictureService;
@@ -62,7 +64,9 @@ public class EventService {
     private CountyRepository countyRepository;
 
     @Resource
-    private EventRegisterService eventRegisterService;
+    private PictureDataRepository pictureDataRepository;
+
+
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -92,6 +96,17 @@ public class EventService {
         Optional<Category> category = categoryRepository.findById(request.getCategoryId());
         Optional<Language> language = languageRepository.findById(request.getLanguageId());
         Optional<County> county = countyRepository.findById(request.getLocationCountyId());
+
+//        Optional<PictureData> defaultPicture = pictureDataRepository.findById(1);
+//         if (request.getPictureData().equals("")) {
+//             event.setPictureData(defaultPicture.get());
+//         } else {
+//             PictureData picture = new PictureData();
+//             byte[] byteData = request.getPictureData().getBytes(StandardCharsets.UTF_8);
+//             picture.setData(byteData);
+//             event.setPictureData(picture);
+//         }
+
         Location location = new Location();
         location.setAddress(request.getLocationAddress());
         location.setCounty(county.get());
@@ -129,8 +144,25 @@ public class EventService {
     }
 
     public AddEventResponse findTasksAndAddInfos(Integer eventId) {
-        return eventRegisterService.findTasksAndAddInfos(eventId);
+        AddEventResponse addEventResponses = new AddEventResponse();
+        Optional<Event> event = eventRepository.findById(eventId);
+        List<Task> tasks = findTasksById(event.get().getId());
+        List<AdditionalInfo> additionalInfos = findAdditionalInfosById(event.get().getId());
+        addEventResponses.setTasks(tasks);
+        addEventResponses.setAdditionalInfos(additionalInfos);
+        addEventResponses.setEventId(eventId);
+        return addEventResponses;
     }
+
+    private List<AdditionalInfo> findAdditionalInfosById(Integer eventId) {
+        return additionalInfoRepository.findByStatusTrueAndEventId(eventId);
+    }
+
+    public List<Task> findTasksById(Integer eventId) {
+        return taskRepository.findByStatusTrueAndEventId(eventId);
+    }
+
+
 
     public void deleteEvent(Integer eventId) {
         Optional<Event> event = eventRepository.findById(eventId);
@@ -138,10 +170,20 @@ public class EventService {
         eventRepository.save(event.get());
     }
 
-
     public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
+        EventSearchResponse eventSearchResponse = new EventSearchResponse();
+        Optional<PictureData> defaultPicture = pictureDataRepository.findById(1);
         if (request.getCategoryId() == 5 && request.getCountyId() == 16) {
             List<Event> events = eventRepository.findAll();
+//            for (Event event : events) {
+//                if (event.getPictureData().getId() == 1) {
+//                    eventSearchResponse.setHasPicture(false);
+//                }
+//                if (!event.getPictureData().equals(null)) {
+//                    event.setPictureData(defaultPicture.get());
+//                    eventSearchResponse.setHasPicture(false);
+//                }
+//            }
             return eventMapper.eventsToEventSearchResponses(events);
         }
         if (request.getCategoryId() == 5) {
@@ -155,5 +197,6 @@ public class EventService {
         List<Event> events = eventRepository.findByCategoryIdAndCountyId(request.getCategoryId(), request.getCountyId());
         return eventMapper.eventsToEventSearchResponses(events);
     }
+
 
 }

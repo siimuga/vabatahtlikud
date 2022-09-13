@@ -7,27 +7,28 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface EventMapper {
 
-    @Mapping(source = "eventRegisterId", target = "eventRegister.id")
+  //  @Mapping(source = "eventRegisterId", target = "eventRegister.id")
     @Mapping(constant = "c", target = "status")
+    @Mapping(source = "pictureData", target = "pictureData.data")
     Event eventRequestToEvent(EventRequest eventRequest);
 
 
 
-    @Mapping(source = "eventRegisterId", target = "eventRegister.id")
-    Event eventUpdateRequestToEvent(EventUpdateRequest request);
+//    @Mapping(source = "eventRegisterId", target = "eventRegister.id")
+//    Event eventUpdateRequestToEvent(EventUpdateRequest request);
 
 
 
-    @InheritInverseConfiguration(name = "eventRequestToEvent")
-    EventRequest eventToEventRequest(Event event);
+//    @InheritInverseConfiguration(name = "eventRequestToEvent")
+//    EventRequest eventToEventRequest(Event event);
 
-    @InheritConfiguration(name = "eventRequestToEvent")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Event updateEventFromEventRequest(EventRequest eventRequest, @MappingTarget Event event);
+//    @InheritConfiguration(name = "eventRequestToEvent")
+//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+//    Event updateEventFromEventRequest(EventRequest eventRequest, @MappingTarget Event event);
 
 
     @Mapping(source = "id", target = "eventId")
-    @Mapping(constant = "true", target = "hasPicture")
+    @Mapping(source = "pictureData.data", target = "pictureData")
     //@Mapping()
     EventSearchResponse eventToEventSearchResponse(Event event);
 

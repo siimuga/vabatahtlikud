@@ -1,8 +1,11 @@
 package com.example.vabatahtlikud.domain.event.event;
 
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfo;
 import com.example.vabatahtlikud.domain.event.category.Category;
 import com.example.vabatahtlikud.domain.event.language.Language;
 import com.example.vabatahtlikud.domain.event.location.Location;
+import com.example.vabatahtlikud.domain.event.picture.PictureData;
+import com.example.vabatahtlikud.domain.event.task.Task;
 import com.example.vabatahtlikud.domain.user.user.User;
 import lombok.Data;
 
@@ -49,11 +52,11 @@ public class Event {
     @Column(name = "status", nullable = false, length = 1)
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "event_register_id", nullable = false)
-    private EventRegister eventRegister;
-
     @Column(name = "link")
     private String link;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "picture_data_id")
+    private PictureData pictureData;
 
 }

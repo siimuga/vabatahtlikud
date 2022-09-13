@@ -36,14 +36,14 @@ public class ValidationService {
         }
     }
 
-    public static void validateTaskExists(boolean existsByNameAndEventRegisterIdAndStatus) {
-        if (existsByNameAndEventRegisterIdAndStatus) {
+    public static void validateTaskExists(boolean existsByNameAndEventIdAndStatus) {
+        if (existsByNameAndEventIdAndStatus) {
             throw new DataNotFoundException(INVALID_INPUT, "Selline ülesanne on juba loodud");
         }
     }
 
-    public static void validateAdditionalInfoExists(boolean existsByNameAndEventRegisterIdAndStatus) {
-        if (existsByNameAndEventRegisterIdAndStatus) {
+    public static void validateAdditionalInfoExists(boolean existsByNameAndEventIdAndStatus) {
+        if (existsByNameAndEventIdAndStatus) {
             throw new DataNotFoundException(INVALID_INPUT, "Selline lisainfo on juba olemas");
         }
     }
