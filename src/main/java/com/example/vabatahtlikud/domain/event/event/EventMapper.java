@@ -27,8 +27,11 @@ public interface EventMapper {
 
 
     @Mapping(source = "id", target = "eventId")
+    @Mapping(constant = "true", target = "hasPicture")
     //@Mapping()
     EventSearchResponse eventToEventSearchResponse(Event event);
 
+    @Mapping(source = "id", target = "eventId")
+    @Mapping(constant = "true", target = "hasPicture")
     List<EventSearchResponse> eventsToEventSearchResponses(List<Event> events);
 }

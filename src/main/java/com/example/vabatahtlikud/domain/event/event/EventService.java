@@ -1,6 +1,9 @@
 package com.example.vabatahtlikud.domain.event.event;
 
-import com.example.vabatahtlikud.domain.event.additional_info.*;
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRepository;
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoService;
 import com.example.vabatahtlikud.domain.event.category.Category;
 import com.example.vabatahtlikud.domain.event.category.CategoryRepository;
 import com.example.vabatahtlikud.domain.event.language.Language;
@@ -9,9 +12,13 @@ import com.example.vabatahtlikud.domain.event.location.Location;
 import com.example.vabatahtlikud.domain.event.location.LocationRepository;
 import com.example.vabatahtlikud.domain.event.location.country.County;
 import com.example.vabatahtlikud.domain.event.location.country.CountyRepository;
+import com.example.vabatahtlikud.domain.event.picture.PictureDataRepository;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
 import com.example.vabatahtlikud.domain.event.picture.PictureService;
-import com.example.vabatahtlikud.domain.event.task.*;
+import com.example.vabatahtlikud.domain.event.task.TaskInfo;
+import com.example.vabatahtlikud.domain.event.task.TaskRepository;
+import com.example.vabatahtlikud.domain.event.task.TaskRequest;
+import com.example.vabatahtlikud.domain.event.task.TaskService;
 import com.example.vabatahtlikud.domain.user.user.User;
 import com.example.vabatahtlikud.domain.user.user.UserRepository;
 import com.example.vabatahtlikud.validation.ValidationService;
@@ -29,12 +36,6 @@ public class EventService {
 
     @Resource
     private AdditionalInfoService additionalInfoService;
-
-    @Resource
-    private TaskRepository taskRepository;
-
-    @Resource
-    private AdditionalInfoRepository additionalInfoRepository;
 
     @Resource
     private PictureService pictureService;
@@ -59,9 +60,6 @@ public class EventService {
 
     @Resource
     private CountyRepository countyRepository;
-
-    @Resource
-    private EventRegisterRepository eventRegisterRepository;
 
     @Resource
     private EventRegisterService eventRegisterService;
@@ -142,7 +140,20 @@ public class EventService {
 
 
     public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
+        if (request.getCategoryId() == 5 && request.getCountyId() == 16) {
+            List<Event> events = eventRepository.findAll();
+            return eventMapper.eventsToEventSearchResponses(events);
+        }
+        if (request.getCategoryId() == 5) {
+            List<Event> events = eventRepository.findByCountyId(request.getCountyId());
+            return eventMapper.eventsToEventSearchResponses(events);
+        }
+        if (request.getCountyId() == 16) {
+            List<Event> events = eventRepository.findByCategoryId(request.getCategoryId());
+            return eventMapper.eventsToEventSearchResponses(events);
+        }
         List<Event> events = eventRepository.findByCategoryIdAndCountyId(request.getCategoryId(), request.getCountyId());
         return eventMapper.eventsToEventSearchResponses(events);
     }
+
 }
