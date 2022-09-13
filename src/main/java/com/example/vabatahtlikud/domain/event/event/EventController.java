@@ -67,4 +67,14 @@ public class EventController {
         System.out.println();
         return tasksAndAddInfos;
     }
+
+    @DeleteMapping("/event")
+    @Operation(summary = "Ürituse kustutamine ehk staatuse muutmine")
+    public void deleteEvent(@RequestParam Integer eventId) {
+        eventService.deleteEvent(eventId);
+    }
+
+
+
+
 }

@@ -131,6 +131,14 @@ public class EventService {
     }
 
     public AddEventResponse findTasksAndAddInfos(Integer eventId) {
-       return eventRegisterService.findTasksAndAddInfos(eventId);
+        return eventRegisterService.findTasksAndAddInfos(eventId);
     }
+
+    public void deleteEvent(Integer eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        event.get().setStatus("d");
+        eventRepository.save(event.get());
+    }
+
+
 }

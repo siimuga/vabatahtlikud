@@ -1,0 +1,3 @@
+c - created
+d - deleted
+v - validated
