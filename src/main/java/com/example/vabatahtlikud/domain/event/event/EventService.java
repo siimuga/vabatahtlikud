@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -223,5 +224,31 @@ public class EventService {
         Optional<Event> event = eventRepository.findById(eventId);
         event.get().setStatus("v");
         eventRepository.save(event.get());
+    }
+
+    public List<PastEventInfo> findAllPastEvents() {
+        List<Event> events = eventRepository.findByAfterEndDate(LocalDate.now());
+        List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
+        for (PastEventInfo pastEventInfo : pastEventInfos) {
+            pastEventInfo.setVolunteersAttended(999);
+        }
+        return pastEventInfos;
+    }
+
+    public void updatePastEventsStatuses() {
+        List<Event> events = eventRepository.findByAfterEndDateAndPublished(LocalDate.now(), "v");
+        for (Event event : events) {
+            event.setStatus("e");
+            eventRepository.save(event);
+        }
+    }
+
+    public List<PastEventInfo> findAllPastEventsByUser(Integer userId) {
+        List<Event> events = eventRepository.findByAfterEndDateByUser(userId, "e");
+        List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
+        for (PastEventInfo pastEventInfo : pastEventInfos) {
+            pastEventInfo.setVolunteersAttended(999);
+        }
+        return pastEventInfos;
     }
 }

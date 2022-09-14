@@ -83,15 +83,16 @@ public class EventController {
         return eventService.findAllEvents();
     }
 
+
     @GetMapping("/events/county")
     @Operation(summary = "Kuva üritused maakonna järgi")
-    public List<EventInfo> findByCountys(Integer countyId) {
+    public List<EventInfo> findByCounty(Integer countyId) {
         return eventService.findByCounties(countyId);
     }
 
     @GetMapping("/events/category")
     @Operation(summary = "Kuva üritused kategooria järgi")
-    public List<EventInfo> findByCategorys(Integer categoryId) {
+    public List<EventInfo> findByCategory(Integer categoryId) {
         return eventService.findByCategories(categoryId);
     }
 
@@ -119,5 +120,15 @@ public class EventController {
         return eventService.findAllLanguages();
     }
 
+    @PatchMapping("/date/check")
+    @Operation(summary = "Uuenda kõik lõpetatud ürituste saatused")
+    public void updatePastEventsStatuses() {
+        eventService.updatePastEventsStatuses();
+    }
 
+    @GetMapping("event/user")
+    @Operation(summary = "Kuva möödunud üritused kasutaja järgi")
+    public List<PastEventInfo> findAllPastEventsByUser(Integer userId) {
+       return eventService.findAllPastEventsByUser(userId);
+    }
 }

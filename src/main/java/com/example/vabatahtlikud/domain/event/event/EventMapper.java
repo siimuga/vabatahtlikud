@@ -32,4 +32,10 @@ public interface EventMapper {
 
 
     List<EventInfo> eventsToEventInfos(List<Event> events);
+
+
+    @Mapping(source = "user.role.name", target = "userRoleName")
+    @Mapping(ignore = true, target = "volunteersAttended")
+  PastEventInfo eventToPastEventInfo(Event event);
+  List<PastEventInfo> eventsToPastEventInfos(List<Event> events);
 }

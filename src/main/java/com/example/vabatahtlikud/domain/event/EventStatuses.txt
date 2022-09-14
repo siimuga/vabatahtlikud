@@ -1,3 +1,4 @@
 c - created
 d - deleted
 v - validated
+e - ended
