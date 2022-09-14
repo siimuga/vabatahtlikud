@@ -2,6 +2,7 @@ package com.example.vabatahtlikud.domain.event.event;
 
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
+import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
 import com.example.vabatahtlikud.domain.event.task.TaskInfo;
 import com.example.vabatahtlikud.domain.event.task.TaskRequest;
@@ -96,5 +97,11 @@ public class EventController {
     @Operation(summary = "Ürituse otsimine maakonna ja kategooria järgi")
     public List<EventInfo> findEventsByCategoryAndCounty(EventSearchRequest request) {
         return eventService.findEventsByCategoryAndCounty(request);
+    }
+
+    @GetMapping("/category")
+    @Operation(summary = "Kuva kõik kategooriad")
+    public List<CategoryInfo> findAllCategories() {
+        return eventService.findAllCategories();
     }
 }

@@ -2,7 +2,9 @@ package com.example.vabatahtlikud.domain.event.event;
 
 import com.example.vabatahtlikud.domain.event.additional_info.*;
 import com.example.vabatahtlikud.domain.event.category.Category;
+import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
 import com.example.vabatahtlikud.domain.event.category.CategoryRepository;
+import com.example.vabatahtlikud.domain.event.category.CategoryService;
 import com.example.vabatahtlikud.domain.event.language.Language;
 import com.example.vabatahtlikud.domain.event.language.LanguageRepository;
 import com.example.vabatahtlikud.domain.event.location.Location;
@@ -62,6 +64,9 @@ public class EventService {
 
     @Resource
     private PictureDataRepository pictureDataRepository;
+
+    @Resource
+    private CategoryService categoryService;
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -193,4 +198,8 @@ public class EventService {
         return updateEventInfos(events);
     }
 
+    public List<CategoryInfo> findAllCategories() {
+        return categoryService.findAllCategories();
+
+    }
 }
