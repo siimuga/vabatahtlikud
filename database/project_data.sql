@@ -40,11 +40,14 @@ INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUE
 INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUES (DEFAULT, 'Klakh 9', null, null, 2);
 INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUES (DEFAULT, 'Susal 998', null, null, 4);
 
-INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Seewald', '2022-09-16', '2022-09-17', 10, 1, 1, null, 1, DEFAULT, 2);
-INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Maasalaj', '2022-09-29', '2022-09-30', 100, 2, 2, null, 2, DEFAULT, 4);
-INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Asdasda', '2022-10-12', '2022-10-21', 5, 2, 1, null, 3, DEFAULT, 2);
-INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Asdasda', '2022-10-20', '2022-10-29', 5, 3, 1, null, 2, DEFAULT, 4);
-INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Asdasda', '2022-10-18', '2022-10-21', 5, 1, 1, null, 3, DEFAULT, 2);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Seewald', '2022-09-16', '2022-09-17', 10, 1, 1, null, 1, 'v', 2);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Huumor', '2022-09-29', '2022-09-30', 100, 2, 2, null, 2, 'v', 4);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Koolja', '2022-10-12', '2022-10-21', 11, 2, 1, null, 3, 'v', 2);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Neoplan', '2022-10-20', '2022-10-29', 65, 3, 1, null, 2, 'v', 4);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Lada', '2022-10-18', '2022-10-21', 23, 1, 1, null, 1, 'v', 2);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Volkar', '2022-11-18', '2022-11-21', 41, 2, 2, null, 2, 'c', 4);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Audi', '2022-10-03', '2022-10-05',68, 1, 2, null, 1, 'v', 2);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Part', '2022-10-10', '2022-10-21', 78, 3, 3, null, 3, 'c', 4);
 
 INSERT INTO public.task (id, name, status, event_id) VALUES (DEFAULT, 'Tere', DEFAULT, 1);
 INSERT INTO public.task (id, name, status, event_id) VALUES (DEFAULT, 'Toord', DEFAULT, 1);

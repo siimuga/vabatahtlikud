@@ -64,7 +64,7 @@ public class EventController {
     }
 
     @GetMapping("/task/addinfo")
-    @Operation(summary = "Saad ülesanded ja lisainfo, et kuvada seda muuda ürituse lehel. Siit läheb muuda ürituse muutmise lehele")
+    @Operation(summary = "Kuva tööülesanded ja lisainfo ürituse kohta")
     public AddEventResponse findTasksandAddInfos(@RequestParam Integer eventId) {
         AddEventResponse tasksAndAddInfos = eventService.findTasksAndAddInfos(eventId);
         return tasksAndAddInfos;
@@ -78,7 +78,7 @@ public class EventController {
 
 
     @GetMapping("/events")
-    @Operation(summary = "Kuva kõik üritused")
+    @Operation(summary = "Kuva kõik kinnitatud üritused")
     public List<EventInfo> findAllEvents() {
         return eventService.findAllEvents();
     }
@@ -86,13 +86,13 @@ public class EventController {
     @GetMapping("/events/county")
     @Operation(summary = "Kuva üritused maakonna järgi")
     public List<EventInfo> findByCountys(Integer countyId) {
-        return eventService.findByCountys(countyId);
+        return eventService.findByCounties(countyId);
     }
 
     @GetMapping("/events/category")
     @Operation(summary = "Kuva üritused kategooria järgi")
     public List<EventInfo> findByCategorys(Integer categoryId) {
-        return eventService.findByCategorys(categoryId);
+        return eventService.findByCategories(categoryId);
     }
 
     @GetMapping("/event")
@@ -118,4 +118,6 @@ public class EventController {
     public List<LanguageInfo> findAllLanguages() {
         return eventService.findAllLanguages();
     }
+
+
 }

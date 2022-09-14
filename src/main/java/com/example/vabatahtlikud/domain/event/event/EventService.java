@@ -171,7 +171,7 @@ public class EventService {
 
 
     public List<EventInfo> findAllEvents() {
-        List<Event> events = eventRepository.findAll();
+        List<Event> events = eventRepository.findAll("v");
         List<EventInfo> eventInfos = updateEventInfos(events);
         return eventInfos;   //volunteersAttended on puudu
     }
@@ -192,18 +192,18 @@ public class EventService {
         return eventInfos;
     }
 
-    public List<EventInfo> findByCategorys(Integer categoryId) {
-        List<Event> events = eventRepository.findByCategoryId(categoryId);
+    public List<EventInfo> findByCategories(Integer categoryId) {
+        List<Event> events = eventRepository.findByCategoryId(categoryId, "v");
         return updateEventInfos(events);
     }
 
-    public List<EventInfo> findByCountys(Integer countyId) {
-        List<Event> events = eventRepository.findByCountyId(countyId);
+    public List<EventInfo> findByCounties(Integer countyId) {
+        List<Event> events = eventRepository.findByCountyId(countyId, "v");
         return updateEventInfos(events);
     }
 
     public List<EventInfo> findEventsByCategoryAndCounty(EventSearchRequest request) {
-        List<Event> events = eventRepository.findByCategoryIdAndCountyId(request.getCategoryId(), request.getCountyId());
+        List<Event> events = eventRepository.findByCategoryIdAndCountyId(request.getCategoryId(), request.getCountyId(), "v");
         return updateEventInfos(events);
     }
 
@@ -217,5 +217,11 @@ public class EventService {
 
     public List<LanguageInfo> findAllLanguages() {
         return languageService.findAllLanguages();
+    }
+
+    public void validateEvent(Integer eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        event.get().setStatus("v");
+        eventRepository.save(event.get());
     }
 }
