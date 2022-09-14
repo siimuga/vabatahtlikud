@@ -9,7 +9,6 @@ public interface EventMapper {
 
   //  @Mapping(source = "eventRegisterId", target = "eventRegister.id")
     @Mapping(constant = "c", target = "status")
-    @Mapping(ignore = true, target = "pictureData")
     Event eventRequestToEvent(EventRequest eventRequest);
 
 
@@ -28,11 +27,9 @@ public interface EventMapper {
 
 
     @Mapping(source = "id", target = "eventId")
-    @Mapping(ignore = true, target = "pictureData")
     //@Mapping()
     EventSearchResponse eventToEventSearchResponse(Event event);
 
     @Mapping(source = "id", target = "eventId")
-    @Mapping(ignore = true, target = "pictureData")
     List<EventSearchResponse> eventsToEventSearchResponses(List<Event> events);
 }

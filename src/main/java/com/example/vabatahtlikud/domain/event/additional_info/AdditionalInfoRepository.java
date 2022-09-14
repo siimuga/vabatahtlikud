@@ -2,6 +2,7 @@ package com.example.vabatahtlikud.domain.event.additional_info;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -23,25 +24,18 @@ public interface AdditionalInfoRepository extends JpaRepository<AdditionalInfo, 
 //            where upper(a.name) = upper(?1) and a.event.id = ?2 and a.status = true""")
 //    boolean existsByNameAndEventIdAndStatus(String name, Integer id);
 
+//    @Query("""
+//            select (count(a) > 0) from AdditionalInfo a
+//            where upper(a.name) = upper(?1) and a.status = true and a.id = ?2""")
+//    boolean existsByNameAndEventIdAndStatus(String name, Integer id);
+
     @Query("""
             select (count(a) > 0) from AdditionalInfo a
-            where upper(a.name) = upper(?1) and a.status = true and a.id = ?2""")
+            where upper(a.name) = upper(?1) and a.status = true and a.event.id = ?2""")
     boolean existsByNameAndEventIdAndStatus(String name, Integer id);
 
-    @Query("select a from AdditionalInfo a where a.status = true and a.id = ?1")
+    @Query("select a from AdditionalInfo a where a.status = true and a.event.id = ?1")
     List<AdditionalInfo> findByStatusTrueAndEventId(Integer id);
-
-
-
-
-
-//    @Query("select a from AdditionalInfo a where a.event.id = ?1 and a.status = true")
-//    List<AdditionalInfo> findByStatusTrueAndEventId(Integer id);
-
-
-
-
-
 
 
 }

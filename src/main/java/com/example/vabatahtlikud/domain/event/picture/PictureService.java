@@ -1,7 +1,6 @@
 package com.example.vabatahtlikud.domain.event.picture;
 
 import com.example.vabatahtlikud.domain.event.event.Event;
-import com.example.vabatahtlikud.domain.event.event.EventRegister;
 import com.example.vabatahtlikud.domain.event.event.EventRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,11 @@ public class PictureService {
     private EventRepository eventRepository;
 
     public void addPicture(PictureDto pictureAsBase64) {
+        Optional<Event> event = eventRepository.findById(pictureAsBase64.getEventId());
         PictureData picture = new PictureData();
         byte[] byteData = pictureAsBase64.getData().getBytes(StandardCharsets.UTF_8);
         picture.setData(byteData);
+        picture.setEvent(event.get());
         pictureDataRepository.save(picture);
     }
 }

@@ -55,8 +55,8 @@ public class Event {
     @Column(name = "link")
     private String link;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "picture_data_id")
-    private PictureData pictureData;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "picture_data_id")
+//    private PictureData pictureData;
 
 }

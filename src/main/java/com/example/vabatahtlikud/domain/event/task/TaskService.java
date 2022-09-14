@@ -1,5 +1,7 @@
 package com.example.vabatahtlikud.domain.event.task;
 
+import com.example.vabatahtlikud.domain.event.event.Event;
+import com.example.vabatahtlikud.domain.event.event.EventRepository;
 import com.example.vabatahtlikud.validation.ValidationService;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ public class TaskService {
     @Resource
     private TaskRepository taskRepository;
 
+    @Resource
+    private EventRepository eventRepository;
+
     public void getValidTask(TaskRequest request) {
         boolean existsByNameAndEventIdAndStatus = taskRepository.existsByNameAndEventIdAndStatus(request.getName(), request.getEventId());
         ValidationService.validateTaskExists(existsByNameAndEventIdAndStatus);
@@ -28,6 +33,8 @@ public class TaskService {
     public List<TaskInfo> addTask(TaskRequest request) {
         getValidTask(request);
         Task task = taskMapper.taskRequestToTask(request);
+        Optional<Event> event = eventRepository.findById(request.getEventId());
+        task.setEvent(event.get());
         taskRepository.save(task);
         List<Task> tasks = findByStatusTrueAndEventId(request);
         return taskMapper.tasksToTaskInfos(tasks);

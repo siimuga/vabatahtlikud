@@ -1,5 +1,6 @@
 package com.example.vabatahtlikud.domain.event.picture;
 
+import com.example.vabatahtlikud.domain.event.event.Event;
 import com.example.vabatahtlikud.domain.event.event.EventRegister;
 import lombok.Data;
 
@@ -17,4 +18,8 @@ public class PictureData {
     @Column(name = "data")
     private byte[] data;
 
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id")
+    private Event event;
 }

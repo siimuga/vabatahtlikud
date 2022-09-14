@@ -9,10 +9,7 @@ import com.example.vabatahtlikud.domain.event.location.Location;
 import com.example.vabatahtlikud.domain.event.location.LocationRepository;
 import com.example.vabatahtlikud.domain.event.location.country.County;
 import com.example.vabatahtlikud.domain.event.location.country.CountyRepository;
-import com.example.vabatahtlikud.domain.event.picture.PictureData;
-import com.example.vabatahtlikud.domain.event.picture.PictureDataRepository;
-import com.example.vabatahtlikud.domain.event.picture.PictureDto;
-import com.example.vabatahtlikud.domain.event.picture.PictureService;
+import com.example.vabatahtlikud.domain.event.picture.*;
 import com.example.vabatahtlikud.domain.event.task.*;
 import com.example.vabatahtlikud.domain.user.user.User;
 import com.example.vabatahtlikud.domain.user.user.UserRepository;
@@ -66,8 +63,6 @@ public class EventService {
     @Resource
     private PictureDataRepository pictureDataRepository;
 
-
-
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
     }
@@ -96,15 +91,15 @@ public class EventService {
         Optional<Category> category = categoryRepository.findById(request.getCategoryId());
         Optional<Language> language = languageRepository.findById(request.getLanguageId());
         Optional<County> county = countyRepository.findById(request.getLocationCountyId());
-        PictureData picture = new PictureData();
-         if (request.getPictureData().equals("")) {
-             event.setPictureData(pictureDataRepository.findById(1).get());
-         } else {
-             byte[] byteData = request.getPictureData().getBytes(StandardCharsets.UTF_8);
-             picture.setData(byteData);
-             pictureDataRepository.save(picture);
-             event.setPictureData(picture);
-         }
+//        PictureData picture = new PictureData();
+//         if (request.getPictureData().equals("")) {
+//             event.setPictureData(pictureDataRepository.findById(1).get());
+//         } else {
+//             byte[] byteData = request.getPictureData().getBytes(StandardCharsets.UTF_8);
+//             picture.setData(byteData);
+//             pictureDataRepository.save(picture);
+//             event.setPictureData(picture);
+//         }
 
         Location location = new Location();
         location.setAddress(request.getLocationAddress());
@@ -121,12 +116,13 @@ public class EventService {
         ValidationService.validateDates(request.getStartDate(), request.getEndDate());
         ValidationService.validateVolunteersRequired(request.getVolunteersRequired());
         Optional<Event> event = eventRepository.findById(request.getEventId());
-
         Location location = event.get().getLocation();
         location.setAddress(request.getLocationAddress());
         Optional<County> county = countyRepository.findById(request.getLocationCountyId());
         location.setCounty(county.get());
         locationRepository.save(location);
+
+
         Optional<Language> language = languageRepository.findById(request.getLanguageId());
         Optional<Category> category = categoryRepository.findById(request.getCategoryId());
         language.get().setId(request.getLanguageId());
@@ -162,7 +158,6 @@ public class EventService {
     }
 
 
-
     public void deleteEvent(Integer eventId) {
         Optional<Event> event = eventRepository.findById(eventId);
         event.get().setStatus("d");
@@ -170,9 +165,23 @@ public class EventService {
     }
 
     public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
+        EventSearchResponse eventSearchResponse = new EventSearchResponse();
         if (request.getCategoryId() == 5 && request.getCountyId() == 16) {
             List<Event> events = eventRepository.findAll();
-            return eventMapper.eventsToEventSearchResponses(events);
+            for (Event event : events) {
+                PictureData picture = pictureDataRepository.findByEvent(event);
+                byte[] bytes = picture.getData();
+                String result = new String(bytes, StandardCharsets.UTF_8);
+                if (result.equals("")) {
+                    eventSearchResponse.setHasPicture(false);
+                } else {
+                    eventSearchResponse.setPictureData(result);
+                    eventSearchResponse.setHasPicture(true);
+                }
+            }
+
+            eventMapper.eventsToEventSearchResponses(events);
+            return null;
         }
         if (request.getCategoryId() == 5) {
             List<Event> events = eventRepository.findByCountyId(request.getCountyId());
