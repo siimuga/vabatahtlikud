@@ -26,6 +26,9 @@ public class UserService {
 
 
     public User getValidUser(LoginRequest request) {
+        if (request.getUsername().isBlank() || request.getPassword().isBlank()) {
+            ValidationService.validatePasswordUserExists(false, false);
+        }
         boolean userExists = userRepository.existsBy(request.getUsername(), request.getPassword());
         User user = new User();
         Boolean userStatus = false;
