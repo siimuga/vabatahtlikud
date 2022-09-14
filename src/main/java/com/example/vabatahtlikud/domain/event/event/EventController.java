@@ -3,6 +3,7 @@ package com.example.vabatahtlikud.domain.event.event;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
 import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
+import com.example.vabatahtlikud.domain.event.language.LanguageInfo;
 import com.example.vabatahtlikud.domain.event.location.country.CountyInfo;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
 import com.example.vabatahtlikud.domain.event.task.TaskInfo;
@@ -112,5 +113,9 @@ public class EventController {
         return eventService.findAllCounties();
     }
 
-
+    @GetMapping("/language")
+    @Operation(summary = "Kuva kõik keeled")
+    public List<LanguageInfo> findAllLanguages() {
+        return eventService.findAllLanguages();
+    }
 }

@@ -6,7 +6,9 @@ import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
 import com.example.vabatahtlikud.domain.event.category.CategoryRepository;
 import com.example.vabatahtlikud.domain.event.category.CategoryService;
 import com.example.vabatahtlikud.domain.event.language.Language;
+import com.example.vabatahtlikud.domain.event.language.LanguageInfo;
 import com.example.vabatahtlikud.domain.event.language.LanguageRepository;
+import com.example.vabatahtlikud.domain.event.language.LanguageService;
 import com.example.vabatahtlikud.domain.event.location.Location;
 import com.example.vabatahtlikud.domain.event.location.LocationRepository;
 import com.example.vabatahtlikud.domain.event.location.country.County;
@@ -72,6 +74,9 @@ public class EventService {
 
     @Resource
     private CountyService countyService;
+
+    @Resource
+    private LanguageService languageService;
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -208,5 +213,9 @@ public class EventService {
 
     public List<CountyInfo> findAllCounties() {
         return countyService.findAllCounties();
+    }
+
+    public List<LanguageInfo> findAllLanguages() {
+        return languageService.findAllLanguages();
     }
 }
