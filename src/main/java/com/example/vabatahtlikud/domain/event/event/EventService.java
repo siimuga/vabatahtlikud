@@ -10,7 +10,9 @@ import com.example.vabatahtlikud.domain.event.language.LanguageRepository;
 import com.example.vabatahtlikud.domain.event.location.Location;
 import com.example.vabatahtlikud.domain.event.location.LocationRepository;
 import com.example.vabatahtlikud.domain.event.location.country.County;
+import com.example.vabatahtlikud.domain.event.location.country.CountyInfo;
 import com.example.vabatahtlikud.domain.event.location.country.CountyRepository;
+import com.example.vabatahtlikud.domain.event.location.country.CountyService;
 import com.example.vabatahtlikud.domain.event.picture.*;
 import com.example.vabatahtlikud.domain.event.task.*;
 import com.example.vabatahtlikud.domain.user.user.User;
@@ -67,6 +69,9 @@ public class EventService {
 
     @Resource
     private CategoryService categoryService;
+
+    @Resource
+    private CountyService countyService;
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -160,8 +165,6 @@ public class EventService {
     }
 
 
-
-
     public List<EventInfo> findAllEvents() {
         List<Event> events = eventRepository.findAll();
         List<EventInfo> eventInfos = updateEventInfos(events);
@@ -172,7 +175,7 @@ public class EventService {
         List<EventInfo> eventInfos = eventMapper.eventsToEventInfos(events);
         for (EventInfo eventInfo : eventInfos) {
             Optional<PictureData> picture = pictureDataRepository.findByEventId(eventInfo.getEventId());
-            if (picture.isPresent()){
+            if (picture.isPresent()) {
                 String pictureBase64 = new String(picture.get().getData(), StandardCharsets.UTF_8);
                 eventInfo.setHasPicture(true);
                 eventInfo.setPictureData(pictureBase64);
@@ -188,6 +191,7 @@ public class EventService {
         List<Event> events = eventRepository.findByCategoryId(categoryId);
         return updateEventInfos(events);
     }
+
     public List<EventInfo> findByCountys(Integer countyId) {
         List<Event> events = eventRepository.findByCountyId(countyId);
         return updateEventInfos(events);
@@ -200,6 +204,9 @@ public class EventService {
 
     public List<CategoryInfo> findAllCategories() {
         return categoryService.findAllCategories();
+    }
 
+    public List<CountyInfo> findAllCounties() {
+        return countyService.findAllCounties();
     }
 }

@@ -18,4 +18,5 @@ public class CategoryService {
         List<Category> categories = categoryRepository.findAll();
        return categoryMapper.categoriesToCategoryInfos(categories);
     }
+
 }

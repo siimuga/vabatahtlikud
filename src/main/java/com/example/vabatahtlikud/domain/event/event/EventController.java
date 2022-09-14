@@ -3,6 +3,7 @@ package com.example.vabatahtlikud.domain.event.event;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
 import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
+import com.example.vabatahtlikud.domain.event.location.country.CountyInfo;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
 import com.example.vabatahtlikud.domain.event.task.TaskInfo;
 import com.example.vabatahtlikud.domain.event.task.TaskRequest;
@@ -100,8 +101,16 @@ public class EventController {
     }
 
     @GetMapping("/category")
-    @Operation(summary = "Kuva kõik kategooriad")
+    @Operation(summary = "Kuva kõik valdkonnad")
     public List<CategoryInfo> findAllCategories() {
         return eventService.findAllCategories();
     }
+
+    @GetMapping("/county")
+    @Operation(summary = "Kuva kõik maakonnad")
+    public List<CountyInfo> findAllCounties() {
+        return eventService.findAllCounties();
+    }
+
+
 }
