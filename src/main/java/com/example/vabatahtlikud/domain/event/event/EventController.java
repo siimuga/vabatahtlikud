@@ -64,7 +64,6 @@ public class EventController {
     @Operation(summary = "Saad ülesanded ja lisainfo, et kuvada seda muuda ürituse lehel. Siit läheb muuda ürituse muutmise lehele")
     public AddEventResponse findTasksandAddInfos(@RequestParam Integer eventId) {
         AddEventResponse tasksAndAddInfos = eventService.findTasksAndAddInfos(eventId);
-        System.out.println();
         return tasksAndAddInfos;
     }
 
@@ -74,12 +73,28 @@ public class EventController {
         eventService.deleteEvent(eventId);
     }
 
-    @GetMapping("/event")
-    @Operation(summary = "Ürituse otsimine valdkonna järgi")
-    public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
-       return eventService.findEventsByCategoryAndCounty(request);
 
+    @GetMapping("/events")
+    @Operation(summary = "Kuva kõik üritused")
+    public List<EventInfo> findAllEvents() {
+        return eventService.findAllEvents();
     }
 
+    @GetMapping("/events/county")
+    @Operation(summary = "Kuva üritused maakonna järgi")
+    public List<EventInfo> findByCountys(Integer countyId) {
+        return eventService.findByCountys(countyId);
+    }
 
+    @GetMapping("/events/category")
+    @Operation(summary = "Kuva üritused kategooria järgi")
+    public List<EventInfo> findByCategorys(Integer categoryId) {
+        return eventService.findByCategorys(categoryId);
+    }
+
+    @GetMapping("/event")
+    @Operation(summary = "Ürituse otsimine maakonna ja kategooria järgi")
+    public List<EventInfo> findEventsByCategoryAndCounty(EventSearchRequest request) {
+        return eventService.findEventsByCategoryAndCounty(request);
+    }
 }

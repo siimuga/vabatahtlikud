@@ -91,15 +91,6 @@ public class EventService {
         Optional<Category> category = categoryRepository.findById(request.getCategoryId());
         Optional<Language> language = languageRepository.findById(request.getLanguageId());
         Optional<County> county = countyRepository.findById(request.getLocationCountyId());
-//        PictureData picture = new PictureData();
-//         if (request.getPictureData().equals("")) {
-//             event.setPictureData(pictureDataRepository.findById(1).get());
-//         } else {
-//             byte[] byteData = request.getPictureData().getBytes(StandardCharsets.UTF_8);
-//             picture.setData(byteData);
-//             pictureDataRepository.save(picture);
-//             event.setPictureData(picture);
-//         }
 
         Location location = new Location();
         location.setAddress(request.getLocationAddress());
@@ -122,19 +113,18 @@ public class EventService {
         location.setCounty(county.get());
         locationRepository.save(location);
 
-
         Optional<Language> language = languageRepository.findById(request.getLanguageId());
         Optional<Category> category = categoryRepository.findById(request.getCategoryId());
         language.get().setId(request.getLanguageId());
         category.get().setId(request.getCategoryId());
         event.get().setVolunteersRequired(request.getVolunteersRequired());
         event.get().setEventName(request.getEventName());
-        event.get().setLanguage(language.get());
-        event.get().setLink(request.getLink());
-        event.get().setCategory(category.get());
         event.get().setStartDate(request.getStartDate());
         event.get().setEndDate(request.getEndDate());
+        event.get().setCategory(category.get());
         event.get().setLocation(location);
+        event.get().setLanguage(language.get());
+        event.get().setLink(request.getLink());
         eventRepository.save(event.get());
     }
 
@@ -164,36 +154,43 @@ public class EventService {
         eventRepository.save(event.get());
     }
 
-    public List<EventSearchResponse> findEventsByCategoryAndCounty(EventSearchRequest request) {
-        EventSearchResponse eventSearchResponse = new EventSearchResponse();
-        if (request.getCategoryId() == 5 && request.getCountyId() == 16) {
-            List<Event> events = eventRepository.findAll();
-            for (Event event : events) {
-                PictureData picture = pictureDataRepository.findByEvent(event);
-                byte[] bytes = picture.getData();
-                String result = new String(bytes, StandardCharsets.UTF_8);
-                if (result.equals("")) {
-                    eventSearchResponse.setHasPicture(false);
-                } else {
-                    eventSearchResponse.setPictureData(result);
-                    eventSearchResponse.setHasPicture(true);
-                }
-            }
 
-            eventMapper.eventsToEventSearchResponses(events);
-            return null;
-        }
-        if (request.getCategoryId() == 5) {
-            List<Event> events = eventRepository.findByCountyId(request.getCountyId());
-            return eventMapper.eventsToEventSearchResponses(events);
-        }
-        if (request.getCountyId() == 16) {
-            List<Event> events = eventRepository.findByCategoryId(request.getCategoryId());
-            return eventMapper.eventsToEventSearchResponses(events);
-        }
-        List<Event> events = eventRepository.findByCategoryIdAndCountyId(request.getCategoryId(), request.getCountyId());
-        return eventMapper.eventsToEventSearchResponses(events);
+
+
+    public List<EventInfo> findAllEvents() {
+        List<Event> events = eventRepository.findAll();
+        List<EventInfo> eventInfos = updateEventInfos(events);
+        return eventInfos;   //volunteersAttended on puudu
     }
 
+    public List<EventInfo> updateEventInfos(List<Event> events) {
+        List<EventInfo> eventInfos = eventMapper.eventsToEventInfos(events);
+        for (EventInfo eventInfo : eventInfos) {
+            Optional<PictureData> picture = pictureDataRepository.findByEventId(eventInfo.getEventId());
+            if (picture.isPresent()){
+                String pictureBase64 = new String(picture.get().getData(), StandardCharsets.UTF_8);
+                eventInfo.setHasPicture(true);
+                eventInfo.setPictureData(pictureBase64);
+            } else {
+                eventInfo.setHasPicture(false);
+            }
+            eventInfo.setVolunteersAttended(99);  //SIIN VAJA MUUTA
+        }
+        return eventInfos;
+    }
+
+    public List<EventInfo> findByCategorys(Integer categoryId) {
+        List<Event> events = eventRepository.findByCategoryId(categoryId);
+        return updateEventInfos(events);
+    }
+    public List<EventInfo> findByCountys(Integer countyId) {
+        List<Event> events = eventRepository.findByCountyId(countyId);
+        return updateEventInfos(events);
+    }
+
+    public List<EventInfo> findEventsByCategoryAndCounty(EventSearchRequest request) {
+        List<Event> events = eventRepository.findByCategoryIdAndCountyId(request.getCategoryId(), request.getCountyId());
+        return updateEventInfos(events);
+    }
 
 }

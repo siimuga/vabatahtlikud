@@ -28,8 +28,8 @@ public interface EventMapper {
 
     @Mapping(source = "id", target = "eventId")
     //@Mapping()
-    EventSearchResponse eventToEventSearchResponse(Event event);
+    EventInfo eventToEventInfo(Event event);
 
-    @Mapping(source = "id", target = "eventId")
-    List<EventSearchResponse> eventsToEventSearchResponses(List<Event> events);
+
+    List<EventInfo> eventsToEventInfos(List<Event> events);
 }

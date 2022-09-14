@@ -61,7 +61,6 @@ CREATE TABLE event
     location_id         int          NOT NULL,
     status              varchar(1)   NOT NULL DEFAULT 'c',
     user_id             int          NOT NULL,
-    picture_data_id     int          NULL,
     CONSTRAINT event_pk PRIMARY KEY (id)
 );
 

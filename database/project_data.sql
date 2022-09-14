@@ -2,7 +2,6 @@ INSERT INTO public.category (id, name) VALUES (DEFAULT, 'sport');
 INSERT INTO public.category (id, name) VALUES (DEFAULT, 'muusika');
 INSERT INTO public.category (id, name) VALUES (DEFAULT, 'loodus');
 INSERT INTO public.category (id, name) VALUES (DEFAULT, 'muu');
-INSERT INTO public.category (id, name) VALUES (DEFAULT, 'kõik');
 
 INSERT INTO public.language (id, name) VALUES (DEFAULT, 'eesti');
 INSERT INTO public.language (id, name) VALUES (DEFAULT, 'vene');
@@ -23,7 +22,6 @@ INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Jõgevamaa');
 INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Raplamaa');
 INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Järvamaa');
 INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Viljandimaa');
-INSERT INTO public.county (id, name) VALUES (DEFAULT, 'Kõik');
 
 INSERT INTO public.role (id, name) VALUES (DEFAULT, 'admin');
 INSERT INTO public.role (id, name) VALUES (DEFAULT, 'kasutaja');
@@ -42,18 +40,18 @@ INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUE
 INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUES (DEFAULT, 'Klakh 9', null, null, 2);
 INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUES (DEFAULT, 'Susal 998', null, null, 4);
 
--- INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, event_register_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Auramine', '2022-09-15', '2022-09-17', 5, 2, 1, 1, null, 1, DEFAULT, 2);
--- INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, event_register_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Kalasta', '2022-11-15', '2022-11-17', 15, 4, 2, 2, null, 2, DEFAULT, 2);
--- INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, event_register_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Suusata', '2022-10-15', '2022-10-17', 500, 1, 3, 3, null, 1, DEFAULT, 4);
--- INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, event_register_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Küpseta', '2022-09-25', '2022-09-27', 55, 3, 4, 1, null, 3, DEFAULT, 4)
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Seewald', '2022-09-16', '2022-09-17', 10, 1, 1, null, 1, DEFAULT, 2);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Maasalaj', '2022-09-29', '2022-09-30', 100, 2, 2, null, 2, DEFAULT, 4);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Asdasda', '2022-10-12', '2022-10-21', 5, 2, 1, null, 3, DEFAULT, 2);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Asdasda', '2022-10-20', '2022-10-29', 5, 3, 1, null, 2, DEFAULT, 4);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Asdasda', '2022-10-18', '2022-10-21', 5, 1, 1, null, 3, DEFAULT, 2);
 
---
--- INSERT INTO public.task (id, name, event_register_id, status) VALUES (DEFAULT, 'Silka', 1, DEFAULT);
--- INSERT INTO public.task (id, name, event_register_id, status) VALUES (DEFAULT, 'Poolita', 2, DEFAULT);
--- INSERT INTO public.task (id, name, event_register_id, status) VALUES (DEFAULT, 'KAnaöa', 3, DEFAULT);
--- INSERT INTO public.task (id, name, event_register_id, status) VALUES (DEFAULT, 'Ussa', 3, DEFAULT);
---
--- INSERT INTO public.additional_info (id, name, event_register_id, status) VALUES (DEFAULT, 'Füüsiline töö', 1, DEFAULT);
--- INSERT INTO public.additional_info (id, name, event_register_id, status) VALUES (DEFAULT, 'Joomine', 1, DEFAULT);
--- INSERT INTO public.additional_info (id, name, event_register_id, status) VALUES (DEFAULT, 'Arvutamine', 2, DEFAULT);
--- INSERT INTO public.additional_info (id, name, event_register_id, status) VALUES (DEFAULT, 'Lugemine', 3, DEFAULT);
+INSERT INTO public.task (id, name, status, event_id) VALUES (DEFAULT, 'Tere', DEFAULT, 1);
+INSERT INTO public.task (id, name, status, event_id) VALUES (DEFAULT, 'Toord', DEFAULT, 1);
+INSERT INTO public.task (id, name, status, event_id) VALUES (DEFAULT, 'korja', DEFAULT, 2);
+INSERT INTO public.task (id, name, status, event_id) VALUES (DEFAULT, 'Koolja', DEFAULT, 3);
+
+INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Paranda', DEFAULT, 2);
+INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Tuulika', DEFAULT, 1);
+INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Lammuta', DEFAULT, 2);
+INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Emma', DEFAULT, 3)
