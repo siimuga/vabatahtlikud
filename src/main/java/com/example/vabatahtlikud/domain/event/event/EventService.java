@@ -234,11 +234,9 @@ public class EventService {
     public List<PastEventInfo> findAllPastEvents() {
         List<Event> events = eventRepository.findByAfterEndDate(LocalDate.now());
         List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
-        int i = 1;
         for (PastEventInfo pastEventInfo : pastEventInfos) {
             pastEventInfo.setVolunteersAttended(999);
-            pastEventInfo.setId(i);
-            i++;
+            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo)+1);
         }
         return pastEventInfos;
     }
@@ -265,13 +263,10 @@ public class EventService {
 
     public RegisterToEventInfo findDatesAndTasksByEvent(Integer eventId) {
         RegisterToEventInfo registerToEventInfo = new RegisterToEventInfo();
-        Optional<Event> event = eventRepository.findById(eventId);
-        List<Task> tasks = findTasksById(event.get().getId());
-
+        List<TaskDateInfo> tasks = taskService.findAllEventTaskInfos(eventId);
         registerToEventInfo.setTasks(tasks);
-//        List<EventDateInfo> dateInfos = eventDateService.findAllEventDates(eventId);
-//        registerToEventInfo.setEventDateInfos(dateInfos);
-        registerToEventInfo.setEventId(eventId);
+        List<EventDateInfo> dateInfos = eventDateService.findAllEventDateInfos(eventId);
+        registerToEventInfo.setEventDateInfos(dateInfos);
         return registerToEventInfo;
 
     }

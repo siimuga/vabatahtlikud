@@ -1,10 +1,12 @@
 package com.example.vabatahtlikud.domain.event.date;
 
 import com.example.vabatahtlikud.domain.event.event.Event;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
 
 @Data
 @Entity
@@ -30,6 +32,4 @@ public class EventDate {
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
-
-
 }

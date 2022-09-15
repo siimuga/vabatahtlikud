@@ -1,11 +1,12 @@
 package com.example.vabatahtlikud.domain.event.additional_info;
 
 import com.example.vabatahtlikud.domain.event.event.Event;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @Entity
 @Table(name = "additional_info")

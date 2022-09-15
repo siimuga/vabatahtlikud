@@ -11,8 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class EventDateInfo implements Serializable {
-    private Integer id;
-    private Integer eventId;
     private LocalDate date;
     private Integer volunteersRequired;
     private Integer volunteersAssigned;

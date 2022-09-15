@@ -46,4 +46,9 @@ public class TaskService {
         task.get().setStatus(!status);
         taskRepository.save(task.get());
     }
+
+    public List<TaskDateInfo> findAllEventTaskInfos(Integer eventId) {
+        List<Task> tasks = taskRepository.findByStatusTrueAndEventId(eventId);
+        return taskMapper.tasksToTaskDateInfos(tasks);
+    }
 }

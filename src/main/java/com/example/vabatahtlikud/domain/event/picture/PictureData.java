@@ -1,7 +1,6 @@
 package com.example.vabatahtlikud.domain.event.picture;
 
 import com.example.vabatahtlikud.domain.event.event.Event;
-import com.example.vabatahtlikud.domain.event.event.EventRegister;
 import lombok.Data;
 
 import javax.persistence.*;

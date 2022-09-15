@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @Entity
 @Table(name = "event_register")

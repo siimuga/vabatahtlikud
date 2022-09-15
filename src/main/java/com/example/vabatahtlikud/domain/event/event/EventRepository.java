@@ -1,6 +1,5 @@
 package com.example.vabatahtlikud.domain.event.event;
 
-import com.example.vabatahtlikud.domain.event.location.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,6 +1,5 @@
 package com.example.vabatahtlikud.admin;
 
-import com.example.vabatahtlikud.domain.event.event.EventInfo;
 import com.example.vabatahtlikud.domain.event.event.PastEventInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;

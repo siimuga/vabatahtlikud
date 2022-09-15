@@ -1,11 +1,8 @@
 package com.example.vabatahtlikud.domain.event.event;
 
-import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfo;
 import com.example.vabatahtlikud.domain.event.category.Category;
 import com.example.vabatahtlikud.domain.event.language.Language;
 import com.example.vabatahtlikud.domain.event.location.Location;
-import com.example.vabatahtlikud.domain.event.picture.PictureData;
-import com.example.vabatahtlikud.domain.event.task.Task;
 import com.example.vabatahtlikud.domain.user.user.User;
 import lombok.Data;
 
