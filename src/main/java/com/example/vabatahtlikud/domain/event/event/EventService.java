@@ -293,6 +293,14 @@ public class EventService {
         eventViewInfo.setVolunteersAttended(99);
         eventViewInfo.setStartDate(event.get().getStartDate());
         eventViewInfo.setEndDate(event.get().getEndDate());
+        Optional<PictureData> picture = pictureDataRepository.findByEventId(eventId);
+        if (picture.isPresent()) {
+            String pictureBase64 = new String(picture.get().getData(), StandardCharsets.UTF_8);
+            eventViewInfo.setHasPicture(true);
+            eventViewInfo.setPictureData(pictureBase64);
+        } else {
+            eventViewInfo.setHasPicture(false);
+        }
         return eventViewInfo;
     }
 }

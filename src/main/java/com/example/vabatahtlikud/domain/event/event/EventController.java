@@ -155,4 +155,5 @@ public class EventController {
     public EventViewInfo findEventMainInfo(Integer eventId) {
         return eventService.findEventMainInfo(eventId);
     }
+
 }

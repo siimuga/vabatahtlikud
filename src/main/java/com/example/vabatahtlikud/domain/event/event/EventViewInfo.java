@@ -20,4 +20,6 @@ public class EventViewInfo implements Serializable {
     private Integer volunteersAttended;
     private String languageName;
     private String link;
+    private String pictureData;
+    private Boolean hasPicture;
 }
