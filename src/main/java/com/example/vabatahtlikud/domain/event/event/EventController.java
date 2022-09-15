@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @RestController
@@ -137,4 +138,12 @@ public class EventController {
     public RegisterToEventInfo findDatesAndTasksByEvent(Integer eventId) {
         return eventService.findDatesAndTasksByEvent(eventId);
     }
+
+    @GetMapping("/event/task")
+    @Operation(summary = "Kuva tööülesanded ürituse kohta")
+    public List<TaskInfo> findTasksByEvent(Integer eventId) {
+        return eventService.findTasksByEvent(eventId);
+    }
+
+
 }

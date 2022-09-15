@@ -270,4 +270,9 @@ public class EventService {
         return registerToEventInfo;
 
     }
+
+
+    public List<TaskInfo> findTasksByEvent(Integer eventId) {
+        return taskService.findTasksByEvent(eventId);
+    }
 }

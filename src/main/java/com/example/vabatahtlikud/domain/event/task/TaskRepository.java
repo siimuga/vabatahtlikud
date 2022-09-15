@@ -23,6 +23,10 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Query("select t from Task t where t.status = true and t.event.id = ?1")
     List<Task> findByStatusTrueAndEventId(Integer id);
 
+    @Query("select t from Task t where t.event.id = ?1 and t.status = true order by t.name")
+    List<Task> findByEventIdAndStatus(Integer id);
+
+
 
 
 

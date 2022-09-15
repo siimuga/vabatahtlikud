@@ -15,7 +15,7 @@ public interface TaskMapper {
 
     TaskInfo taskToTaskInfo(Task task);
 
-    List<TaskInfo> tasksToTaskInfos(List<Task> tasks);
+        List<TaskInfo> tasksToTaskInfos(List<Task> tasks);
 
     @Mapping(source = "event.id", target = "eventId")
     TaskDateInfo taskToTaskDateInfo(Task task);

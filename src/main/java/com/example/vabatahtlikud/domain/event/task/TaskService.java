@@ -51,4 +51,9 @@ public class TaskService {
         List<Task> tasks = taskRepository.findByStatusTrueAndEventId(eventId);
         return taskMapper.tasksToTaskDateInfos(tasks);
     }
+
+    public List<TaskInfo> findTasksByEvent(Integer eventId) {
+        List<Task> tasks = taskRepository.findByEventIdAndStatus(eventId);
+        return taskMapper.tasksToTaskInfos(tasks);
+    }
 }
