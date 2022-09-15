@@ -1,5 +1,6 @@
 package com.example.vabatahtlikud.domain.event.event;
 
+import com.example.vabatahtlikud.domain.event.date.EventDateInfo;
 import com.example.vabatahtlikud.domain.event.task.Task;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,5 +16,5 @@ public class RegisterToEventInfo {
 
     private Integer eventId;
     private List<Task> tasks;
-    private List<Date> eventDates;
+    private List<EventDateInfo> eventDateInfos;
 }

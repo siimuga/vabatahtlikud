@@ -263,8 +263,8 @@ public class EventService {
         List<Task> tasks = findTasksById(event.get().getId());
 
         registerToEventInfo.setTasks(tasks);
-        List<EventDateInfo> dates = eventDateService.findAllEventDates(eventId);
-      //  registerToEventInfo.setEventDates(dates);
+//        List<EventDateInfo> dateInfos = eventDateService.findAllEventDates(eventId);
+//        registerToEventInfo.setEventDateInfos(dateInfos);
         registerToEventInfo.setEventId(eventId);
         return registerToEventInfo;
 
