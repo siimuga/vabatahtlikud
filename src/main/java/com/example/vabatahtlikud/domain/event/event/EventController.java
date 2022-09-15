@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @RestController
@@ -145,5 +144,15 @@ public class EventController {
         return eventService.findTasksByEvent(eventId);
     }
 
+    @GetMapping("/event/addinfo")
+    @Operation(summary = "Kuva lisainfo ürituse kohta")
+    public List<AdditionalInfoResponse> findAdditionalInfosByEvent(Integer eventId) {
+        return eventService.findAdditionalInfosByEvent(eventId);
+    }
 
+    @GetMapping("event/main")
+    @Operation(summary = "Kuva põhiinfo ürituse kohta")
+    public EventViewInfo findEventMainInfo(Integer eventId) {
+        return eventService.findEventMainInfo(eventId);
+    }
 }

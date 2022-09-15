@@ -46,4 +46,9 @@ public class AdditionalInfoService {
         additionalInfo.get().setStatus(!status);
         additionalInfoRepository.save(additionalInfo.get());
     }
+
+    public List<AdditionalInfoResponse> findAdditionalInfosByEvent(Integer eventId) {
+        List<AdditionalInfo> additionalInfos = additionalInfoRepository.findByStatusTrueAndEventId(eventId);
+        return additionalInfoMapper.additionalInfosToAdditionalInfoResponses(additionalInfos);
+    }
 }

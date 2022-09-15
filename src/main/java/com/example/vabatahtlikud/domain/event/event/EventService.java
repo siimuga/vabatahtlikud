@@ -275,4 +275,24 @@ public class EventService {
     public List<TaskInfo> findTasksByEvent(Integer eventId) {
         return taskService.findTasksByEvent(eventId);
     }
+
+
+    public List<AdditionalInfoResponse> findAdditionalInfosByEvent(Integer eventId) {
+        return additionalInfoService.findAdditionalInfosByEvent(eventId);
+    }
+
+    public EventViewInfo findEventMainInfo(Integer eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        EventViewInfo eventViewInfo = new EventViewInfo();
+        eventViewInfo.setEventName(event.get().getEventName());
+        eventViewInfo.setLanguageName(event.get().getLanguage().getName());
+        eventViewInfo.setLink(event.get().getLink());
+        eventViewInfo.setLocationAddress(event.get().getLocation().getAddress());
+        eventViewInfo.setLocationCountyName(event.get().getLocation().getCounty().getName());
+        eventViewInfo.setVolunteersRequired(event.get().getVolunteersRequired());
+        eventViewInfo.setVolunteersAttended(99);
+        eventViewInfo.setStartDate(event.get().getStartDate());
+        eventViewInfo.setEndDate(event.get().getEndDate());
+        return eventViewInfo;
+    }
 }
