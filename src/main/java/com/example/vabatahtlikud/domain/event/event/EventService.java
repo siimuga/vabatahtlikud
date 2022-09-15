@@ -5,6 +5,8 @@ import com.example.vabatahtlikud.domain.event.category.Category;
 import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
 import com.example.vabatahtlikud.domain.event.category.CategoryRepository;
 import com.example.vabatahtlikud.domain.event.category.CategoryService;
+import com.example.vabatahtlikud.domain.event.date.EventDateInfo;
+import com.example.vabatahtlikud.domain.event.date.EventDateService;
 import com.example.vabatahtlikud.domain.event.language.Language;
 import com.example.vabatahtlikud.domain.event.language.LanguageInfo;
 import com.example.vabatahtlikud.domain.event.language.LanguageRepository;
@@ -78,6 +80,9 @@ public class EventService {
 
     @Resource
     private LanguageService languageService;
+
+    @Resource
+    private EventDateService eventDateService;
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -250,5 +255,18 @@ public class EventService {
             pastEventInfo.setVolunteersAttended(999);
         }
         return pastEventInfos;
+    }
+
+    public RegisterToEventInfo findDatesAndTasksByEvent(Integer eventId) {
+        RegisterToEventInfo registerToEventInfo = new RegisterToEventInfo();
+        Optional<Event> event = eventRepository.findById(eventId);
+        List<Task> tasks = findTasksById(event.get().getId());
+
+        registerToEventInfo.setTasks(tasks);
+        List<EventDateInfo> dates = eventDateService.findAllEventDates(eventId);
+      //  registerToEventInfo.setEventDates(dates);
+        registerToEventInfo.setEventId(eventId);
+        return registerToEventInfo;
+
     }
 }

@@ -129,6 +129,12 @@ public class EventController {
     @GetMapping("event/user")
     @Operation(summary = "Kuva möödunud üritused kasutaja järgi")
     public List<PastEventInfo> findAllPastEventsByUser(Integer userId) {
-       return eventService.findAllPastEventsByUser(userId);
+        return eventService.findAllPastEventsByUser(userId);
+    }
+
+    @GetMapping("/event/register")
+    @Operation(summary = "Kuva osalemise kuupäevad ja tööülesanded ürituse kohta")
+    public RegisterToEventInfo findDatesAndTasksByEvent(Integer eventId) {
+        return eventService.findDatesAndTasksByEvent(eventId);
     }
 }

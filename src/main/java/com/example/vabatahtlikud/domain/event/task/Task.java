@@ -1,8 +1,6 @@
 package com.example.vabatahtlikud.domain.event.task;
 
 import com.example.vabatahtlikud.domain.event.event.Event;
-import com.example.vabatahtlikud.domain.event.event.EventRegister;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;

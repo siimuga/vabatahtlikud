@@ -29,6 +29,9 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e from Event e where e.endDate < ?1 order by e.endDate DESC")
     List<Event> findByAfterEndDate(LocalDate endDate);
 
+
+
+
     @Query("select e from Event e where e.endDate < ?1 and e.status like ?2 order by e.endDate DESC")
     List<Event> findByAfterEndDateAndPublished(LocalDate endDate, String status);
 
