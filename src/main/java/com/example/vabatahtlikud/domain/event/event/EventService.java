@@ -234,8 +234,11 @@ public class EventService {
     public List<PastEventInfo> findAllPastEvents() {
         List<Event> events = eventRepository.findByAfterEndDate(LocalDate.now());
         List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
+        int i = 1;
         for (PastEventInfo pastEventInfo : pastEventInfos) {
             pastEventInfo.setVolunteersAttended(999);
+            pastEventInfo.setId(i);
+            i++;
         }
         return pastEventInfos;
     }
@@ -251,8 +254,11 @@ public class EventService {
     public List<PastEventInfo> findAllPastEventsByUser(Integer userId) {
         List<Event> events = eventRepository.findByAfterEndDateByUser(userId, "e");
         List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
+        int i = 0;
         for (PastEventInfo pastEventInfo : pastEventInfos) {
             pastEventInfo.setVolunteersAttended(999);
+            pastEventInfo.setId(i);
+            i++;
         }
         return pastEventInfos;
     }
