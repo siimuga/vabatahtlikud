@@ -307,6 +307,5 @@ public class EventService {
     public List<EventInfo> findAllRegistredEvents() {
         List<Event> events = eventRepository.findRegistredEvents(LocalDate.now(), "c", "v");
         return eventMapper.eventsToEventInfos(events);
-        //volunteersAttended on puudu
     }
 }
