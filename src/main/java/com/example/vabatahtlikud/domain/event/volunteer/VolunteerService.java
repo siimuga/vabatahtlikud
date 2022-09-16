@@ -16,9 +16,6 @@ import java.util.Optional;
 @Service
 public class VolunteerService {
     @Resource
-    private VolunteerTaskRepository volunteerTaskRepository;
-
-    @Resource
     private VolunteerMapper volunteerMapper;
 
     @Resource
@@ -32,41 +29,19 @@ public class VolunteerService {
     private VolunteerRepository volunteerRepository;
 
     @Resource
-    private VolunteerTaskMapper volunteerTaskMapper;
-
-    @Resource
-    private TaskRepository taskRepository;
+    private VolunteerTaskService volunteerTaskService;
 
 
     public void addRegistration(VolunteerRequest request) {
         Volunteer volunteer = volunteerMapper.volunteerRequestToVolunteer(request);
-        Optional<User> user = userRepository.findById(request.getUserId());
-        Optional<Event> event = eventRepository.findById(request.getEventId());
-        volunteer.setEvent(event.get());
-        volunteer.setUser(user.get());
+//        Optional<User> user = userRepository.findById(request.getUserId());
+//        Optional<Event> event = eventRepository.findById(request.getEventId());
+//        volunteer.setEvent(event.get());
+//        volunteer.setUser(user.get());
         volunteerRepository.save(volunteer);
     }
 
     public void addTasksToVolunteer(List<VolunteerTaskInfo> volunteerTaskInfos) {
-        List<VolunteerTask> volunteerTaskResult = new ArrayList<>();
-        for (VolunteerTaskInfo volunteerTaskInfo : volunteerTaskInfos) {
-            Optional<VolunteerTask> volunteerTask = volunteerTaskRepository.findById(volunteerTaskInfo.getTaskId());
-            Optional<Volunteer> volunteer = volunteerRepository.findById(volunteerTaskInfo.getVolunteerId());
-            Optional<Task> task = taskRepository.findById(volunteerTaskInfo.getTaskId());
-            volunteerTask.get().setVolunteer(volunteer.get());
-            volunteerTask.get().setTask(task.get());
-            List<VolunteerTask> volunteerTasks = volunteerTaskMapper.volunteerTaskInfosToVolunteerTasks(volunteerTaskInfos);
-            volunteerTaskResult.add(volunteerTask.get());
-        }
-
-//        List<VolunteerTask> volunteerTasks = volunteerTaskMapper.volunteerTaskInfosToVolunteerTasks(volunteerTaskInfos);
-//        for (VolunteerTask volunteerTask : volunteerTasks) {
-//            Optional<Volunteer> volunteer = volunteerRepository.findById(volunteerTask.getId());
-//            Optional<Task> task = taskRepository.findById(volunteerTask.getTask().getId());
-//            volunteerTask.setVolunteer(volunteer.get());
-//            volunteerTask.setTask(task.get());
-//            volunteerTaskRepository.save(volunteerTask);
-//        }
-
+        volunteerTaskService.addTasksToVolunteer(volunteerTaskInfos);
     }
 }

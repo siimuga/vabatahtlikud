@@ -8,6 +8,4 @@ import java.io.Serializable;
 public class VolunteerTaskInfo implements Serializable {
     private Integer volunteerId;
     private Integer taskId;
-    private String taskName;
-    private Boolean taskStatus;
 }
