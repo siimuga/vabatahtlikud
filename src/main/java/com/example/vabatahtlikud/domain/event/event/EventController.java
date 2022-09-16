@@ -3,6 +3,7 @@ package com.example.vabatahtlikud.domain.event.event;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
 import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
+import com.example.vabatahtlikud.domain.event.date.EventDateInfo;
 import com.example.vabatahtlikud.domain.event.language.LanguageInfo;
 import com.example.vabatahtlikud.domain.event.location.country.CountyInfo;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
@@ -84,7 +85,6 @@ public class EventController {
     }
 
 
-
     @GetMapping("/events/county")
     @Operation(summary = "Kuva üritused maakonna järgi")
     public List<EventInfo> findByCounty(Integer countyId) {
@@ -157,4 +157,15 @@ public class EventController {
         return eventService.findEventMainInfo(eventId);
     }
 
+    @GetMapping("event/date/range")
+    @Operation(summary = "Saa info iga kuupäeva kohta üritusele")
+    public List<EventDateInfo> findAllEventDateInfos(Integer eventId) {
+        return eventService.findAllEventDateInfos(eventId);
+    }
+
+//    @PostMapping("/date/info")
+//    @Operation(summary = "Lisa kuupäeva kaupa info andmebaasi")
+//    public void addDateInfos(Integer eventId) {
+//        eventService.addDateInfos(eventId);
+//    }
 }

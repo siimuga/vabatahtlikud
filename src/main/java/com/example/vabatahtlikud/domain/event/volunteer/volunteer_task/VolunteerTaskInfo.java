@@ -1,4 +1,4 @@
-package com.example.vabatahtlikud.domain.event.volunteer;
+package com.example.vabatahtlikud.domain.event.volunteer.volunteer_task;
 
 import lombok.Data;
 

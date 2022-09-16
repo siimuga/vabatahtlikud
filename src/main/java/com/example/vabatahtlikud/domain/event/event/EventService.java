@@ -121,7 +121,9 @@ public class EventService {
         event.setCategory(category.get());
         event.setLanguage(language.get());
         event.setLocation(location);
+
         eventRepository.save(event);
+        eventDateService.addDateInfos(event.getId());
     }
 
     public void updateEvent(EventUpdateRequest request) {
@@ -307,5 +309,9 @@ public class EventService {
     public List<EventInfo> findAllRegistredEvents() {
         List<Event> events = eventRepository.findRegistredEvents(LocalDate.now(), "c", "v");
         return eventMapper.eventsToEventInfos(events);
+    }
+
+    public List<EventDateInfo> findAllEventDateInfos(Integer eventId) {
+       return eventDateService.findAllEventDateInfos(eventId);
     }
 }

@@ -1,6 +1,7 @@
-package com.example.vabatahtlikud.domain.event.volunteer;
+package com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date;
 
 import com.example.vabatahtlikud.domain.event.date.EventDate;
+import com.example.vabatahtlikud.domain.event.volunteer.Volunteer;
 import lombok.Data;
 
 import javax.persistence.*;

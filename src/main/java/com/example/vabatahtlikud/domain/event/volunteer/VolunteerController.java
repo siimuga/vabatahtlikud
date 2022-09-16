@@ -1,5 +1,7 @@
 package com.example.vabatahtlikud.domain.event.volunteer;
 
+import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDateInfo;
+import com.example.vabatahtlikud.domain.event.volunteer.volunteer_task.VolunteerTaskInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,5 +28,11 @@ public class VolunteerController {
     @Operation(summary = "Lisa ülesanded üritusele registreerimisel")
     public void addTasksToVolunteer(@RequestBody List<VolunteerTaskInfo> volunteerTaskInfos) {
         volunteerService.addTasksToVolunteer(volunteerTaskInfos);
+    }
+
+    @PostMapping("/date")
+    @Operation(summary = "Lisa kuupäevad üritusele registreerimisel")
+    public void addDatesToVolunteer(@RequestBody List<VolunteerEventDateInfo> volunteerEventDateInfos) {
+        volunteerService.addDatesToVolunteer(volunteerEventDateInfos);
     }
 }
