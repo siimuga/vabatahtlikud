@@ -41,7 +41,7 @@ INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUE
 INSERT INTO public.location (id, address, longtitude, latitude, county_id) VALUES (DEFAULT, 'Susal 998', null, null, 4);
 
 INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Seewald', '2022-09-16', '2022-09-17', 10, 1, 1, null, 1, 'v', 2);
-INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Huumor', '2021-09-29', '2021-09-30', 100, 2, 2, null, 2, 'v', 4);
+INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Huumor', '2021-09-29', '2021-09-30', 100, 2, 2, null, 2, 'd', 4);
 INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Koolja', '2022-10-12', '2022-10-21', 11, 2, 1, null, 3, 'v', 2);
 INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Neoplan', '2022-10-20', '2022-10-29', 65, 3, 1, null, 2, 'v', 4);
 INSERT INTO public.event (id, event_name, start_date, end_date, volunteers_required, category_id, language_id, link, location_id, status, user_id) VALUES (DEFAULT, 'Lada', '2022-10-18', '2022-10-21', 23, 1, 1, null, 1, 'v', 2);

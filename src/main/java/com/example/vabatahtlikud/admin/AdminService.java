@@ -22,4 +22,8 @@ public class AdminService {
         return eventService.findAllPastEvents();
 
     }
+
+    public List<EventInfo> findAllRegistredEvents() {
+        return eventService.findAllRegistredEvents();
+    }
 }

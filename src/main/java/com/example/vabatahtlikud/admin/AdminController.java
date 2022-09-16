@@ -1,5 +1,6 @@
 package com.example.vabatahtlikud.admin;
 
+import com.example.vabatahtlikud.domain.event.event.EventInfo;
 import com.example.vabatahtlikud.domain.event.event.PastEventInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,4 +30,11 @@ public class AdminController {
     public List<PastEventInfo> findAllPastEvents() {
         return adminService.findAllPastEvents();
     }
+
+    @GetMapping("/event/events")
+    @Operation(summary = "Kuva kõik kinnitatud üritused")
+    public List<EventInfo> findAllRegistredEvents() {
+        return adminService.findAllRegistredEvents();
+    }
+
 }

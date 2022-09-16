@@ -65,7 +65,7 @@ public class EventController {
 
     @GetMapping("/task/addinfo")
     @Operation(summary = "Kuva tööülesanded ja lisainfo ürituse kohta")
-    public AddEventResponse findTasksandAddInfos(@RequestParam Integer eventId) {
+    public AddEventResponse findTasksAndAddInfos(@RequestParam Integer eventId) {
         AddEventResponse tasksAndAddInfos = eventService.findTasksAndAddInfos(eventId);
         return tasksAndAddInfos;
     }
@@ -82,6 +82,7 @@ public class EventController {
     public List<EventInfo> findAllEvents() {
         return eventService.findAllEvents();
     }
+
 
 
     @GetMapping("/events/county")

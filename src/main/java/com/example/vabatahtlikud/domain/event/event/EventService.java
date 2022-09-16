@@ -236,7 +236,7 @@ public class EventService {
         List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
         for (PastEventInfo pastEventInfo : pastEventInfos) {
             pastEventInfo.setVolunteersAttended(999);
-            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo)+1);
+            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo) + 1);
         }
         return pastEventInfos;
     }
@@ -302,5 +302,11 @@ public class EventService {
             eventViewInfo.setHasPicture(false);
         }
         return eventViewInfo;
+    }
+
+    public List<EventInfo> findAllRegistredEvents() {
+        List<Event> events = eventRepository.findRegistredEvents(LocalDate.now(), "c", "v");
+        return eventMapper.eventsToEventInfos(events);
+        //volunteersAttended on puudu
     }
 }
