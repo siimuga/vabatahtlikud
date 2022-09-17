@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e from Event e where e.status like ?1 order by e.startDate")
@@ -36,6 +37,30 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     @Query("select e from Event e where e.startDate >= ?1 and e.status like ?2 or e.status like ?3 order by e.startDate")
     List<Event> findRegistredEvents(LocalDate startDate, String status, String status1);
+
+//    @Query("select e from Event e where e.user.id = ?1 and e.status like ?2 or e.status like ?3 order by e.startDate")
+//    List<Event> findAllActiveEventsByUser(Integer userId, String status, String status1);
+
+//    @Query("select e from Event e where e.user.id = ?1 and e.status like ?2 or e.status like ?3 order by e.startDate")
+//    List<Event> findAllActiveEventsByUser(Integer userId, String status, String status1);
+
+//    @Query("select e from Event e where e.user.id = ?1")
+//    List<Event> findAllActiveEventsByUser(Integer id);
+
+    @Query("""
+            select e from Event e
+            where e.user.id = ?1 and e.status like ?2 or e.user.id = ?3 and e.status like ?4
+            order by e.startDate""")
+    List<Event> findAllActiveEventsByUser(Integer id, String status, Integer id1, String status1);
+
+
+
+
+    @Query("select (count(e) > 0) from Event e where e.user.id = ?1")
+    boolean existsByUserId(Integer id);
+
+    @Query("select e from Event e where e.user.id = ?1")
+    Optional<Event> findEventByUser(Integer id);
 
 
 

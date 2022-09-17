@@ -19,6 +19,7 @@ import com.example.vabatahtlikud.domain.event.location.country.CountyRepository;
 import com.example.vabatahtlikud.domain.event.location.country.CountyService;
 import com.example.vabatahtlikud.domain.event.picture.*;
 import com.example.vabatahtlikud.domain.event.task.*;
+import com.example.vabatahtlikud.domain.event.volunteer.VolunteerService;
 import com.example.vabatahtlikud.domain.user.user.User;
 import com.example.vabatahtlikud.domain.user.user.UserRepository;
 import com.example.vabatahtlikud.validation.ValidationService;
@@ -83,6 +84,9 @@ public class EventService {
 
     @Resource
     private EventDateService eventDateService;
+
+    @Resource
+    private VolunteerService volunteerService;
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -312,6 +316,28 @@ public class EventService {
     }
 
     public List<EventDateInfo> findAllEventDateInfos(Integer eventId) {
-       return eventDateService.findAllEventDateInfos(eventId);
+        return eventDateService.findAllEventDateInfos(eventId);
+    }
+
+    public List<ActiveEventInfo> findAllActiveEventsByUser(Integer userId) {
+        List<Event> events = eventRepository.findAllActiveEventsByUser(userId, "c", userId, "v");
+        List<Event> volunteerEvents = volunteerService.findAllActiveEventsByUser(userId);
+
+        List<ActiveEventInfo> activeEventInfos = eventMapper.eventsToActiveEventInfos(events);
+        for (ActiveEventInfo activeEventInfo : activeEventInfos) {
+            activeEventInfo.setVolunteersAttended(999);
+            activeEventInfo.setSeqNr(activeEventInfos.indexOf(activeEventInfo) + 1);
+            if (eventRepository.existsByUserId(userId)) {
+                activeEventInfo.setRoleName("korraldaja");
+            } else
+                activeEventInfo.setRoleName("vabatahtlik");
+        }
+        return activeEventInfos;
+    }
+
+
+    public Event findEventByUser(Integer volunteeruUserId) {
+       return eventRepository.findEventByUser(volunteeruUserId).get();
+
     }
 }

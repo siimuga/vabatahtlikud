@@ -127,7 +127,7 @@ public class EventController {
         eventService.updatePastEventsStatuses();
     }
 
-    @GetMapping("event/user")
+    @GetMapping("event/user/history")
     @Operation(summary = "Kuva möödunud üritused kasutaja järgi")
     public List<PastEventInfo> findAllPastEventsByUser(Integer userId) {
         return eventService.findAllPastEventsByUser(userId);
@@ -162,6 +162,13 @@ public class EventController {
     public List<EventDateInfo> findAllEventDateInfos(Integer eventId) {
         return eventService.findAllEventDateInfos(eventId);
     }
+
+    @GetMapping("/event/user")
+    @Operation(summary = "Kuva kõik selle kasutaja eelseisvad üritused")
+    public List<ActiveEventInfo> findAllActiveEventsByUser(@RequestParam Integer userId) {
+        return eventService.findAllActiveEventsByUser(userId);
+    }
+
 
 //    @PostMapping("/date/info")
 //    @Operation(summary = "Lisa kuupäeva kaupa info andmebaasi")
