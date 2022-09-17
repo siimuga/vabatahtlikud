@@ -29,4 +29,6 @@ public class Volunteer {
     @Column(name = "info", length = 1000)
     private String info;
 
+
+
 }

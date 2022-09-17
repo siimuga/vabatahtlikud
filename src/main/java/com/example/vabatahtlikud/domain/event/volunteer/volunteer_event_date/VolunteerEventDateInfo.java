@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class VolunteerEventDateInfo implements Serializable {
-    private final Integer volunteerId;
-    private final Integer eventDateId;
+    private Integer volunteerId;
+    private Integer eventDateId;
 }
