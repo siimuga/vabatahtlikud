@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VolunteerRepository extends JpaRepository<Volunteer, Integer> {
     @Query("select v from Volunteer v where v.user.id = ?1 order by v.event.startDate")
-    List<Volunteer> findByUser(Integer id);
+    List<Volunteer>     findByUser(Integer id);
 
 
 

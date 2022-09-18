@@ -19,6 +19,8 @@ import com.example.vabatahtlikud.domain.event.location.country.CountyRepository;
 import com.example.vabatahtlikud.domain.event.location.country.CountyService;
 import com.example.vabatahtlikud.domain.event.picture.*;
 import com.example.vabatahtlikud.domain.event.task.*;
+import com.example.vabatahtlikud.domain.event.volunteer.Volunteer;
+import com.example.vabatahtlikud.domain.event.volunteer.VolunteerRepository;
 import com.example.vabatahtlikud.domain.event.volunteer.VolunteerService;
 import com.example.vabatahtlikud.domain.user.user.User;
 import com.example.vabatahtlikud.domain.user.user.UserRepository;
@@ -28,8 +30,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EventService {
@@ -87,6 +88,9 @@ public class EventService {
 
     @Resource
     private VolunteerService volunteerService;
+
+    @Resource
+    private VolunteerRepository volunteerRepository;
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -320,14 +324,19 @@ public class EventService {
     }
 
     public List<ActiveEventInfo> findAllActiveEventsByUser(Integer userId) {
+        List<Event> volunteerEvents = findVolunteerEventsByUser(userId);
         List<Event> events = eventRepository.findAllActiveEventsByUser(userId, "c", userId, "v");
-        List<Event> volunteerEvents = volunteerService.findAllActiveEventsByUser(userId);
-
+        events.addAll(volunteerEvents);
+        events.sort(Comparator.comparing(Event::getStartDate));
         List<ActiveEventInfo> activeEventInfos = eventMapper.eventsToActiveEventInfos(events);
         for (ActiveEventInfo activeEventInfo : activeEventInfos) {
             activeEventInfo.setVolunteersAttended(999);
             activeEventInfo.setSeqNr(activeEventInfos.indexOf(activeEventInfo) + 1);
-            if (eventRepository.existsByUserId(userId)) {
+            String eventName = activeEventInfo.getEventName();
+            Event event = eventRepository.findByEventName(eventName);
+            activeEventInfo.setEventId(event.getId());
+            Integer organizerId = event.getUser().getId();
+            if (Objects.equals(organizerId, userId)) {
                 activeEventInfo.setRoleName("korraldaja");
             } else
                 activeEventInfo.setRoleName("vabatahtlik");
@@ -335,9 +344,13 @@ public class EventService {
         return activeEventInfos;
     }
 
-
-    public Event findEventByUser(Integer volunteeruUserId) {
-       return eventRepository.findEventByUser(volunteeruUserId).get();
-
+    public List<Event> findVolunteerEventsByUser(Integer userId) {
+        List<Event> events = new ArrayList<>();
+        List<Volunteer> volunteers = volunteerRepository.findByUser(userId);
+        for (Volunteer volunteer : volunteers) {
+            Event event = volunteer.getEvent();
+            events.add(event);
+        }
+        return events;
     }
 }

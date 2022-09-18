@@ -11,8 +11,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e from Event e where e.status like ?1 order by e.startDate")
     List<Event> findAll(String status);
 
-
-
     @Query("""
             select e from Event e
             where e.category.id = ?1 and e.location.county.id = ?2 and e.status like ?3
@@ -21,7 +19,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     @Query("select e from Event e where e.location.county.id = ?1 and e.status like ?2 order by e.startDate")
     List<Event> findByCountyId(Integer countyId, String status);
-
 
     @Query("select e from Event e where e.category.id = ?1 and e.status like ?2 order by e.startDate")
     List<Event> findByCategoryId(Integer id, String status);
@@ -38,15 +35,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e from Event e where e.startDate >= ?1 and e.status like ?2 or e.status like ?3 order by e.startDate")
     List<Event> findRegistredEvents(LocalDate startDate, String status, String status1);
 
-//    @Query("select e from Event e where e.user.id = ?1 and e.status like ?2 or e.status like ?3 order by e.startDate")
-//    List<Event> findAllActiveEventsByUser(Integer userId, String status, String status1);
-
-//    @Query("select e from Event e where e.user.id = ?1 and e.status like ?2 or e.status like ?3 order by e.startDate")
-//    List<Event> findAllActiveEventsByUser(Integer userId, String status, String status1);
-
-//    @Query("select e from Event e where e.user.id = ?1")
-//    List<Event> findAllActiveEventsByUser(Integer id);
-
     @Query("""
             select e from Event e
             where e.user.id = ?1 and e.status like ?2 or e.user.id = ?3 and e.status like ?4
@@ -54,23 +42,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     List<Event> findAllActiveEventsByUser(Integer id, String status, Integer id1, String status1);
 
 
-
-
-    @Query("select (count(e) > 0) from Event e where e.user.id = ?1")
-    boolean existsByUserId(Integer id);
-
-    @Query("select e from Event e where e.user.id = ?1")
-    Optional<Event> findEventByUser(Integer id);
-
-
-
-
-
-
-
-
-
-
+    @Query("select e from Event e where e.eventName = ?1")
+    Event findByEventName(String eventName);
 
 
 }

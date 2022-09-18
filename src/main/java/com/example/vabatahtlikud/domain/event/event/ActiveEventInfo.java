@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Data
 public class ActiveEventInfo implements Serializable {
     private Integer seqNr;
+    private Integer eventId;
     private String roleName;
     private String eventName;
     private Integer volunteersRequired;

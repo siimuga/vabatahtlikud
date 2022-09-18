@@ -26,8 +26,6 @@ public class VolunteerService {
     @Resource
     private VolunteerTaskService volunteerTaskService;
 
-    @Resource
-    private EventService eventService;
 
 
     public void addRegistration(VolunteerRequest request) {
@@ -43,14 +41,5 @@ public class VolunteerService {
         volunteerEventDateService.addDatesToVolunteer(volunteerEventDateInfos);
     }
 
-    public List<Event> findAllActiveEventsByUser(Integer userId) {
-        ArrayList<Event> events = new ArrayList<>();
-        List<Volunteer> volunteers = volunteerRepository.findByUser(userId);
-        for (Volunteer volunteer : volunteers) {
-            Integer volunteeruUserId = volunteer.getUser().getId();
-           Event event=  eventService.findEventByUser(volunteeruUserId);
-            events.add(event);
-        }
-        return events;
-    }
+
 }
