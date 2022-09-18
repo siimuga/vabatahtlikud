@@ -1,8 +1,11 @@
 package com.example.vabatahtlikud.validation;
 
+import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDate;
+import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDateInfo;
 import com.example.vabatahtlikud.infrastructure.exception.DataNotFoundException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ValidationService {
 
@@ -51,8 +54,7 @@ public class ValidationService {
     public static void validateDates(LocalDate startDate, LocalDate endDate) {
         if (startDate.isAfter(endDate)) {
             throw new DataNotFoundException(INVALID_INPUT, "Lõpu kuupäev ei saa olla enne alguskuupäeva");
-        } else
-        if (startDate.isBefore(LocalDate.now()) || endDate.isBefore(LocalDate.now())) {
+        } else if (startDate.isBefore(LocalDate.now()) || endDate.isBefore(LocalDate.now())) {
             throw new DataNotFoundException(INVALID_INPUT, "Sisestatud kuupäev ei saa olla enne tänast kuupäeva");
         }
     }
@@ -61,6 +63,22 @@ public class ValidationService {
         if (volunteersRequired < 1) {
             throw new DataNotFoundException(INVALID_INPUT, "Vabatahtlike arv peab olema vähemalt 1");
         }
+    }
+
+    public static void validateDateSelectionExists(List<VolunteerEventDateInfo> volunteerEventDateInfos) {
+        if (volunteerEventDateInfos.isEmpty()) {
+            throw new DataNotFoundException(INVALID_INPUT, "Vähemalt üks kuupäev peab olema valitud");
+        }
+    }
+
+    public static void validateExceedingAttendance(double a, double b, LocalDate date) {
+        if ((a / b) > 1.1) {
+            throw new DataNotFoundException(INVALID_INPUT, "Kuupäevale " + date + " ei saa registreerida rohkem kui 10% maksimaalsest täituvusest.");
+        }
+    }
+
+    public static void validateRegistrationExists() {
+        throw new DataNotFoundException(INVALID_INPUT, "Selle kasutajaga on juba antud üritusele registreeritud.");
     }
 }
 

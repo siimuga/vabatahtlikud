@@ -23,12 +23,20 @@ public class EventDateService {
     @Resource
     private EventDateMapper eventDateMapper;
 
+
     public List<EventDateInfo> findAllEventDateInfos(Integer eventId) {
         Optional<Event> event = eventRepository.findById(eventId);
         List<LocalDate> localDates = getDatesBetween((event.get().getStartDate()), event.get().getEndDate());
+        List<EventDate> eventDates = eventDateRepository.findByEventId(eventId);
         ArrayList<EventDateInfo> infos = new ArrayList<>();
         for (LocalDate localDate : localDates) {
-            infos.add(new EventDateInfo(localDate, event.get().getVolunteersRequired(), 99, true));
+            Integer volunteersAssigned = eventDates.get(localDates.indexOf(localDate)).getVolunteersAssigned();
+            Integer volunteersRequired = eventDates.get(localDates.indexOf(localDate)).getVolunteersRequired();
+            LocalDate date = eventDates.get(localDates.indexOf(localDate)).getDate();
+            Boolean isActive = eventDates.get(localDates.indexOf(localDate)).getIsActive();
+            if (isActive) {
+                infos.add(new EventDateInfo(date, volunteersRequired, volunteersAssigned, true));
+            }
         }
         return infos;
     }
@@ -38,14 +46,23 @@ public class EventDateService {
                 .collect(Collectors.toList());
     }
 
-
     public void addDateInfos(Integer eventId) {
-        List<EventDateInfo> eventDateInfos = findAllEventDateInfos(eventId);
+        List<EventDateInfo> eventDateInfos = initializeDateInfos(eventId);
         List<EventDate> eventDates = eventDateMapper.EventDateInfosToEventDates(eventDateInfos);
         for (EventDate eventDate : eventDates) {
             Optional<Event> event = eventRepository.findById(eventId);
             eventDate.setEvent(event.get());
         }
         eventDateRepository.saveAll(eventDates);
+    }
+
+    private List<EventDateInfo> initializeDateInfos(Integer eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        List<LocalDate> localDates = getDatesBetween((event.get().getStartDate()), event.get().getEndDate());
+        ArrayList<EventDateInfo> infos = new ArrayList<>();
+        for (LocalDate localDate : localDates) {
+            infos.add(new EventDateInfo(localDate, event.get().getVolunteersRequired(), 0, true));
+        }
+        return infos;
     }
 }

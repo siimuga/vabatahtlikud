@@ -86,8 +86,6 @@ public class EventService {
     @Resource
     private EventDateService eventDateService;
 
-    @Resource
-    private VolunteerService volunteerService;
 
     @Resource
     private VolunteerRepository volunteerRepository;

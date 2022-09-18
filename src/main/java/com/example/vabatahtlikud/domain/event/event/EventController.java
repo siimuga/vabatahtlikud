@@ -4,6 +4,7 @@ import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequ
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
 import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
 import com.example.vabatahtlikud.domain.event.date.EventDateInfo;
+import com.example.vabatahtlikud.domain.event.date.EventDateService;
 import com.example.vabatahtlikud.domain.event.language.LanguageInfo;
 import com.example.vabatahtlikud.domain.event.location.country.CountyInfo;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
@@ -21,6 +22,9 @@ public class EventController {
 
     @Resource
     private EventService eventService;
+
+    @Resource
+    private EventDateService eventDateService;
 
     @PostMapping("/task")
     @Operation(summary = "Lisab uue tööülesande")
@@ -170,9 +174,9 @@ public class EventController {
     }
 
 
-//    @PostMapping("/date/info")
-//    @Operation(summary = "Lisa kuupäeva kaupa info andmebaasi")
-//    public void addDateInfos(Integer eventId) {
-//        eventService.addDateInfos(eventId);
-//    }
+    @PostMapping("/date/info/AINULT_TESTIMISEKS")
+    @Operation(summary = "Lisa kuupäeva kaupa info andmebaasi")
+    public void addDateInfos(Integer eventId) {
+        eventDateService.addDateInfos(eventId);
+    }
 }
