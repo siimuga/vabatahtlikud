@@ -260,13 +260,28 @@ public class EventService {
     }
 
     public List<PastEventInfo> findAllPastEventsByUser(Integer userId) {
+        List<Event> pastVolunteerEvents = new ArrayList<>();
+        List<Event> volunteerEvents = findVolunteerEventsByUser(userId);
+        for (Event volunteerEvent : volunteerEvents) {
+            if (volunteerEvent.getEndDate().isBefore(LocalDate.now())) {
+                pastVolunteerEvents.add(volunteerEvent);
+            }
+        }
         List<Event> events = eventRepository.findByAfterEndDateByUser(userId, "e");
+        events.addAll(pastVolunteerEvents);
+        events.sort(Comparator.comparing(Event::getEndDate));
+        Collections.reverse(events);
         List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
-        int i = 0;
         for (PastEventInfo pastEventInfo : pastEventInfos) {
             pastEventInfo.setVolunteersAttended(999);
-            pastEventInfo.setId(i);
-            i++;
+            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo) + 1);
+            String eventName = pastEventInfo.getEventName();
+            Event event = eventRepository.findByEventName(eventName);
+            Integer organizerId = event.getUser().getId();
+            if (Objects.equals(organizerId, userId)) {
+                pastEventInfo.setRoleName("korraldaja");
+            } else
+                pastEventInfo.setRoleName("vabatahtlik");
         }
         return pastEventInfos;
     }

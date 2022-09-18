@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class PastEventInfo implements Serializable {
     private Integer id;
-    private String userRoleName;
+    private String roleName;
     private String eventName;
     private Integer volunteersRequired;
     private Integer volunteersAttended;
