@@ -378,7 +378,7 @@ public class EventService {
         return events;
     }
 
-    public void deleteParticipation(VolunteerDeleteRequest request) {
-        volunteerService.deleteParticipation(request);
+    public void deleteParticipation(Integer userId, Integer eventId) {
+        volunteerService.deleteParticipation(userId, eventId);
     }
 }

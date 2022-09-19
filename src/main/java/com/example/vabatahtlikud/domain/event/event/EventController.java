@@ -176,8 +176,8 @@ public class EventController {
 
     @DeleteMapping("/event/cancel")
     @Operation(summary = "Tühista osalemine sellel üritusel")
-    public void cancelParticipation(@RequestBody VolunteerDeleteRequest request) {
-        eventService.deleteParticipation(request);
+    public void cancelParticipation(Integer userId, Integer eventId) {
+        eventService.deleteParticipation(userId, eventId);
     }
 
 

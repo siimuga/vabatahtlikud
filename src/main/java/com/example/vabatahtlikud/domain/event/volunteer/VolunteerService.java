@@ -42,9 +42,9 @@ public class VolunteerService {
     }
 
 
-    public void deleteParticipation(VolunteerDeleteRequest request) {
-        Volunteer volunteer = volunteerMapper.volunteerDeleteRequestToVolunteer(request);
-        List<Volunteer> volunteers = volunteerRepository.findByUserIdAndEventId(volunteer.getUser().getId(), volunteer.getEvent().getId());
+    public void deleteParticipation(Integer userId, Integer eventId) {
+      //  Volunteer volunteer = volunteerMapper.volunteerDeleteRequestToVolunteer(request);
+        List<Volunteer> volunteers = volunteerRepository.findByUserIdAndEventId(userId, eventId);
         for (Volunteer volunteerSelected : volunteers) {
             volunteerSelected.setStatus(false);
         }
