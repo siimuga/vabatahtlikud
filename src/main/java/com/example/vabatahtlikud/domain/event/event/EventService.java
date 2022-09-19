@@ -20,6 +20,7 @@ import com.example.vabatahtlikud.domain.event.location.country.CountyService;
 import com.example.vabatahtlikud.domain.event.picture.*;
 import com.example.vabatahtlikud.domain.event.task.*;
 import com.example.vabatahtlikud.domain.event.volunteer.Volunteer;
+import com.example.vabatahtlikud.domain.event.volunteer.VolunteerDeleteRequest;
 import com.example.vabatahtlikud.domain.event.volunteer.VolunteerRepository;
 import com.example.vabatahtlikud.domain.event.volunteer.VolunteerService;
 import com.example.vabatahtlikud.domain.user.user.User;
@@ -89,6 +90,9 @@ public class EventService {
 
     @Resource
     private VolunteerRepository volunteerRepository;
+
+    @Resource
+    private VolunteerService volunteerService;
 
     public List<TaskInfo> addTask(TaskRequest request) {
         return taskService.addTask(request);
@@ -186,8 +190,7 @@ public class EventService {
 
     public List<EventInfo> findAllEvents() {
         List<Event> events = eventRepository.findAll("v");
-        List<EventInfo> eventInfos = updateEventInfos(events);
-        return eventInfos;   //volunteersAttended on puudu
+        return updateEventInfos(events);
     }
 
     public List<EventInfo> updateEventInfos(List<Event> events) {
@@ -201,7 +204,8 @@ public class EventService {
             } else {
                 eventInfo.setHasPicture(false);
             }
-            eventInfo.setVolunteersAttended(99);  //SIIN VAJA MUUTA
+            String eventName = eventInfo.getEventName();
+            eventInfo.setVolunteersAttended(getAttendance(eventName));
         }
         return eventInfos;
     }
@@ -243,10 +247,17 @@ public class EventService {
         List<Event> events = eventRepository.findByAfterEndDate(LocalDate.now());
         List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
         for (PastEventInfo pastEventInfo : pastEventInfos) {
-            pastEventInfo.setVolunteersAttended(999);
+            String eventName = pastEventInfo.getEventName();
+            pastEventInfo.setVolunteersAttended(getAttendance(eventName));
             pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo) + 1);
         }
         return pastEventInfos;
+    }
+
+    private Integer getAttendance(String eventName) {
+        Event event = eventRepository.findByEventName(eventName);
+        Integer eventId = event.getId();
+        return volunteerService.findAttendanceByEventId(eventId);
     }
 
     public void updatePastEventsStatuses() {
@@ -343,10 +354,10 @@ public class EventService {
         events.sort(Comparator.comparing(Event::getStartDate));
         List<ActiveEventInfo> activeEventInfos = eventMapper.eventsToActiveEventInfos(events);
         for (ActiveEventInfo activeEventInfo : activeEventInfos) {
-            activeEventInfo.setVolunteersAttended(999);
-            activeEventInfo.setSeqNr(activeEventInfos.indexOf(activeEventInfo) + 1);
             String eventName = activeEventInfo.getEventName();
             Event event = eventRepository.findByEventName(eventName);
+            activeEventInfo.setVolunteersAttended(getAttendance(eventName));
+            activeEventInfo.setSeqNr(activeEventInfos.indexOf(activeEventInfo) + 1);
             activeEventInfo.setEventId(event.getId());
             Integer organizerId = event.getUser().getId();
             if (Objects.equals(organizerId, userId)) {
@@ -359,11 +370,15 @@ public class EventService {
 
     public List<Event> findVolunteerEventsByUser(Integer userId) {
         List<Event> events = new ArrayList<>();
-        List<Volunteer> volunteers = volunteerRepository.findByUser(userId);
+        List<Volunteer> volunteers = volunteerRepository.findByUserIdAndStatus(userId);
         for (Volunteer volunteer : volunteers) {
             Event event = volunteer.getEvent();
             events.add(event);
         }
         return events;
+    }
+
+    public void deleteParticipation(VolunteerDeleteRequest request) {
+        volunteerService.deleteParticipation(request);
     }
 }

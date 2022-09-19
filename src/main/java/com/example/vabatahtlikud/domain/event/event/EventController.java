@@ -10,6 +10,7 @@ import com.example.vabatahtlikud.domain.event.location.country.CountyInfo;
 import com.example.vabatahtlikud.domain.event.picture.PictureDto;
 import com.example.vabatahtlikud.domain.event.task.TaskInfo;
 import com.example.vabatahtlikud.domain.event.task.TaskRequest;
+import com.example.vabatahtlikud.domain.event.volunteer.VolunteerDeleteRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
@@ -171,6 +172,12 @@ public class EventController {
     @Operation(summary = "Kuva kõik selle kasutaja eelseisvad üritused")
     public List<ActiveEventInfo> findAllActiveEventsByUser(@RequestParam Integer userId) {
         return eventService.findAllActiveEventsByUser(userId);
+    }
+
+    @DeleteMapping("/event/cancel")
+    @Operation(summary = "Tühista osalemine sellel üritusel")
+    public void cancelParticipation(@RequestBody VolunteerDeleteRequest request) {
+        eventService.deleteParticipation(request);
     }
 
 

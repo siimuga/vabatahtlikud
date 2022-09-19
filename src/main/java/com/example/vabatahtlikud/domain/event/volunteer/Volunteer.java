@@ -29,6 +29,7 @@ public class Volunteer {
     @Column(name = "info", length = 1000)
     private String info;
 
-
+    @Column(name = "status", nullable = false)
+    private Boolean status = false;
 
 }

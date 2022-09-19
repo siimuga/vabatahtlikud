@@ -72,4 +72,13 @@ INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT,
 INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Gabi', DEFAULT, 3);
 INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Mabi', DEFAULT, 4);
 INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Savi', DEFAULT, 5);
-INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Liiv', DEFAULT, 3)
+INSERT INTO public.additional_info (id, name, status, event_id) VALUES (DEFAULT, 'Liiv', DEFAULT, 3);
+
+INSERT INTO public.volunteer (id, volunteers_size, info, user_id, status, event_id) VALUES (DEFAULT, 10, null, 2, DEFAULT, 2);
+INSERT INTO public.volunteer (id, volunteers_size, info, user_id, status, event_id) VALUES (DEFAULT, 15, null, 2, DEFAULT, 10);
+INSERT INTO public.volunteer (id, volunteers_size, info, user_id, status, event_id) VALUES (DEFAULT, 22, null, 3, DEFAULT, 6);
+
+INSERT INTO public.event_date (id, date, volunteers_required, volunteers_assigned, is_active, event_id) VALUES (DEFAULT, '2021-09-29', 100, DEFAULT, true, 2);
+INSERT INTO public.event_date (id, date, volunteers_required, volunteers_assigned, is_active, event_id) VALUES (DEFAULT, '2021-09-30', 100, DEFAULT, true, 2);
+
+INSERT INTO public.volunteer_event_date (id, event_date_id, volunteer_id) VALUES (DEFAULT, 2, 1)

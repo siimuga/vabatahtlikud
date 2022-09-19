@@ -95,12 +95,6 @@ CREATE TABLE location
     CONSTRAINT location_pk PRIMARY KEY (id)
 );
 
--- Table: picture_data
--- CREATE TABLE picture_data (
---     id serial  NOT NULL,
---     data bytea  NULL,
---     CONSTRAINT picture_data_pk PRIMARY KEY (id)
--- );
 CREATE TABLE picture_data
 (
     id       serial NOT NULL,
@@ -148,6 +142,7 @@ CREATE TABLE volunteer
     volunteers_size int           NOT NULL DEFAULT 1,
     info            varchar(1000) NULL,
     user_id         int           NOT NULL,
+    status          boolean       NOT NULL DEFAULT TRUE,
     event_id        int           NOT NULL,
     CONSTRAINT volunteer_pk PRIMARY KEY (id)
 );

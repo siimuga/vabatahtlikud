@@ -65,4 +65,9 @@ public class EventDateService {
         }
         return infos;
     }
+
+    public Integer findAttendanceById(Integer eventDateId) {
+        Optional<EventDate> eventDate = eventDateRepository.findById(eventDateId);
+       return eventDate.get().getVolunteersAssigned();
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.vabatahtlikud.domain.event.volunteer;
 
-import com.example.vabatahtlikud.domain.event.date.EventDateService;
 import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDateInfo;
 import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDateService;
 import com.example.vabatahtlikud.domain.event.volunteer.volunteer_task.VolunteerTaskInfo;
@@ -43,4 +42,24 @@ public class VolunteerService {
     }
 
 
+    public void deleteParticipation(VolunteerDeleteRequest request) {
+        Volunteer volunteer = volunteerMapper.volunteerDeleteRequestToVolunteer(request);
+        List<Volunteer> volunteers = volunteerRepository.findByUserIdAndEventId(volunteer.getUser().getId(), volunteer.getEvent().getId());
+        for (Volunteer volunteerSelected : volunteers) {
+            volunteerSelected.setStatus(false);
+        }
+        volunteerRepository.saveAll(volunteers);
+        volunteerEventDateService.deleteParticipation(volunteers);
+    }
+
+    public Integer findAttendanceByEventId(Integer eventId) {
+        Integer totalAttendance = 0;
+        List<Volunteer> volunteers = volunteerRepository.findByEvent_Id(eventId);
+        for (Volunteer volunteer : volunteers) {
+            if (volunteer.getStatus()) {
+                totalAttendance += volunteer.getVolunteersSize();
+            }
+        }
+        return totalAttendance;
+    }
 }

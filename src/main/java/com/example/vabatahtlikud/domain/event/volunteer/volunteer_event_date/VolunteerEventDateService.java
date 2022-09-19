@@ -2,6 +2,7 @@ package com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date;
 
 import com.example.vabatahtlikud.domain.event.date.EventDate;
 import com.example.vabatahtlikud.domain.event.date.EventDateRepository;
+import com.example.vabatahtlikud.domain.event.date.EventDateService;
 import com.example.vabatahtlikud.domain.event.volunteer.Volunteer;
 import com.example.vabatahtlikud.domain.event.volunteer.VolunteerRepository;
 import com.example.vabatahtlikud.validation.ValidationService;
@@ -26,6 +27,9 @@ public class VolunteerEventDateService {
 
     @Resource
     private EventDateRepository eventDateRepository;
+
+    @Resource
+    private EventDateService eventDateService;
 
     public void addDatesToVolunteer(List<VolunteerEventDateInfo> volunteerEventDateInfos) {
         ValidationService.validateDateSelectionExists(volunteerEventDateInfos);
@@ -53,5 +57,19 @@ public class VolunteerEventDateService {
             }
         }
         volunteerEventDateRepository.saveAll(volunteerEventDatesList);
+    }
+
+    public void deleteParticipation(List<Volunteer> volunteers) {
+        for (Volunteer volunteer : volunteers) {
+            Integer volunteersSize = volunteer.getVolunteersSize();
+            Optional<VolunteerEventDate> volunteerEventDate = volunteerEventDateRepository.findByVolunteer_Id(volunteer.getId());
+            Integer eventDateId = volunteerEventDate.get().getId();
+            Optional<EventDate> eventDate = eventDateRepository.findById(eventDateId);
+            Integer volunteersAssignedPrev = eventDate.get().getVolunteersAssigned();
+            if (volunteersAssignedPrev > 0) {
+                eventDate.get().setVolunteersAssigned(volunteersAssignedPrev - volunteersSize);
+                eventDateRepository.save(eventDate.get());
+            }
+        }
     }
 }
