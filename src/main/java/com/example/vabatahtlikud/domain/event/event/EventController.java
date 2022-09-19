@@ -170,7 +170,7 @@ public class EventController {
 
     @GetMapping("/event/user")
     @Operation(summary = "Kuva kõik selle kasutaja eelseisvad üritused")
-    public List<ActiveEventInfo> findAllActiveEventsByUser(@RequestParam Integer userId) {
+    public List<ActiveEventInfo> findAllActiveEventsByUser(Integer userId) {
         return eventService.findAllActiveEventsByUser(userId);
     }
 

@@ -282,10 +282,10 @@ public class EventService {
         Collections.reverse(events);
         List<PastEventInfo> pastEventInfos = eventMapper.eventsToPastEventInfos(events);
         for (PastEventInfo pastEventInfo : pastEventInfos) {
-            pastEventInfo.setVolunteersAttended(999);
-            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo) + 1);
             String eventName = pastEventInfo.getEventName();
             Event event = eventRepository.findByEventName(eventName);
+            pastEventInfo.setVolunteersAttended(getAttendance(eventName));
+            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo) + 1);
             Integer organizerId = event.getUser().getId();
             if (Objects.equals(organizerId, userId)) {
                 pastEventInfo.setRoleName("korraldaja");
