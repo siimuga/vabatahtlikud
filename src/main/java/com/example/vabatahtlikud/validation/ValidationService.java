@@ -80,6 +80,12 @@ public class ValidationService {
     public static void validateRegistrationExists() {
         throw new DataNotFoundException(INVALID_INPUT, "Selle kasutajaga on juba antud üritusele registreeritud.");
     }
+
+    public static void validateUserCreation(boolean emptyUsername, boolean emptyPassword) {
+        if (emptyUsername || emptyPassword) {
+            throw new DataNotFoundException(INVALID_INPUT, "Kasutajanimi või parool ei saa olla tühjad");
+        }
+    }
 }
 
 /*   public static void validateUserExists(Optional<User> user, Integer userId) {

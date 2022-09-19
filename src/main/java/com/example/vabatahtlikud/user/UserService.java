@@ -7,7 +7,6 @@ import com.example.vabatahtlikud.domain.user.user.UserRepository;
 import com.example.vabatahtlikud.login.LoginRequest;
 import com.example.vabatahtlikud.validation.ValidationService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -41,10 +40,17 @@ public class UserService {
     }
 
     public UserResponse mapRequestAndAddUser(UserRequest request, Contact contact) {
+        validateUserCreation(request.getUsername(), request.getPassword());
         User user = userMapper.userRequestToUser(request);
         user.setContact(contact);
         userRepository.save(user);
         return userMapper.userToUserResponse(user);
+    }
+
+    private void validateUserCreation(String username, String password) {
+        if (username.isBlank() || password.isBlank()) {
+            ValidationService.validateUserCreation(username.isBlank(), password.isBlank());
+        }
     }
 
     public Contact getValidContact(UserRequest request) {
