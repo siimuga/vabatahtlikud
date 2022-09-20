@@ -20,7 +20,6 @@ import com.example.vabatahtlikud.domain.event.location.country.CountyService;
 import com.example.vabatahtlikud.domain.event.picture.*;
 import com.example.vabatahtlikud.domain.event.task.*;
 import com.example.vabatahtlikud.domain.event.volunteer.Volunteer;
-import com.example.vabatahtlikud.domain.event.volunteer.VolunteerDeleteRequest;
 import com.example.vabatahtlikud.domain.event.volunteer.VolunteerRepository;
 import com.example.vabatahtlikud.domain.event.volunteer.VolunteerService;
 import com.example.vabatahtlikud.domain.user.user.User;
@@ -206,6 +205,7 @@ public class EventService {
             }
             String eventName = eventInfo.getEventName();
             eventInfo.setVolunteersAttended(getAttendance(eventName));
+            // eventInfo.setSeqNr(eventInfos.indexOf(eventInfo) + 1);
         }
         return eventInfos;
     }
@@ -249,7 +249,7 @@ public class EventService {
         for (PastEventInfo pastEventInfo : pastEventInfos) {
             String eventName = pastEventInfo.getEventName();
             pastEventInfo.setVolunteersAttended(getAttendance(eventName));
-            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo) + 1);
+            pastEventInfo.setSeqNr(pastEventInfos.indexOf(pastEventInfo) + 1);
         }
         return pastEventInfos;
     }
@@ -285,7 +285,7 @@ public class EventService {
             String eventName = pastEventInfo.getEventName();
             Event event = eventRepository.findByEventName(eventName);
             pastEventInfo.setVolunteersAttended(getAttendance(eventName));
-            pastEventInfo.setId(pastEventInfos.indexOf(pastEventInfo) + 1);
+            pastEventInfo.setSeqNr(pastEventInfos.indexOf(pastEventInfo) + 1);
             Integer organizerId = event.getUser().getId();
             if (Objects.equals(organizerId, userId)) {
                 pastEventInfo.setRoleName("korraldaja");
@@ -338,9 +338,15 @@ public class EventService {
         return eventViewInfo;
     }
 
-    public List<EventInfo> findAllRegistredEvents() {
+    public List<EventInfo> findAllRegisteredEvents() {
         List<Event> events = eventRepository.findRegistredEvents(LocalDate.now(), "c", "v");
-        return eventMapper.eventsToEventInfos(events);
+        List<EventInfo> eventInfos = eventMapper.eventsToEventInfos(events);
+        for (EventInfo eventInfo : eventInfos) {
+            String eventName = eventInfo.getEventName();
+            eventInfo.setVolunteersAttended(getAttendance(eventName));
+            eventInfo.setSeqNr(eventInfos.indexOf(eventInfo) + 1);
+        }
+        return eventInfos;
     }
 
     public List<EventDateInfo> findAllEventDateInfos(Integer eventId) {

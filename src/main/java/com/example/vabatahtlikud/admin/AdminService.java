@@ -23,7 +23,7 @@ public class AdminService {
 
     }
 
-    public List<EventInfo> findAllRegistredEvents() {
-        return eventService.findAllRegistredEvents();
+    public List<EventInfo> findAllRegisteredEvents() {
+        return eventService.findAllRegisteredEvents();
     }
 }

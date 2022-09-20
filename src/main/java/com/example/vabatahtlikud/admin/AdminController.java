@@ -33,8 +33,8 @@ public class AdminController {
 
     @GetMapping("/event/events")
     @Operation(summary = "Kuva kõik kinnitatud üritused")
-    public List<EventInfo> findAllRegistredEvents() {
-        return adminService.findAllRegistredEvents();
+    public List<EventInfo> findAllRegisteredEvents() {
+        return adminService.findAllRegisteredEvents();
     }
 
 }
