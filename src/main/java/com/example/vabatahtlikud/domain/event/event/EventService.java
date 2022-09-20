@@ -97,7 +97,7 @@ public class EventService {
         return taskService.addTask(request);
     }
 
-    public List<AdditionalInfoResponse> addInfo(AdditionalInfoRequest request) {
+    public List<AdditionalInfoResponse> addInfo(AdditionalInfoInfo request) {
         return additionalInfoService.addInfo(request);
     }
 
@@ -162,9 +162,8 @@ public class EventService {
 
     public AddEventResponse findTasksAndAddInfos(Integer eventId) {
         AddEventResponse addEventResponses = new AddEventResponse();
-        Optional<Event> event = eventRepository.findById(eventId);
-        List<Task> tasks = findTasksById(event.get().getId());
-        List<AdditionalInfo> additionalInfos = findAdditionalInfosById(event.get().getId());
+        List<TaskDateInfo> tasks = taskService.findAllEventTaskInfos(eventId);
+        List<AdditionalInfoRequest> additionalInfos = additionalInfoService.findAdditionalInfoRequestsByEvent(eventId);
         addEventResponses.setTasks(tasks);
         addEventResponses.setAdditionalInfos(additionalInfos);
         addEventResponses.setEventId(eventId);
@@ -302,7 +301,6 @@ public class EventService {
         List<EventDateInfo> dateInfos = eventDateService.findAllEventDateInfos(eventId);
         registerToEventInfo.setEventDateInfos(dateInfos);
         return registerToEventInfo;
-
     }
 
 

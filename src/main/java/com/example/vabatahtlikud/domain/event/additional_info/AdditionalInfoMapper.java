@@ -9,12 +9,19 @@ public interface AdditionalInfoMapper {
     @Mapping(constant = "true", target = "status")
     AdditionalInfo additionalInfoRequestToAdditionalInfo(AdditionalInfoRequest additionalInfoRequest);
 
-//    @Mapping(source = "eventRegister.id", target = "eventRegisterId")
-//    AdditionalInfoRequest additionalInfoToAdditionalInfoRequest(AdditionalInfo additionalInfo);
-
     AdditionalInfoResponse additionalInfoToAdditionalInfoResponse(AdditionalInfo additionalInfo);
 
     List<AdditionalInfoResponse> additionalInfosToAdditionalInfoResponses(List<AdditionalInfo> additionalInfos);
+
+@Mapping(source = "id", target = "addInfoId")
+@Mapping(source = "event.id", target = "eventId")
+    AdditionalInfoRequest additionalInfoToAdditionalInfoRequest(AdditionalInfo additionalInfo);
+    List<AdditionalInfoRequest> additionalInfosToAdditionalInfoRequests(List<AdditionalInfo> additionalInfos);
+
+    @Mapping(constant = "true", target = "status")
+    @Mapping(source = "eventId", target = "event.id")
+    AdditionalInfo additionalInfoInfoToAdditionalInfo(AdditionalInfoInfo request);
+
 
 //    @Mapping(source = "eventRegisterId", target = "eventRegister.id")
 //    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

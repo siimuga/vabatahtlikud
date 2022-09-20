@@ -21,20 +21,20 @@ public class AdditionalInfoService {
     @Resource
     private EventRepository eventRepository;
 
-    public void getValidAdditionalInfo(AdditionalInfoRequest request) {
+    public void getValidAdditionalInfo(AdditionalInfoInfo request) {
         boolean existsByNameAndEventIdAndStatus = additionalInfoRepository.existsByNameAndEventIdAndStatus(request.getName(), request.getEventId());
         ValidationService.validateAdditionalInfoExists(existsByNameAndEventIdAndStatus);
     }
 
-    public List<AdditionalInfo> findByStatusTrueAndEventId(AdditionalInfoRequest request) {
+    public List<AdditionalInfo> findByStatusTrueAndEventId(AdditionalInfoInfo request) {
         return additionalInfoRepository.findByStatusTrueAndEventId(request.getEventId());
     }
 
-    public List<AdditionalInfoResponse> addInfo(AdditionalInfoRequest request) {
+    public List<AdditionalInfoResponse> addInfo(AdditionalInfoInfo request) {
         getValidAdditionalInfo(request);
-        AdditionalInfo additionalInfo = additionalInfoMapper.additionalInfoRequestToAdditionalInfo(request);
-        Optional<Event> event = eventRepository.findById(request.getEventId());
-        additionalInfo.setEvent(event.get());
+        AdditionalInfo additionalInfo = additionalInfoMapper.additionalInfoInfoToAdditionalInfo(request);
+       // Optional<Event> event = eventRepository.findById(request.getEventId());
+        //additionalInfo.setEvent(event.get());
         additionalInfoRepository.save(additionalInfo);
         List<AdditionalInfo> additionalInfos = findByStatusTrueAndEventId(request);
         return additionalInfoMapper.additionalInfosToAdditionalInfoResponses(additionalInfos);
@@ -51,4 +51,10 @@ public class AdditionalInfoService {
         List<AdditionalInfo> additionalInfos = additionalInfoRepository.findByStatusTrueAndEventId(eventId);
         return additionalInfoMapper.additionalInfosToAdditionalInfoResponses(additionalInfos);
     }
+
+    public List<AdditionalInfoRequest> findAdditionalInfoRequestsByEvent(Integer eventId) {
+        List<AdditionalInfo> additionalInfos = additionalInfoRepository.findByStatusTrueAndEventId(eventId);
+        return additionalInfoMapper.additionalInfosToAdditionalInfoRequests(additionalInfos);
+    }
+
 }

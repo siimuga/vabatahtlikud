@@ -8,5 +8,6 @@ import java.io.Serializable;
 public class TaskDateInfo implements Serializable {
     private String name;
     private Boolean status;
+    private Integer taskId;
     private Integer eventId;
 }

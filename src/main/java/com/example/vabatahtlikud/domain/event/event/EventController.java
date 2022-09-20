@@ -1,5 +1,6 @@
 package com.example.vabatahtlikud.domain.event.event;
 
+import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoInfo;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoRequest;
 import com.example.vabatahtlikud.domain.event.additional_info.AdditionalInfoResponse;
 import com.example.vabatahtlikud.domain.event.category.CategoryInfo;
@@ -35,7 +36,7 @@ public class EventController {
 
     @PostMapping("/additional/info")
     @Operation(summary = "Lisab uue lisainfo")
-    public List<AdditionalInfoResponse> addInfo(@RequestBody AdditionalInfoRequest request) {
+    public List<AdditionalInfoResponse> addInfo(@RequestBody AdditionalInfoInfo request) {
         return eventService.addInfo(request);
     }
 
@@ -72,8 +73,7 @@ public class EventController {
     @GetMapping("/task/addinfo")
     @Operation(summary = "Kuva tööülesanded ja lisainfo ürituse kohta")
     public AddEventResponse findTasksAndAddInfos(@RequestParam Integer eventId) {
-        AddEventResponse tasksAndAddInfos = eventService.findTasksAndAddInfos(eventId);
-        return tasksAndAddInfos;
+        return eventService.findTasksAndAddInfos(eventId);
     }
 
     @DeleteMapping("/event")
