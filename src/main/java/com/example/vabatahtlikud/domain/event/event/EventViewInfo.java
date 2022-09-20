@@ -22,4 +22,5 @@ public class EventViewInfo implements Serializable {
     private String link;
     private String pictureData;
     private Boolean hasPicture;
+    private String categoryName;
 }

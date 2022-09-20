@@ -141,21 +141,21 @@ public class EventService {
         Optional<Event> event = eventRepository.findById(request.getEventId());
         Location location = event.get().getLocation();
         location.setAddress(request.getLocationAddress());
-        Optional<County> county = countyRepository.findById(request.getLocationCountyId());
-        location.setCounty(county.get());
+        County county = countyRepository.findByName(request.getLocationCountyName());
+        location.setCounty(county);
         locationRepository.save(location);
 
-        Optional<Language> language = languageRepository.findById(request.getLanguageId());
-        Optional<Category> category = categoryRepository.findById(request.getCategoryId());
-        language.get().setId(request.getLanguageId());
-        category.get().setId(request.getCategoryId());
+        Language language = languageRepository.findByName(request.getLanguageName());
+        Category category = categoryRepository.findByName(request.getCategoryName());
+        language.setName(request.getLanguageName());
+        category.setName(request.getCategoryName());
         event.get().setVolunteersRequired(request.getVolunteersRequired());
         event.get().setEventName(request.getEventName());
         event.get().setStartDate(request.getStartDate());
         event.get().setEndDate(request.getEndDate());
-        event.get().setCategory(category.get());
+        event.get().setCategory(category);
         event.get().setLocation(location);
-        event.get().setLanguage(language.get());
+        event.get().setLanguage(language);
         event.get().setLink(request.getLink());
         eventRepository.save(event.get());
     }
@@ -327,6 +327,7 @@ public class EventService {
         eventViewInfo.setVolunteersAttended(99);
         eventViewInfo.setStartDate(event.get().getStartDate());
         eventViewInfo.setEndDate(event.get().getEndDate());
+        eventViewInfo.setCategoryName(event.get().getCategory().getName());
         Optional<PictureData> picture = pictureDataRepository.findByEventId(eventId);
         if (picture.isPresent()) {
             String pictureBase64 = new String(picture.get().getData(), StandardCharsets.UTF_8);

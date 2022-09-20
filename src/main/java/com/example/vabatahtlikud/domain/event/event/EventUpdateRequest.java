@@ -7,13 +7,13 @@ import java.time.LocalDate;
 @Data
 public class EventUpdateRequest {
     private Integer eventId;
-    private Integer categoryId;
+    private String categoryName;
     private String eventName;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer locationCountyId;
+    private String locationCountyName;
     private String link;
     private String locationAddress;
     private Integer volunteersRequired;
-    private Integer languageId;
+    private String languageName;
 }
