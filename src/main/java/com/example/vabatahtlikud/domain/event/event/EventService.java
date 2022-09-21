@@ -118,17 +118,17 @@ public class EventService {
         ValidationService.validateVolunteersRequired(request.getVolunteersRequired());
         Event event = eventMapper.eventRequestToEvent(request);
         Optional<User> user = userRepository.findById(request.getUserId());
-        Optional<Category> category = categoryRepository.findById(request.getCategoryId());
-        Optional<Language> language = languageRepository.findById(request.getLanguageId());
-        Optional<County> county = countyRepository.findById(request.getLocationCountyId());
+        Category category = categoryRepository.findByName(request.getCategoryName());
+        Language language = languageRepository.findByName(request.getLanguageName());
+        County county = countyRepository.findByName(request.getLocationCountyName());
 
         Location location = new Location();
         location.setAddress(request.getLocationAddress());
-        location.setCounty(county.get());
+        location.setCounty(county);
         locationRepository.save(location);
         event.setUser(user.get());
-        event.setCategory(category.get());
-        event.setLanguage(language.get());
+        event.setCategory(category);
+        event.setLanguage(language);
         event.setLocation(location);
 
         eventRepository.save(event);
