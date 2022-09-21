@@ -1,6 +1,5 @@
 package com.example.vabatahtlikud.validation;
 
-import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDate;
 import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDateInfo;
 import com.example.vabatahtlikud.infrastructure.exception.DataNotFoundException;
 
@@ -39,15 +38,19 @@ public class ValidationService {
         }
     }
 
-    public static void validateTaskExists(boolean existsByNameAndEventIdAndStatus) {
+    public static void validateTask(boolean existsByNameAndEventIdAndStatus, String name) {
         if (existsByNameAndEventIdAndStatus) {
             throw new DataNotFoundException(INVALID_INPUT, "Selline ülesanne on juba loodud");
+        } else if (name.isEmpty()) {
+            throw new DataNotFoundException(INVALID_INPUT, "Täiendav info ei saa olla tühi");
         }
     }
 
-    public static void validateAdditionalInfoExists(boolean existsByNameAndEventIdAndStatus) {
+    public static void validateAdditionalInfo(boolean existsByNameAndEventIdAndStatus, String name) {
         if (existsByNameAndEventIdAndStatus) {
             throw new DataNotFoundException(INVALID_INPUT, "Selline lisainfo on juba olemas");
+        } else if (name.isEmpty()){
+            throw new DataNotFoundException(INVALID_INPUT, "Täiendav info ei saa olla tühi");
         }
     }
 

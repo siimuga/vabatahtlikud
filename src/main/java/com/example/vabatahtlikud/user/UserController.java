@@ -14,7 +14,7 @@ public class UserController {
 
     @PatchMapping("/update")
     @Operation(summary = "Kliendi andmete muutmine")
-    public void updateUserData(@RequestBody UserRequest request, @RequestParam Integer userId) {
+    public void updateUserData(@RequestBody UserInfoInfo request, @RequestParam Integer userId) {
         userService.updateUserData(request, userId);
     }
 
@@ -23,4 +23,11 @@ public class UserController {
     public void deleteUser(@RequestParam Integer userId) {
         userService.deleteUser(userId);
     }
+
+    @GetMapping("/user")
+    @Operation(summary = "Kuva kasutaja info")
+    public UserInfoInfo findUserInfo(@RequestParam Integer userId) {
+        return userService.findUserInfo(userId);
+    }
+
 }

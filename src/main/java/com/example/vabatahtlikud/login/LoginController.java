@@ -1,7 +1,7 @@
 package com.example.vabatahtlikud.login;
 
 import com.example.vabatahtlikud.user.UserInfo;
-import com.example.vabatahtlikud.user.UserRequest;
+import com.example.vabatahtlikud.user.UserInfoInfo;
 import com.example.vabatahtlikud.user.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +24,7 @@ public class LoginController {
 
     @PostMapping("/register/user")
     @Operation(summary = "Uue kasutaja lisamine")
-    public UserResponse registerNewUser(@RequestBody UserRequest request) {
+    public UserResponse registerNewUser(@RequestBody UserInfoInfo request) {
         return loginService.registerNewUser(request);
     }
 

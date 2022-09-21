@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class LoginService {
@@ -24,7 +23,7 @@ public class LoginService {
     }
 
     @Transactional
-    public UserResponse registerNewUser(UserRequest request) {
+    public UserResponse registerNewUser(UserInfoInfo request) {
         Contact contact = userService.getValidContact(request);
         return userService.mapRequestAndAddUser(request, contact);
     }

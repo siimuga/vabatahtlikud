@@ -39,9 +39,9 @@ public class UserService {
         return user;
     }
 
-    public UserResponse mapRequestAndAddUser(UserRequest request, Contact contact) {
+    public UserResponse mapRequestAndAddUser(UserInfoInfo request, Contact contact) {
         validateUserCreation(request.getUsername(), request.getPassword());
-        User user = userMapper.userRequestToUser(request);
+        User user = userMapper.userInfoInfoToUser(request);
         user.setContact(contact);
         userRepository.save(user);
         return userMapper.userToUserResponse(user);
@@ -53,14 +53,14 @@ public class UserService {
         }
     }
 
-    public Contact getValidContact(UserRequest request) {
+    public Contact getValidContact(UserInfoInfo request) {
         validateRequest(request.getEmail(), request.getUsername());
         Contact contact = userMapper.userRequestToContact(request);
         contactRepository.save(contact);
         return contact;
     }
 
-    public void updateUserData(UserRequest request, Integer userId) {
+    public void updateUserData(UserInfoInfo request, Integer userId) {
         Optional<User> user = userRepository.findById(userId);
         String oldUsername = user.get().getUsername();
         Optional<Contact> contact = contactRepository.findById(user.get().getContact().getId());
@@ -106,5 +106,11 @@ public class UserService {
         Boolean status = user.get().getStatus();
         user.get().setStatus(!status);
         userRepository.save(user.get());
+    }
+
+    public UserInfoInfo findUserInfo(Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
+        return  userMapper.userToUserInfoInfo(user.get());
+
     }
 }

@@ -1,6 +1,5 @@
 package com.example.vabatahtlikud.domain.event.additional_info;
 
-import com.example.vabatahtlikud.domain.event.event.Event;
 import com.example.vabatahtlikud.domain.event.event.EventRepository;
 import com.example.vabatahtlikud.validation.ValidationService;
 import org.springframework.stereotype.Service;
@@ -18,12 +17,9 @@ public class AdditionalInfoService {
     @Resource
     private AdditionalInfoMapper additionalInfoMapper;
 
-    @Resource
-    private EventRepository eventRepository;
-
     public void getValidAdditionalInfo(AdditionalInfoInfo request) {
         boolean existsByNameAndEventIdAndStatus = additionalInfoRepository.existsByNameAndEventIdAndStatus(request.getName(), request.getEventId());
-        ValidationService.validateAdditionalInfoExists(existsByNameAndEventIdAndStatus);
+        ValidationService.validateAdditionalInfo(existsByNameAndEventIdAndStatus, request.getName());
     }
 
     public List<AdditionalInfo> findByStatusTrueAndEventId(AdditionalInfoInfo request) {
@@ -33,8 +29,6 @@ public class AdditionalInfoService {
     public List<AdditionalInfoResponse> addInfo(AdditionalInfoInfo request) {
         getValidAdditionalInfo(request);
         AdditionalInfo additionalInfo = additionalInfoMapper.additionalInfoInfoToAdditionalInfo(request);
-       // Optional<Event> event = eventRepository.findById(request.getEventId());
-        //additionalInfo.setEvent(event.get());
         additionalInfoRepository.save(additionalInfo);
         List<AdditionalInfo> additionalInfos = findByStatusTrueAndEventId(request);
         return additionalInfoMapper.additionalInfosToAdditionalInfoResponses(additionalInfos);
