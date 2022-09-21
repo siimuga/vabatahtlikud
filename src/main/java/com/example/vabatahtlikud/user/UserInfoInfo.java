@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class UserInfoInfo implements Serializable {
+    private Integer userId;
     private String username;
     private String password;
     private String firstName;

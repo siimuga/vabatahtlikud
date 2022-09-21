@@ -14,8 +14,8 @@ public class UserController {
 
     @PatchMapping("/update")
     @Operation(summary = "Kliendi andmete muutmine")
-    public void updateUserData(@RequestBody UserInfoInfo request, @RequestParam Integer userId) {
-        userService.updateUserData(request, userId);
+    public void updateUserData(@RequestBody UserInfoInfo request) {
+        userService.updateUserData(request);
     }
 
     @DeleteMapping("/delete")

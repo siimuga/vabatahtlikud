@@ -60,8 +60,8 @@ public class UserService {
         return contact;
     }
 
-    public void updateUserData(UserInfoInfo request, Integer userId) {
-        Optional<User> user = userRepository.findById(userId);
+    public void updateUserData(UserInfoInfo request) {
+        Optional<User> user = userRepository.findById(request.getUserId());
         String oldUsername = user.get().getUsername();
         Optional<Contact> contact = contactRepository.findById(user.get().getContact().getId());
         String oldEmail = contact.get().getEmail();
