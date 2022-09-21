@@ -6,5 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class CategoryInfo implements Serializable {
-    private final String name;
+    private String name;
+    private Integer categoryId;
 }

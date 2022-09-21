@@ -6,5 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class CountyInfo implements Serializable {
-    private final String name;
+    private  String name;
+    private Integer countyId;
 }

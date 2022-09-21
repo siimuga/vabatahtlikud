@@ -8,6 +8,7 @@ import java.util.List;
 public interface CountyMapper {
     County countyInfoToCounty(CountyInfo countyInfo);
 
+    @Mapping(source = "id", target = "countyId")
     CountyInfo countyToCountyInfo(County county);
 
 
