@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 public class EventViewInfo implements Serializable {
+    private Integer eventId;
     private String eventName;
     private LocalDate startDate;
     private LocalDate endDate;

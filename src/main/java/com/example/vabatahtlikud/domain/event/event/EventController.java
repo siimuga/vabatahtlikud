@@ -66,7 +66,7 @@ public class EventController {
 
     @PatchMapping("/event")
     @Operation(summary = "Muuda ürituse andmeid")
-    public void updateEvent(@RequestBody EventUpdateRequest request) {
+    public void updateEvent(@RequestBody EventViewInfo request) {
         eventService.updateEvent(request);
     }
 

@@ -135,7 +135,7 @@ public class EventService {
         eventDateService.addDateInfos(event.getId());
     }
 
-    public void updateEvent(EventUpdateRequest request) {
+    public void updateEvent(EventViewInfo request) {
         ValidationService.validateDates(request.getStartDate(), request.getEndDate());
         ValidationService.validateVolunteersRequired(request.getVolunteersRequired());
         Optional<Event> event = eventRepository.findById(request.getEventId());
@@ -316,6 +316,7 @@ public class EventService {
     public EventViewInfo findEventMainInfo(Integer eventId) {
         Optional<Event> event = eventRepository.findById(eventId);
         EventViewInfo eventViewInfo = new EventViewInfo();
+        eventViewInfo.setEventId(eventId);
         eventViewInfo.setEventName(event.get().getEventName());
         eventViewInfo.setLanguageName(event.get().getLanguage().getName());
         eventViewInfo.setLink(event.get().getLink());
