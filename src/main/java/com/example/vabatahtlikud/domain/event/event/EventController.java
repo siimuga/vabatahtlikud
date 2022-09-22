@@ -181,9 +181,19 @@ public class EventController {
     }
 
 
-    @PostMapping("/date/info/AINULT_TESTIMISEKS")
+/*    @PostMapping("/date/info/AINULT_TESTIMISEKS")
     @Operation(summary = "Lisa kuupäeva kaupa info andmebaasi")
     public void addDateInfos(Integer eventId) {
         eventDateService.addDateInfos(eventId);
+    }*/
+
+
+
+    @GetMapping("/event/user/volunteer")
+    @Operation(summary = "Kuva kas kasutaja on juba sellele üritusele registreerunud")
+    public Boolean checkVolunteerEventByUser(Integer userId, Integer eventId) {
+      return eventService.checkVolunteerEventByUser(userId, eventId);
     }
+
+
 }

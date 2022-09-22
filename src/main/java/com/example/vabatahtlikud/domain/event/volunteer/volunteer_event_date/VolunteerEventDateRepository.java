@@ -12,8 +12,4 @@ public interface VolunteerEventDateRepository extends JpaRepository<VolunteerEve
 
     @Query("select v from VolunteerEventDate v where v.volunteer.id = ?1")
     Optional<VolunteerEventDate> findByVolunteer_Id(Integer id);
-
-
-
-
 }

@@ -11,18 +11,6 @@ public interface EventMapper {
     @Mapping(constant = "c", target = "status")
     Event eventRequestToEvent(EventRequest eventRequest);
 
-
-
-
-
-//    @InheritInverseConfiguration(name = "eventRequestToEvent")
-//    EventRequest eventToEventRequest(Event event);
-
-//    @InheritConfiguration(name = "eventRequestToEvent")
-//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    Event updateEventFromEventRequest(EventRequest eventRequest, @MappingTarget Event event);
-
-
     @Mapping(source = "id", target = "eventId")
     @Mapping(ignore = true, target = "seqNr")
     @Mapping(ignore = true, target = "pictureData")

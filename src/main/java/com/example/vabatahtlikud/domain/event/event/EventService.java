@@ -170,13 +170,13 @@ public class EventService {
         return addEventResponses;
     }
 
-    private List<AdditionalInfo> findAdditionalInfosById(Integer eventId) {
-        return additionalInfoRepository.findByStatusTrueAndEventId(eventId);
-    }
-
-    public List<Task> findTasksById(Integer eventId) {
-        return taskRepository.findByStatusTrueAndEventId(eventId);
-    }
+//    private List<AdditionalInfo> findAdditionalInfosById(Integer eventId) {
+//        return additionalInfoRepository.findByStatusTrueAndEventId(eventId);
+//    }
+//
+//    public List<Task> findTasksById(Integer eventId) {
+//        return taskRepository.findByStatusTrueAndEventId(eventId);
+//    }
 
 
     public void deleteEvent(Integer eventId) {
@@ -204,7 +204,6 @@ public class EventService {
             }
             String eventName = eventInfo.getEventName();
             eventInfo.setVolunteersAttended(getAttendance(eventName));
-            // eventInfo.setSeqNr(eventInfos.indexOf(eventInfo) + 1);
         }
         return eventInfos;
     }
@@ -386,5 +385,10 @@ public class EventService {
 
     public void deleteParticipation(Integer userId, Integer eventId) {
         volunteerService.deleteParticipation(userId, eventId);
+    }
+
+
+    public Boolean checkVolunteerEventByUser(Integer userId, Integer eventId) {
+       return volunteerService.checkVolunteerEventByUser(userId, eventId);
     }
 }

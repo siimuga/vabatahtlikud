@@ -15,9 +15,4 @@ public interface EventDateMapper {
 
     EventDateInfo eventDateToEventDateInfo(EventDate eventDate);
 
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    EventDate updateEventDateFromEventDateInfo(EventDateInfo eventDateInfo, @MappingTarget EventDate eventDate);
-
-
 }

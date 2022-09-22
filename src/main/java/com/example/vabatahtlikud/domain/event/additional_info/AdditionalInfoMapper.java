@@ -21,9 +21,4 @@ public interface AdditionalInfoMapper {
     @Mapping(constant = "true", target = "status")
     @Mapping(source = "eventId", target = "event.id")
     AdditionalInfo additionalInfoInfoToAdditionalInfo(AdditionalInfoInfo request);
-
-
-//    @Mapping(source = "eventRegisterId", target = "eventRegister.id")
-//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    AdditionalInfo updateAdditionalInfoFromAdditionalInfoRequest(AdditionalInfoRequest additionalInfoRequest, @MappingTarget AdditionalInfo additionalInfo);
 }

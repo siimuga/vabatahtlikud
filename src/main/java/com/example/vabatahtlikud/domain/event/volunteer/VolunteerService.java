@@ -69,4 +69,8 @@ public class VolunteerService {
         volunteerEventDateService.addRegistrationDatas(request);
         volunteerTaskService.addRegistrationDatas(request);
     }
+
+    public Boolean checkVolunteerEventByUser(Integer userId, Integer eventId) {
+       return volunteerRepository.existsByUserIdAndEventId(userId, eventId);
+    }
 }

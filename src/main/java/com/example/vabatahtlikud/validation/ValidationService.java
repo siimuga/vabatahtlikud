@@ -91,21 +91,4 @@ public class ValidationService {
     }
 }
 
-/*   public static void validateUserExists(Optional<User> user, Integer userId) {
-        if (user.isEmpty()) {
-            throw new DataNotFoundException(USER_NOT_EXISTS, "Sellist kasutajat ID'ga " + userId + " ei leitud");
-        }
-    }
-    public static void validateAccountExists(Optional<Account> account, Integer accountId) {
-        if (account.isEmpty()) {
-            throw new DataNotFoundException(ACCOUNT_NOT_EXISTS, "Sellist kontot ID'ga " + accountId + " ei leitud");
-        }
-    }
-
-    public static void validateAccountExists(Optional<Account> account, String accountNumber) {
-        if (account.isEmpty()) {
-            throw new DataNotFoundException(ACCOUNT_NOT_EXISTS, "Sellist kontot kontonubriga " + accountNumber + " ei leitud");
-        }
-    }*/
-
 

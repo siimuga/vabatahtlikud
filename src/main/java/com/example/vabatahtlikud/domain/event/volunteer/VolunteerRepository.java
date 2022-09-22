@@ -21,6 +21,9 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Integer> {
     @Query("select v from Volunteer v where v.event.id = ?1")
     List<Volunteer> findByEvent_Id(Integer id);
 
+    @Query("select (count(v) > 0) from Volunteer v where v.user.id = ?1 and v.event.id = ?2 and v.status = true")
+    boolean existsByUserIdAndEventId(Integer id, Integer id1);
+
 
 
 

@@ -40,6 +40,4 @@ public class VolunteerController {
     public void addRegistrationDatas(@RequestBody VolunteerRequestDatas request) {
         volunteerService.addRegistrationDatas(request);
     }
-
-
 }

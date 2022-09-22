@@ -14,7 +14,4 @@ public interface CategoryMapper {
 
     List<CategoryInfo> categoriesToCategoryInfos(List<Category> categories);
 
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Category updateCategoryFromCategoryInfo(CategoryInfo categoryInfo, @MappingTarget Category category);
 }

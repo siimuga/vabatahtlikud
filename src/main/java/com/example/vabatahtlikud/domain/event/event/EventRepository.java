@@ -41,7 +41,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
             order by e.startDate""")
     List<Event> findAllActiveEventsByUser(Integer id, String status, Integer id1, String status1);
 
-
     @Query("select e from Event e where e.eventName = ?1")
     Event findByEventName(String eventName);
 

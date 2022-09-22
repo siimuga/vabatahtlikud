@@ -11,8 +11,4 @@ public interface LanguageMapper {
     LanguageInfo languageToLanguageInfo(Language language);
 
     List<LanguageInfo> languagesToLanguageInfos(List<Language> languages);
-
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Language updateLanguageFromLanguageInfo(LanguageInfo languageInfo, @MappingTarget Language language);
 }

@@ -11,9 +11,6 @@ public interface VolunteerMapper {
 
     VolunteerRequest volunteerToVolunteerRequest(Volunteer volunteer);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Volunteer updateVolunteerFromVolunteerRequest(VolunteerRequest volunteerRequest, @MappingTarget Volunteer volunteer);
-
     @Mapping(source = "id", target = "volunteerId")
     VolunteerResponse volunteerToVolunteerResponse(Volunteer volunteer);
 }

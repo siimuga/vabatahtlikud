@@ -17,8 +17,4 @@ public interface VolunteerTaskMapper {
     @InheritInverseConfiguration(name = "volunteerTaskInfoToVolunteerTask")
     VolunteerTaskInfo volunteerTaskToVolunteerTaskInfo(VolunteerTask volunteerTask);
 
-    @InheritConfiguration(name = "volunteerTaskInfoToVolunteerTask")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    VolunteerTask updateVolunteerTaskFromVolunteerTaskInfo(VolunteerTaskInfo volunteerTaskInfo, @MappingTarget VolunteerTask volunteerTask);
-
 }

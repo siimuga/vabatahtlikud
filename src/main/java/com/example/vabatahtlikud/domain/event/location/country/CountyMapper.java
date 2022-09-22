@@ -13,7 +13,4 @@ public interface CountyMapper {
 
 
     List<CountyInfo> countiesToCountyInfos(List<County> counties);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    County updateCountyFromCountyInfo(CountyInfo countyInfo, @MappingTarget County county);
 }
