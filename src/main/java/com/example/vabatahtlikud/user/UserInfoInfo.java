@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+
 @Data
 public class UserInfoInfo implements Serializable {
     private Integer userId;

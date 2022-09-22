@@ -30,6 +30,6 @@ public class Volunteer {
     private String info;
 
     @Column(name = "status", nullable = false)
-    private Boolean status = true;
+    private Boolean status;
 
 }
