@@ -1,5 +1,6 @@
 package com.example.vabatahtlikud.domain.event.volunteer.volunteer_task;
 
+import com.example.vabatahtlikud.domain.event.volunteer.volunteer_event_date.VolunteerEventDateInfo;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -19,6 +20,12 @@ public interface VolunteerTaskMapper {
     @InheritConfiguration(name = "volunteerTaskInfoToVolunteerTask")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     VolunteerTask updateVolunteerTaskFromVolunteerTaskInfo(VolunteerTaskInfo volunteerTaskInfo, @MappingTarget VolunteerTask volunteerTask);
+
+    /*@Mapping(source = "volunteerId", target = "volunteer.id")
+    @Mapping(source = "taskId", target = "task.id")
+    VolunteerTask volunteerEventDateInfoToVolunteerTask(VolunteerTaskInfo volunteerTaskInfo);
+    List<VolunteerTask> volunteerEventDateInfosToVolunteerTasks(List<VolunteerTaskInfo> volunteerTaskInfos);*/
+
 
 
 }

@@ -24,18 +24,22 @@ public class VolunteerController {
         return volunteerService.addRegistration(request);
     }
 
-    @PostMapping("/task")
-    @Operation(summary = "Lisa ülesanded üritusele registreerimisel")
-    public void addTasksToVolunteer(@RequestBody List<VolunteerTaskInfo> volunteerTaskInfos) {
-        volunteerService.addTasksToVolunteer(volunteerTaskInfos);
+//    @PostMapping("/task")
+//    @Operation(summary = "Lisa ülesanded üritusele registreerimisel")
+//    public void addTasksToVolunteer(@RequestBody List<VolunteerTaskInfo> volunteerTaskInfos) {
+//        volunteerService.addTasksToVolunteer(volunteerTaskInfos);
+//    }
+//
+//    @PostMapping("/date")
+//    @Operation(summary = "Lisa kuupäevad üritusele registreerimisel")
+//    public void addDatesToVolunteer(@RequestBody List<VolunteerEventDateInfo> volunteerEventDateInfos) {
+//        volunteerService.addDatesToVolunteer(volunteerEventDateInfos);
+//    }
+    @PostMapping("/register/new")
+    @Operation(summary = "Lisa andmed registreerimiselt")
+    public void addRegistrationDatas(@RequestBody VolunteerRequestDatas request) {
+        volunteerService.addRegistrationDatas(request);
     }
-
-    @PostMapping("/date")
-    @Operation(summary = "Lisa kuupäevad üritusele registreerimisel")
-    public void addDatesToVolunteer(@RequestBody List<VolunteerEventDateInfo> volunteerEventDateInfos) {
-        volunteerService.addDatesToVolunteer(volunteerEventDateInfos);
-    }
-
 
 
 }

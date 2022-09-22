@@ -18,4 +18,11 @@ public interface VolunteerEventDateMapper {
     @InheritConfiguration(name = "volunteerEventDateInfoToVolunteerEventDate")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     VolunteerEventDate updateVolunteerEventDateFromVolunteerEventDateInfo(VolunteerEventDateInfo volunteerEventDateInfo, @MappingTarget VolunteerEventDate volunteerEventDate);
+
+
+/*    @Mapping(source = "volunteerId", target = "volunteer.id")
+    @Mapping(source = "eventDateId", target = "eventDate.id")
+    VolunteerEventDate volunteerEventDateInfoToVolunteerEventDate(VolunteerEventDateInfo volunteerEventDateInfo);
+    List<VolunteerEventDate> volunteerEventDateInfosToVolunteerEventDates(List<VolunteerEventDateInfo> volunteerEventDateInfos);*/
+
 }

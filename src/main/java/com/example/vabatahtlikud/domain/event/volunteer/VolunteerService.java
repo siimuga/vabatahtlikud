@@ -63,4 +63,9 @@ public class VolunteerService {
         }
         return totalAttendance;
     }
+
+    public void addRegistrationDatas(VolunteerRequestDatas request) {
+        volunteerEventDateService.addRegistrationDatas(request);
+        volunteerTaskService.addRegistrationDatas(request);
+    }
 }
