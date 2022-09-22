@@ -30,12 +30,13 @@ public class EventDateService {
         List<EventDate> eventDates = eventDateRepository.findByEventId(eventId);
         ArrayList<EventDateInfo> infos = new ArrayList<>();
         for (LocalDate localDate : localDates) {
+            Integer eventDateId = eventDates.get(localDates.indexOf(localDate)).getId();
             Integer volunteersAssigned = eventDates.get(localDates.indexOf(localDate)).getVolunteersAssigned();
             Integer volunteersRequired = eventDates.get(localDates.indexOf(localDate)).getVolunteersRequired();
             LocalDate date = eventDates.get(localDates.indexOf(localDate)).getDate();
             Boolean isActive = eventDates.get(localDates.indexOf(localDate)).getIsActive();
             if (isActive) {
-                infos.add(new EventDateInfo(date, volunteersRequired, volunteersAssigned, true));
+                infos.add(new EventDateInfo(eventDateId, date, volunteersRequired, volunteersAssigned, true));
             }
         }
         return infos;
@@ -68,6 +69,6 @@ public class EventDateService {
 
     public Integer findAttendanceById(Integer eventDateId) {
         Optional<EventDate> eventDate = eventDateRepository.findById(eventDateId);
-       return eventDate.get().getVolunteersAssigned();
+        return eventDate.get().getVolunteersAssigned();
     }
 }
