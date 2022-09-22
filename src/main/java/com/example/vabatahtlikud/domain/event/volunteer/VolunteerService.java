@@ -25,12 +25,13 @@ public class VolunteerService {
     private VolunteerTaskService volunteerTaskService;
 
 
-    public void addRegistration(VolunteerRequest request) {
+    public VolunteerResponse addRegistration(VolunteerRequest request) {
         Volunteer volunteer = volunteerMapper.volunteerRequestToVolunteer(request);
         if (volunteerRepository.existsByIds(request.getUserId(), request.getEventId())) {
             ValidationService.validateRegistrationExists();
         }
-        volunteerRepository.save(volunteer);
+       volunteerRepository.save(volunteer);
+        return volunteerMapper.volunteerToVolunteerResponse(volunteer);
     }
 
     public void addTasksToVolunteer(List<VolunteerTaskInfo> volunteerTaskInfos) {

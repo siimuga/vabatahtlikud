@@ -20,8 +20,8 @@ public class VolunteerController {
 
     @PostMapping("/register")
     @Operation(summary = "Lisa uus registreerimine")
-    public void addRegistration(@RequestBody VolunteerRequest request) {
-        volunteerService.addRegistration(request);
+    public VolunteerResponse addRegistration(@RequestBody VolunteerRequest request) {
+        return volunteerService.addRegistration(request);
     }
 
     @PostMapping("/task")
@@ -35,4 +35,7 @@ public class VolunteerController {
     public void addDatesToVolunteer(@RequestBody List<VolunteerEventDateInfo> volunteerEventDateInfos) {
         volunteerService.addDatesToVolunteer(volunteerEventDateInfos);
     }
+
+
+
 }
