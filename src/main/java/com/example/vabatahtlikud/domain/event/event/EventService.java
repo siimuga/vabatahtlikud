@@ -378,7 +378,9 @@ public class EventService {
         List<Volunteer> volunteers = volunteerRepository.findByUserIdAndStatus(userId);
         for (Volunteer volunteer : volunteers) {
             Event event = volunteer.getEvent();
-            events.add(event);
+            if (event.getEndDate().isAfter(LocalDate.now())) {
+                events.add(event);
+            }
         }
         return events;
     }
