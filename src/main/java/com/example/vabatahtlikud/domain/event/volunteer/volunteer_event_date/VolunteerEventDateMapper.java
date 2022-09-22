@@ -20,9 +20,4 @@ public interface VolunteerEventDateMapper {
     VolunteerEventDate updateVolunteerEventDateFromVolunteerEventDateInfo(VolunteerEventDateInfo volunteerEventDateInfo, @MappingTarget VolunteerEventDate volunteerEventDate);
 
 
-/*    @Mapping(source = "volunteerId", target = "volunteer.id")
-    @Mapping(source = "eventDateId", target = "eventDate.id")
-    VolunteerEventDate volunteerEventDateInfoToVolunteerEventDate(VolunteerEventDateInfo volunteerEventDateInfo);
-    List<VolunteerEventDate> volunteerEventDateInfosToVolunteerEventDates(List<VolunteerEventDateInfo> volunteerEventDateInfos);*/
-
 }

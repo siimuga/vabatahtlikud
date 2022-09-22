@@ -21,11 +21,4 @@ public interface VolunteerTaskMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     VolunteerTask updateVolunteerTaskFromVolunteerTaskInfo(VolunteerTaskInfo volunteerTaskInfo, @MappingTarget VolunteerTask volunteerTask);
 
-    /*@Mapping(source = "volunteerId", target = "volunteer.id")
-    @Mapping(source = "taskId", target = "task.id")
-    VolunteerTask volunteerEventDateInfoToVolunteerTask(VolunteerTaskInfo volunteerTaskInfo);
-    List<VolunteerTask> volunteerEventDateInfosToVolunteerTasks(List<VolunteerTaskInfo> volunteerTaskInfos);*/
-
-
-
 }

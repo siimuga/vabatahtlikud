@@ -30,6 +30,7 @@ public class VolunteerService {
         if (volunteerRepository.existsByIds(request.getUserId(), request.getEventId())) {
             ValidationService.validateRegistrationExists();
         }
+        volunteer.setStatus(true);
        volunteerRepository.save(volunteer);
         return volunteerMapper.volunteerToVolunteerResponse(volunteer);
     }

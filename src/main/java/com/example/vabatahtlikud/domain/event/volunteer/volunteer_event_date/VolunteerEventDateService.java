@@ -32,9 +32,6 @@ public class VolunteerEventDateService {
     @Resource
     private EventDateRepository eventDateRepository;
 
-    @Resource
-    private EventDateService eventDateService;
-
     public void addDatesToVolunteer(List<VolunteerEventDateInfo> volunteerEventDateInfos) {
         ValidationService.validateDateSelectionExists(volunteerEventDateInfos);
         List<VolunteerEventDate> volunteerEventDates = volunteerEventDateMapper.volunteerEventDateInfosToVolunteerEventDates((volunteerEventDateInfos));
@@ -80,30 +77,21 @@ public class VolunteerEventDateService {
     public void addRegistrationDatas(VolunteerRequestDatas request) {
         List<Integer> volunteerEventDateIds = request.getVolunteerEventDateInfos();
         Integer volunteerId = request.getVolunteerId();
+        Optional<Volunteer> volunteer = volunteerRepository.findById(volunteerId);
+        Integer volunteersSize = volunteer.get().getVolunteersSize();
         List<VolunteerEventDateInfo> volunteerEventDateInfos = new ArrayList<>();
         for (Integer volunteerEventDate : volunteerEventDateIds) {
             volunteerEventDateInfos.add(new VolunteerEventDateInfo(volunteerId, volunteerEventDate));
-        }
-        List<VolunteerEventDate> volunteerEventDates =volunteerEventDateMapper.volunteerEventDateInfosToVolunteerEventDates(volunteerEventDateInfos);
-        volunteerEventDateRepository.saveAll(volunteerEventDates);
-
-        //
-
-     /*   Optional<Volunteer> volunteer = volunteerRepository.findById(volunteerId);
-        Integer volunteersSize = volunteer.get().getVolunteersSize();
-
-        List<VolunteerEventDate> volunteerEventDatesList = volunteerEventDateRepository.findByVolunteerId(volunteerId);
-        for (VolunteerEventDate volunteerEventDate : volunteerEventDatesList) {
-            Optional<EventDate> eventDate = eventDateRepository.findById(volunteerEventDate.getEventDate().getId());
+            Optional<EventDate> eventDate = eventDateRepository.findById(volunteerEventDate);
             Integer volunteersAssignedPrev = eventDate.get().getVolunteersAssigned();
             eventDate.get().setVolunteersAssigned(volunteersAssignedPrev + volunteersSize);
             if (volunteersAssignedPrev + volunteersSize >= eventDate.get().getVolunteersRequired()) {
                 eventDate.get().setIsActive(false);
             }
-        }*/
-
-
-
+            eventDateRepository.save(eventDate.get());
+        }
+        List<VolunteerEventDate> volunteerEventDates =volunteerEventDateMapper.volunteerEventDateInfosToVolunteerEventDates(volunteerEventDateInfos);
+        volunteerEventDateRepository.saveAll(volunteerEventDates);
     }
 
 }
