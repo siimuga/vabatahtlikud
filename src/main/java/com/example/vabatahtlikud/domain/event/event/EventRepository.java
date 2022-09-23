@@ -44,5 +44,16 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e from Event e where e.eventName = ?1")
     Event findByEventName(String eventName);
 
+//    @Query("""
+//            select (count(e) > 0) from Event e
+//            where e.user.id = ?1 and e.id = ?2 and e.status like ?3 or e.status like ?4""")
+//    boolean existsByUserIdAndEventId(Integer id, Integer id1, String status, String status1);
+
+    @Query("""
+            select (count(e) > 0) from Event e
+            where e.id = ?1 and e.user.id = ?2 and e.status like ?3 or e.id = ?4 and e.user.id = ?5 and e.status like ?6""")
+    boolean existsByUserIdAndEventId(Integer id, Integer id1, String status, Integer id2, Integer id3, String status1);
+
+
 
 }

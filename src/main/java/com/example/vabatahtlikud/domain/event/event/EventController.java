@@ -195,5 +195,12 @@ public class EventController {
       return eventService.checkVolunteerEventByUser(userId, eventId);
     }
 
+    @GetMapping("/event/user/organizer")
+    @Operation(summary = "Kuva kas kasutaja on juba sellele ürituse loonud")
+    public Boolean checkOrganizerEventByUser(Integer userId, Integer eventId) {
+        return eventService.checkOrganizerEventByUser(userId, eventId);
+    }
+
+
 
 }

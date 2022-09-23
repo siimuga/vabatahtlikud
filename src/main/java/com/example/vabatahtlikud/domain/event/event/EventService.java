@@ -393,4 +393,9 @@ public class EventService {
     public Boolean checkVolunteerEventByUser(Integer userId, Integer eventId) {
        return volunteerService.checkVolunteerEventByUser(userId, eventId);
     }
+
+
+    public Boolean checkOrganizerEventByUser(Integer userId, Integer eventId) {
+        return eventRepository.existsByUserIdAndEventId(eventId, userId, "c", eventId, userId,"v");
+    }
 }
