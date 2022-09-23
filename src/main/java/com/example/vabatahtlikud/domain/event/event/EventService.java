@@ -322,7 +322,7 @@ public class EventService {
         eventViewInfo.setLocationAddress(event.get().getLocation().getAddress());
         eventViewInfo.setLocationCountyName(event.get().getLocation().getCounty().getName());
         eventViewInfo.setVolunteersRequired(event.get().getVolunteersRequired());
-        eventViewInfo.setVolunteersAttended(99);
+        eventViewInfo.setVolunteersAttended(getAttendance(event.get().getEventName()));
         eventViewInfo.setStartDate(event.get().getStartDate());
         eventViewInfo.setEndDate(event.get().getEndDate());
         eventViewInfo.setCategoryName(event.get().getCategory().getName());
