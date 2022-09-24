@@ -113,7 +113,7 @@ public class EventService {
         pictureService.addPicture(pictureAsBase64);
     }
 
-    public void addEvent(EventRequest request) {
+    public Integer addEvent(EventRequest request) {
         ValidationService.validateDates(request.getStartDate(), request.getEndDate());
         ValidationService.validateVolunteersRequired(request.getVolunteersRequired());
         Event event = eventMapper.eventRequestToEvent(request);
@@ -133,6 +133,8 @@ public class EventService {
 
         eventRepository.save(event);
         eventDateService.addDateInfos(event.getId());
+        Event e = eventRepository.findByEventName(request.getEventName());
+        return e.getId();
     }
 
     public void updateEvent(EventViewInfo request) {
@@ -338,7 +340,7 @@ public class EventService {
     }
 
     public List<EventInfo> findAllRegisteredEvents() {
-        List<Event> events = eventRepository.findRegistredEvents(LocalDate.now(), "c", "v");
+        List<Event> events = eventRepository.findRegistredEvents(LocalDate.now(), "c", LocalDate.now(), "v");
         List<EventInfo> eventInfos = eventMapper.eventsToEventInfos(events);
         for (EventInfo eventInfo : eventInfos) {
             String eventName = eventInfo.getEventName();

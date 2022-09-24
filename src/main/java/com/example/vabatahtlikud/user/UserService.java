@@ -1,5 +1,6 @@
 package com.example.vabatahtlikud.user;
 
+import com.example.vabatahtlikud.admin.AdminUserRequest;
 import com.example.vabatahtlikud.domain.user.contact.Contact;
 import com.example.vabatahtlikud.domain.user.contact.ContactRepository;
 import com.example.vabatahtlikud.domain.user.user.User;
@@ -9,6 +10,7 @@ import com.example.vabatahtlikud.validation.ValidationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -112,5 +114,30 @@ public class UserService {
         Optional<User> user = userRepository.findById(userId);
         return  userMapper.userToUserInfoInfo(user.get());
 
+    }
+
+    public List<AdminUserRequest> findAllUserInfos() {
+        List<User> users = userRepository.findAllUsers(1);
+        List<AdminUserRequest> adminUserRequests = userMapper.usersToAdminUserRequests(users);
+        for (AdminUserRequest adminUserRequest : adminUserRequests) {
+            adminUserRequest.setSeqNr(adminUserRequests.indexOf(adminUserRequest)+1);
+            String username = adminUserRequest.getUsername();
+            String password = adminUserRequest.getPassword();
+            User user = userRepository.findUserBy(username, password);
+            Boolean status = user.getStatus();
+            if (status) {
+                adminUserRequest.setStatus("aktiivne");
+            } else {
+                adminUserRequest.setStatus("kustutatud");
+            }
+        }
+        return  adminUserRequests;
+    }
+
+    public void activateUser(Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
+        Boolean status = user.get().getStatus();
+        user.get().setStatus(!status);
+        userRepository.save(user.get());
     }
 }

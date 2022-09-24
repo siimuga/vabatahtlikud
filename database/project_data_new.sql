@@ -34,11 +34,12 @@ INSERT INTO public_vaba.contact (id, first_name, last_name, sex, email) VALUES (
 INSERT INTO public_vaba.contact (id, first_name, last_name, sex, email) VALUES (DEFAULT, 'Tiina', 'Alke', 'N', 'tiina.alke@hotmail.com');
 INSERT INTO public_vaba.contact (id, first_name, last_name, sex, email) VALUES (DEFAULT, 'Piia', 'Loon', 'N', 'piima543@hot.ee');
 INSERT INTO public_vaba.contact (id, first_name, last_name, sex, email) VALUES (DEFAULT, 'Kaarel', 'Veela', 'M', 'kaarel.ve@gmail.com');
+INSERT INTO public_vaba.contact (id, first_name, last_name, sex, email) VALUES (DEFAULT, 'Olivier', 'Rouiller', 'M', 'perfect@gmail.com');
 
 INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'admin', '123', DEFAULT, null, 1);
 INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'siim', 'piim', DEFAULT, 1, 2);
-INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'qwe', 'asd', false, 1, 2);
-INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'maamees', '8989', DEFAULT, 1, 2);
+INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'qwe', 'asd', false, 9, 2);
+INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'maamees', '8989', DEFAULT, 2, 2);
 INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'antonl', 'anton123', true, 3, DEFAULT);
 INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'maiekal', 'maie123', true, 4, DEFAULT);
 INSERT INTO public_vaba."user" (id, username, password, status, contact_id, role_id) VALUES (DEFAULT, 'tiinaa', 'tiina123', true, 6, DEFAULT);
@@ -341,13 +342,5 @@ INSERT INTO public_vaba.volunteer_task (id, volunteer_id, task_id) VALUES (DEFAU
 INSERT INTO public_vaba.volunteer_task (id, volunteer_id, task_id) VALUES (DEFAULT, 5, 13);
 INSERT INTO public_vaba.volunteer_task (id, volunteer_id, task_id) VALUES (DEFAULT, 4, 12);
 INSERT INTO public_vaba.volunteer_task (id, volunteer_id, task_id) VALUES (DEFAULT, 4, 12)
-
-
-
-
-
-
-
-
 
 -- SET search_path TO public;

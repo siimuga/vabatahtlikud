@@ -60,8 +60,8 @@ public class EventController {
 
     @PostMapping("event")
     @Operation(summary = "Ürituse lisamine")
-    public void addEvent(@RequestBody EventRequest request) {
-        eventService.addEvent(request);
+    public Integer addEvent(@RequestBody EventRequest request) {
+       return eventService.addEvent(request);
     }
 
     @PatchMapping("/event")

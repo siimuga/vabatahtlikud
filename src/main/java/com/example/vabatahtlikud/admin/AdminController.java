@@ -37,4 +37,15 @@ public class AdminController {
         return adminService.findAllRegisteredEvents();
     }
 
+    @GetMapping("/user/info")
+    @Operation(summary = "Kuva kõikide kasutajate info")
+    public List<AdminUserRequest> findAllUserInfos() {
+        return adminService.findAllUserInfos();
+    }
+
+    @PatchMapping("/user/confirm")
+    @Operation(summary = "Aktiveeri kasutaja")
+    public void activateUser(Integer userId) {
+        adminService.activateUser(userId);
+    }
 }
