@@ -42,12 +42,6 @@ public class EventService {
     private AdditionalInfoService additionalInfoService;
 
     @Resource
-    private TaskRepository taskRepository;
-
-    @Resource
-    private AdditionalInfoRepository additionalInfoRepository;
-
-    @Resource
     private PictureService pictureService;
 
     @Resource
@@ -171,15 +165,6 @@ public class EventService {
         addEventResponses.setEventId(eventId);
         return addEventResponses;
     }
-
-//    private List<AdditionalInfo> findAdditionalInfosById(Integer eventId) {
-//        return additionalInfoRepository.findByStatusTrueAndEventId(eventId);
-//    }
-//
-//    public List<Task> findTasksById(Integer eventId) {
-//        return taskRepository.findByStatusTrueAndEventId(eventId);
-//    }
-
 
     public void deleteEvent(Integer eventId) {
         Optional<Event> event = eventRepository.findById(eventId);

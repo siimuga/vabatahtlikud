@@ -10,9 +10,6 @@ public interface TaskMapper {
     @Mapping(constant = "true", target = "status")
     Task taskRequestToTask(TaskRequest taskRequest);
 
-    TaskRequest taskToTaskRequest(Task task);
-
-
     TaskInfo taskToTaskInfo(Task task);
 
         List<TaskInfo> tasksToTaskInfos(List<Task> tasks);

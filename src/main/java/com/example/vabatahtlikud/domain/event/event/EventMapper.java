@@ -7,7 +7,6 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface EventMapper {
 
-    //  @Mapping(source = "eventRegisterId", target = "eventRegister.id")
     @Mapping(constant = "c", target = "status")
     Event eventRequestToEvent(EventRequest eventRequest);
 

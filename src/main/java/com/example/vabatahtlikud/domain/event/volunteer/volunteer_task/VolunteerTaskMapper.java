@@ -13,8 +13,4 @@ public interface VolunteerTaskMapper {
     VolunteerTask volunteerTaskInfoToVolunteerTask(VolunteerTaskInfo volunteerTaskInfo);
 
     List<VolunteerTask> volunteerTaskInfosToVolunteerTasks(List<VolunteerTaskInfo> volunteerTaskInfos);
-
-    @InheritInverseConfiguration(name = "volunteerTaskInfoToVolunteerTask")
-    VolunteerTaskInfo volunteerTaskToVolunteerTaskInfo(VolunteerTask volunteerTask);
-
 }

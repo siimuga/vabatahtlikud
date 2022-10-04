@@ -45,7 +45,6 @@ public class VolunteerService {
 
 
     public void deleteParticipation(Integer userId, Integer eventId) {
-      //  Volunteer volunteer = volunteerMapper.volunteerDeleteRequestToVolunteer(request);
         List<Volunteer> volunteers = volunteerRepository.findByUserIdAndEventId(userId, eventId);
         for (Volunteer volunteerSelected : volunteers) {
             volunteerSelected.setStatus(false);

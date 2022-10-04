@@ -32,9 +32,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e from Event e where e.user.id = ?1 and e.status like ?2 order by e.endDate DESC")
     List<Event> findByAfterEndDateByUser(Integer id, String status);
 
-//    @Query("select e from Event e where e.startDate >= ?1 and e.status like ?2 or e.status like ?3 order by e.startDate")
-//    List<Event> findRegistredEvents(LocalDate startDate, String status, String status1);
-
     @Query("""
             select e from Event e
             where e.startDate >= ?1 and e.status like ?2 or e.startDate >= ?3 and e.status like ?4
@@ -51,11 +48,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     @Query("select e from Event e where e.eventName = ?1")
     Event findByEventName(String eventName);
-
-//    @Query("""
-//            select (count(e) > 0) from Event e
-//            where e.user.id = ?1 and e.id = ?2 and e.status like ?3 or e.status like ?4""")
-//    boolean existsByUserIdAndEventId(Integer id, Integer id1, String status, String status1);
 
     @Query("""
             select (count(e) > 0) from Event e
